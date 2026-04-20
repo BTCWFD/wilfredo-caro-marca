@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google Analytics (GA4) -->
+    <!-- Google tag (gtag.js) -->
+    <!-- Replace G-XXXXXXXXXX with your Measurement ID -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
+
+    <meta charset="UTF-8" />
+
+    <!-- SEO & Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wilfredo Caro | CEO & Tech Innovator</title>
+    <meta name="description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain for digital advertising." />
+    <link rel="canonical" href="https://wilfredocaro.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wilfredocaro.com/" />
+    <meta property="og:title" content="Wilfredo Caro | CEO & Tech Innovator" />
+    <meta property="og:description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain." />
+    <meta property="og:image" content="https://wilfredocaro.com/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://wilfredocaro.com/" />
+    <meta property="twitter:title" content="Wilfredo Caro | CEO & Tech Innovator" />
+    <meta property="twitter:description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain." />
+    <meta property="twitter:image" content="https://wilfredocaro.com/og-image.jpg" />
+    
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Three.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Schema.org (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Wilfredo Caro",
+      "url": "https://wilfredocaro.com",
+      "jobTitle": "CEO",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "VirtuadsAi"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/wilfredo-caro/",
+        "https://twitter.com/Wilfredo_caro"
+      ],
+      "description": "Wilfredo Caro is the CEO at VirtuadsAi, specializing in Deep-Tech, Web3, and Blockchain for digital advertising.",
+      "email": "wilfredwfd86@gmail.com"
+    }
+    </script>
+  </head>
+
+  <body>
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="loader-text" id="loader-text" data-text="WILFREDO CARO">WILFREDO CARO</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+      <div class="loader-status">System initializing...</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="container nav-container">
+        <div class="logo">W<span class="text-gradient">.</span>Caro</div>
+        <ul class="nav-links">
+          <li><a href="#about" data-i18n="nav_about">About</a></li>
+          <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+          <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
+          <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="ja">JA</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero constainer">
+      <div class="container">
+        <div class="hero-content reveal">
+          <span class="hero-subtitle" data-i18n="hero_subtitle">Innovator & Strategist</span>
+          <h1 data-i18n="hero_title">Empowering the future with <br><span class="text-gradient">Deep Tech & AI</span></h1>
+          <p class="hero-desc" data-i18n="hero_desc">I'm Wilfredo Caro, CEO at VirtuadsAi. I focus on the intersection of deep-tech and marketing, driving innovation in digital advertising through Web3 and Blockchain.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary" data-i18n="hero_cta_connect">Let's Connect</a>
+            <a href="#experience" class="btn btn-outline" data-i18n="hero_cta_journey">My Journey</a>
+            <a href="/Wilfredo-CV-2026.pdf" download class="btn btn-cv">
+              <span class="btn-text" data-i18n="hero_cta_cv">📄 Download CV</span>
+            </a>
+  </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container">
+      <h2 class="reveal" data-i18n="about_title">About <span class="text-gradient">Me</span></h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <div class="glass-panel">
+            <p data-i18n="about_p1">I am a strategic leader passionate about building the next generation of digital infrastructure. My work bridges the gap between complex deep-tech concepts and practical marketing solutions.</p>
+            <p data-i18n="about_p2">At VirtuadsAi, we are redefining digital advertising by leveraging Artificial Intelligence, Web3, and Blockchain technologies to create transparent, efficient, and highly targeted ecosystems.</p>
+            <p data-i18n="about_p3">Beyond technology, I am heavily involved in community building and governance within the blockchain space, constantly seeking ways to foster collaboration and innovation.</p>
+          </div>
+        </div>
+        <div class="about-visual reveal">
+          <img src="/profile.jpg" alt="Wilfredo Caro profile">
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="container">
+      <h2 class="reveal" data-i18n="projects_title">Main <span class="text-gradient">Innovations</span></h2>
+      <div class="projects-grid">
+        
+        <!-- VirtuadsAi -->
+        <a href="https://virtuadsai-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+          <div class="project-preview p-virtuads">
+            <div class="preview-overlay">VIEW PROJECT</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="project_virtuadsai_name">VirtuadsAi</h3>
+            <p data-i18n="project_virtuadsai_desc">CEO & Founder. We eliminate the financial friction that currently prevents global brands from advertising in virtual worlds.</p>
+            <div class="project-tags">
+              <span>#CEO</span><span>#Web3</span><span>#Blockchain</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Orbit -->
+        <a href="#" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+          <div class="project-preview p-orbit">
+            <div class="preview-overlay">VIEW PROJECT</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="project_orbit_name">Orbit</h3>
+            <p data-i18n="project_orbit_desc">CTO. Orbit is a secure, mobile-first interface for cloud development environments, redefining mobile dev workflows.</p>
+            <div class="project-tags">
+              <span>#CTO</span><span>#Cloud</span><span>#MobileDev</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- ExEquine -->
+        <a href="https://nex-equine-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+          <div class="project-preview p-equine">
+            <div class="preview-overlay">VIEW PROJECT</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="project_exequine_name">ExEquine</h3>
+            <p data-i18n="project_exequine_desc">Fullstack & Blockchain Architect. A decentralized registry where each horse has a unique digital identity on the Blockchain.</p>
+            <div class="project-tags">
+              <span>#Blockchain</span><span>#Fullstack</span><span>#Web3</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Anti-Observer -->
+        <a href="#" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+          <div class="project-preview p-antigravity">
+            <div class="preview-overlay">VIEW PROJECT</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="project_antiobserv_name">Anti-Observer</h3>
+            <p data-i18n="project_antiobserv_desc">Founder-CTO. Antigravity Observer Extension - Premium Mission Control for AI Agents and decentralized monitoring.</p>
+            <div class="project-tags">
+              <span>#AI</span><span>#CTO</span><span>#Monitoring</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Collaborations Section -->
+    <section id="collaborations" class="container">
+      <h2 class="reveal" data-i18n="collab_title">Collaborations & <span class="text-gradient">Leadership</span></h2>
+      <div class="projects-grid">
+        
+        <!-- Brave Software -->
+        <div class="project-card glass-panel reveal">
+          <div class="project-preview p-brave">
+            <div class="preview-overlay">LATAM STAFF</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="collab_brave_name">Brave Software</h3>
+            <p data-i18n="collab_brave_desc">Regional Leader & Latam Staff. Promoted Web3 adoption through major events like Labitconf (Argentina) and Talent Land (Mexico).</p>
+            <div class="project-tags">
+              <span>#RegionalLeader</span><span>#Latam</span><span>#Privacy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Credit Ops -->
+        <a href="https://witty-field-0ff8ede0f.2.azurestaticapps.net/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+          <div class="project-preview p-fintech">
+            <div class="preview-overlay">VIEW PROJECT</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="project_creditops_name">Credit Ops Engine</h3>
+            <p data-i18n="project_creditops_desc">Automated credit operations engine designed for modern fintech ecosystems and financial efficiency.</p>
+            <div class="project-tags">
+              <span>#Fintech</span><span>#Automation</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- BeatLink -->
+        <a href="https://beatlink.live/beatlink" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+          <div class="project-preview p-beatlink">
+            <div class="preview-overlay">VIEW PROJECT</div>
+          </div>
+          <div class="project-info">
+            <h3 data-i18n="project_beatlink_name">BeatLink Colombia</h3>
+            <p data-i18n="project_beatlink_desc">Collaboration in professional event management and ticketing platform for the Colombian market.</p>
+            <div class="project-tags">
+              <span>#Events</span><span>#Collaboration</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="container">
+      <h2 class="reveal" data-i18n="exp_title">Professional <span class="text-gradient">Journey</span></h2>
+      <div class="timeline glass-panel reveal">
+        
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp_date_present">Present</div>
+          <h3 class="timeline-title" data-i18n="exp_role_ceo">Founder & CEO</h3>
+          <div class="timeline-company">VirtuadsAi</div>
+          <p class="timeline-desc" data-i18n="exp_desc_ceo">Leading the strategic vision to transform digital business in Web3 through AI and Blockchain. Focus on eliminating financial friction in virtual advertising.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp_date_present">Present</div>
+          <h3 class="timeline-title">CTO</h3>
+          <div class="timeline-company">Orbit</div>
+          <p class="timeline-desc" data-i18n="exp_desc_orbit">Directing the development of a secure, mobile-first interface for cloud development environments.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp_date_present">2025-2026</div>
+          <h3 class="timeline-title">Fullstack & Blockchain Architect</h3>
+          <div class="timeline-company">ExEquine</div>
+          <p class="timeline-desc" data-i18n="exp_desc_exequine">Developed a decentralized registry using blockchain to provide unique digital identities for horses.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp_date_present">2023-2025</div>
+          <h3 class="timeline-title">Business Development Associate (BDA)</h3>
+          <div class="timeline-company">CornerMarket</div>
+          <p class="timeline-desc" data-i18n="exp_desc_corner">Drove business growth and strategic alliances to expand the platform in the Colombian market.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date" data-i18n="exp_date_present">2018-2025</div>
+          <h3 class="timeline-title">Regional Leader & Latam Staff</h3>
+          <div class="timeline-company">Brave Software</div>
+          <p class="timeline-desc" data-i18n="exp_desc_brave">Promoted Web3 adoption and privacy across Latin America. Event staff for Labitconf and Talent Land.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="container">
+      <h2 class="reveal" data-i18n="skills_title">Core <span class="text-gradient">Expertise</span></h2>
+      <div class="skills-grid">
+        
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🧠</div>
+          <div class="skill-name" data-i18n="skill_ai">Artificial Intelligence</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">⛓️</div>
+          <div class="skill-name" data-i18n="skill_web3">Web3 & Blockchain</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">💼</div>
+          <div class="skill-name" data-i18n="skill_strategy">Business Strategy</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🌐</div>
+          <div class="skill-name" data-i18n="skill_webdev">Web Development</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🎤</div>
+          <div class="skill-name" data-i18n="skill_events">Event Management</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🎧</div>
+          <div class="skill-name" data-i18n="skill_dj">DJing</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact">
+      <div class="container constact-wrap">
+        <h2 class="reveal" data-i18n="contact_title">Let's build the <span class="text-gradient">future</span></h2>
+        <p class="reveal" style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;" data-i18n="contact_desc">
+          Whether you're interested in AI, Web3, or just want to connect over a good DJ set, I'd love to hear from you.
+        </p>
+
+        <div class="reveal" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+          <a href="mailto:wilfredwfd86@gmail.com" class="btn btn-primary" style="text-transform: lowercase; letter-spacing: 0.5px;">wilfredwfd86@gmail.com</a>
+          <a href="tel:+573219723513" class="btn btn-outline" style="border-radius: 30px;">+57 321 972 35 13</a>
+        </div>
+        
+        <div class="social-links reveal">
+          <a href="https://www.linkedin.com/in/wilfredo-caro/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://twitter.com/Wilfredo_caro" target="_blank" rel="noopener" title="Twitter / X">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/wilfredo_caro" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://github.com/BTCWFD" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+
+      </div>
+      
+      <div class="copyright" style="margin-top: 4rem;" data-i18n="footer_copy">
+        &copy; <span id="year"></span> Wilfredo Caro. Empowered by VirtuadsAi.
+      </div>
+    </footer>
+
+    <!-- Floating DJ Player -->
+    <div id="dj-player" class="dj-player minimized">
+      <div class="player-header">
+        <div class="player-info">
+          🎧 <span class="player-title" data-i18n="dj_player_title">W.Caro - Deep Tech Mix</span>
+        </div>
+        <button id="player-toggle" class="player-toggle-btn">-</button>
+      </div>
+      <div class="player-body">
+        <!-- YouTube Music Playlist -->
+        <iframe width="100%" height="166" src="https://www.youtube.com/embed/videoseries?list=PL_T0CLGyHoLmBAsvoiKUi3W9ksmdHmFse" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+    
+    <!-- AI Assistant Widget -->
+    <div id="ai-assistant" class="ai-assistant minimized">
+      <div class="ai-header">
+        <div class="ai-info">
+          <div class="ai-avatar">🤖</div>
+          <div>
+            <div class="ai-name">Wilfredo AI</div>
+            <div class="ai-status">Online</div>
+          </div>
+        </div>
+        <button id="ai-close" class="ai-close-btn">&times;</button>
+      </div>
+      <div id="ai-chat" class="ai-chat">
+        <div class="ai-msg bot">Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!</div>
+      </div>
+      <div class="ai-input-wrap">
+        <input type="text" id="ai-input" placeholder="Type a message..." autocomplete="off">
+        <button id="ai-send" class="ai-send-btn">Send</button>
+      </div>
+    </div>
+
+    <!-- Floating Buttons Container -->
+    <div class="floating-controls">
+      <button id="ai-trigger" class="floating-btn ai-trigger-btn" title="Chat with my AI">
+        <span class="btn-icon">🤖</span>
+      </button>
+      <button id="dj-player-trigger" class="floating-btn glass-panel" title="Listen to my mixes">
+        <span class="btn-icon">🎧</span>
+      </button>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
