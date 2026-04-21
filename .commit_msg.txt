@@ -1,1 +1,0 @@
-feat: integrate Instagram/X links and social meta tags
