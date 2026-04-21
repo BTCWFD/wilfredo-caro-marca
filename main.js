@@ -226,13 +226,15 @@ const aiSend = document.getElementById('ai-send');
 const aiChat = document.getElementById('ai-chat');
 
 const knowledgeBase = {
-  "who": "I am the AI clone of Wilfredo Caro, CEO at VirtuadsAi and tech innovator.",
+  "who": "I am the AI clone of Wilfredo Caro, CEO at VirtuadsAi, CTO at Orbit, and tech innovator specializing in AI and Blockchain.",
   "virtuadsai": "VirtuadsAi is a company focused on re-engineering digital advertising using AI, Web3, and Blockchain for transparency and efficiency.",
-  "experience": "Wilfredo has extensive experience as CEO of VirtuadsAi, leading blockchain governance in DAOs, and fostering tech communities like @BATLatam.",
-  "skills": "Wilfredo's core expertise includes Artificial Intelligence, Web3 & Blockchain, Business Strategy, and Event Management.",
+  "orbit": "Orbit is a secure, mobile-first interface for cloud development environments where Wilfredo serves as CTO.",
+  "exequine": "ExEquine is a decentralized registry project on the Blockchain where Wilfredo worked as a Fullstack & Blockchain Architect.",
+  "experience": "Wilfredo is currently CEO of VirtuadsAi and CTO of Orbit. His 2026 journey includes architecture for ExEquine and high-level strategy for AI agents with Anti-Observer.",
+  "skills": "Wilfredo's core expertise includes Artificial Intelligence, Web3 & Blockchain Architecture, Cloud Dev Environments, and Business Strategy.",
   "music": "Wilfredo is also a DJ! He loves Deep Tech and Techno. You can listen to his mixes in the player on the right.",
   "contact": "You can reach Wilfredo via email at wilfredwfd86@gmail.com or through his social media links in the footer.",
-  "default": "That's an interesting question! I focus on Deep Tech, AI, and Web3. Could you specify what you'd like to know about Wilfredo's path in these fields?"
+  "default": "That's an interesting question! I focus on Deep Tech, AI, and Web3 (including Orbit and VirtuadsAi). Could you specify what you'd like to know about Wilfredo's path?"
 };
 
 const addMessage = (text, sender) => {
@@ -255,6 +257,8 @@ const handleAiChat = () => {
     let response = knowledgeBase.default;
     if (query.includes('who') || query.includes('name')) response = knowledgeBase.who;
     else if (query.includes('virtuadsai') || query.includes('company')) response = knowledgeBase.virtuadsai;
+    else if (query.includes('orbit')) response = knowledgeBase.orbit;
+    else if (query.includes('exequine')) response = knowledgeBase.exequine;
     else if (query.includes('experience') || query.includes('work') || query.includes('journey')) response = knowledgeBase.experience;
     else if (query.includes('skills') || query.includes('expertise') || query.includes('tech')) response = knowledgeBase.skills;
     else if (query.includes('music') || query.includes('dj') || query.includes('mix')) response = knowledgeBase.music;
