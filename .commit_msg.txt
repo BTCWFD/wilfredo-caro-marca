@@ -1,1 +1,1 @@
-feat: enhance AI assistant knowledge base with 2026 roles
+feat: integrate Instagram/X links and social meta tags
