@@ -67,7 +67,20 @@ const translations = {
     project_creditops_name: "Credit Ops Engine",
     project_creditops_desc: "Automated credit operations engine designed for modern fintech ecosystems and financial efficiency.",
     project_beatlink_name: "BeatLink Colombia",
-    project_beatlink_desc: "Collaboration in professional event management and ticketing platform for the Colombian market."
+    project_beatlink_desc: "Collaboration in professional event management and ticketing platform for the Colombian market.",
+    cv_modal_title: "Request CV Access",
+    cv_modal_desc: "Please enter your information to download the CV.",
+    cv_label_name: "Full Name",
+    cv_label_email: "Email Address",
+    cv_label_company: "Company / Organization",
+    cv_label_purpose: "Purpose",
+    cv_purpose_hire: "Hiring / Recruiting",
+    cv_purpose_collab: "Collaboration / Partnership",
+    cv_purpose_invest: "Investment",
+    cv_purpose_other: "Other",
+    cv_submit_btn: "Submit & Download",
+    cv_error_empty: "Please fill in all fields.",
+    cv_error_email: "Please enter a valid email."
   },
   es: {
     nav_about: "Sobre mí",
@@ -137,7 +150,20 @@ const translations = {
     project_creditops_name: "Credit Ops Engine",
     project_creditops_desc: "Motor de operaciones de crédito automatizado diseñado para ecosistemas fintech modernos y eficiencia financiera.",
     project_beatlink_name: "BeatLink Colombia",
-    project_beatlink_desc: "Colaboración en plataforma profesional de gestión de eventos y venta de boletos para el mercado colombiano."
+    project_beatlink_desc: "Colaboración en plataforma profesional de gestión de eventos y venta de boletos para el mercado colombiano.",
+    cv_modal_title: "Acceso al CV",
+    cv_modal_desc: "Por favor, ingresa tus datos para descargar el CV.",
+    cv_label_name: "Nombre Completo",
+    cv_label_email: "Correo Electrónico",
+    cv_label_company: "Empresa / Organización",
+    cv_label_purpose: "Propósito",
+    cv_purpose_hire: "Contratación / Reclutamiento",
+    cv_purpose_collab: "Colaboración / Alianza",
+    cv_purpose_invest: "Inversión",
+    cv_purpose_other: "Otro",
+    cv_submit_btn: "Enviar y Descargar",
+    cv_error_empty: "Por favor, completa todos los campos requeridos.",
+    cv_error_email: "Por favor, introduce un correo electrónico válido."
   },
   ja: {
     nav_about: "私について",
@@ -207,7 +233,20 @@ const translations = {
     project_creditops_name: "Credit Ops Engine",
     project_creditops_desc: "現代のフィンテックエコシステムと金融効率のために設計された自動クレジット運用エンジン。",
     project_beatlink_name: "BeatLink Colombia",
-    project_beatlink_desc: "コロンビア市場向けのプロフェッショナルなイベント管理およびチケット販売プラットフォームでのコラボレーション。"
+    project_beatlink_desc: "コロンビア市場向けのプロフェッショナルなイベント管理およびチケット販売プラットフォームでのコラボレーション。",
+    cv_modal_title: "履歴書へのアクセス要求",
+    cv_modal_desc: "履歴書をダウンロードするには、情報を入力してください。",
+    cv_label_name: "氏名",
+    cv_label_email: "メールアドレス",
+    cv_label_company: "会社・組織名",
+    cv_label_purpose: "目的",
+    cv_purpose_hire: "採用・スカウト",
+    cv_purpose_collab: "協業・パートナーシップ",
+    cv_purpose_invest: "投資案件",
+    cv_purpose_other: "その他",
+    cv_submit_btn: "送信してダウンロード",
+    cv_error_empty: "すべての必須項目を入力してください。",
+    cv_error_email: "有効なメールアドレスを入力してください。"
   }
 };
 

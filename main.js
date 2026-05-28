@@ -449,3 +449,145 @@ if(playerTrigger && djPlayer && playerToggleBtn) {
   });
 }
 
+// --- CV Download Guard and Modal Logic ---
+const cvDownloadBtn = document.getElementById('cv-download-btn');
+const cvModal = document.getElementById('cv-modal');
+const cvModalClose = document.getElementById('cv-modal-close');
+const cvModalForm = document.getElementById('cv-modal-form');
+const cvFormError = document.getElementById('cv-form-error');
+const cvFormSubmit = document.getElementById('cv-form-submit');
+const cvSubmitText = document.getElementById('cv-submit-text');
+
+// Helper to trigger direct download
+const triggerCvDownload = () => {
+  const link = document.createElement('a');
+  link.href = '/Wilfredo-CV-2026.pdf';
+  link.download = 'Wilfredo-CV-2026.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// Check if already unlocked on load
+if (cvDownloadBtn) {
+  cvDownloadBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (localStorage.getItem('cv_unlocked') === 'true') {
+      triggerCvDownload();
+    } else {
+      if (cvModal) {
+        cvModal.classList.remove('hidden');
+        cvFormError.classList.add('hidden');
+        cvModalForm.reset();
+      }
+    }
+  });
+}
+
+// Close Modal handlers
+const closeCvModal = () => {
+  if (cvModal) {
+    cvModal.classList.add('hidden');
+  }
+};
+
+if (cvModalClose) {
+  cvModalClose.addEventListener('click', closeCvModal);
+}
+
+if (cvModal) {
+  cvModal.addEventListener('click', (e) => {
+    if (e.target === cvModal) {
+      closeCvModal();
+    }
+  });
+}
+
+// Form Submission with Netlify AJAX Capture
+if (cvModalForm) {
+  cvModalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const nameVal = document.getElementById('cv-name').value.trim();
+    const emailVal = document.getElementById('cv-email').value.trim();
+    const companyVal = document.getElementById('cv-company').value.trim();
+    const purposeVal = document.getElementById('cv-purpose').value;
+    const currentLang = localStorage.getItem('preferredLang') || 'en';
+
+    // Clear previous error
+    cvFormError.classList.add('hidden');
+    cvFormError.textContent = '';
+
+    // Validations
+    if (!nameVal || !emailVal || !companyVal || !purposeVal) {
+      const errorMsg = (translations[currentLang] && translations[currentLang]['cv_error_empty']) || 'Please fill in all fields.';
+      cvFormError.textContent = errorMsg;
+      cvFormError.classList.remove('hidden');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailVal)) {
+      const errorMsg = (translations[currentLang] && translations[currentLang]['cv_error_email']) || 'Please enter a valid email.';
+      cvFormError.textContent = errorMsg;
+      cvFormError.classList.remove('hidden');
+      return;
+    }
+
+    // Show loading state
+    cvFormSubmit.disabled = true;
+    cvFormSubmit.classList.add('btn-disabled');
+    const loadingText = currentLang === 'es' ? 'Procesando...' : currentLang === 'ja' ? '送信中...' : 'Processing...';
+    cvSubmitText.textContent = loadingText;
+
+    // Send payload using AJAX to Netlify Forms
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'form-name': 'cv-downloads',
+        'name': nameVal,
+        'email': emailVal,
+        'company': companyVal,
+        'purpose': purposeVal
+      }).toString()
+    })
+    .then((response) => {
+      // Restore submit button state
+      cvFormSubmit.disabled = false;
+      cvFormSubmit.classList.remove('btn-disabled');
+      const originalText = (translations[currentLang] && translations[currentLang]['cv_submit_btn']) || 'Submit & Download';
+      cvSubmitText.textContent = originalText;
+
+      if (response.ok) {
+        // Cache download unlock status
+        localStorage.setItem('cv_unlocked', 'true');
+        localStorage.setItem('cv_lead_name', nameVal);
+        localStorage.setItem('cv_lead_email', emailVal);
+        
+        // Trigger file download & close modal
+        triggerCvDownload();
+        closeCvModal();
+      } else {
+        throw new Error('Failed Netlify Form submission');
+      }
+    })
+    .catch((error) => {
+      console.error('Error submitting form:', error);
+      cvFormSubmit.disabled = false;
+      cvFormSubmit.classList.remove('btn-disabled');
+      const originalText = (translations[currentLang] && translations[currentLang]['cv_submit_btn']) || 'Submit & Download';
+      cvSubmitText.textContent = originalText;
+
+      const networkErrorMsg = currentLang === 'es' 
+        ? 'Error de red. Inténtalo de nuevo.' 
+        : currentLang === 'ja' 
+          ? 'ネットワークエラーが発生しました。再試行してください。' 
+          : 'Network error. Please try again.';
+      cvFormError.textContent = networkErrorMsg;
+      cvFormError.classList.remove('hidden');
+    });
+  });
+}
+

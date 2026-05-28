@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="/style.css">
 
     <!-- Three.js for 3D Background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Schema.org (JSON-LD) -->
     <script type="application/ld+json">
@@ -127,10 +127,10 @@
           <div class="hero-cta">
             <a href="#contact" class="btn btn-primary" data-i18n="hero_cta_connect">Let's Connect</a>
             <a href="#experience" class="btn btn-outline" data-i18n="hero_cta_journey">My Journey</a>
-            <a href="/Wilfredo-CV-2026.pdf" download class="btn btn-cv">
+            <a href="#" id="cv-download-btn" class="btn btn-cv">
               <span class="btn-text" data-i18n="hero_cta_cv">📄 Download CV</span>
             </a>
-  </div>
+          </div>
         </div>
       </div>
     </section>
@@ -520,6 +520,51 @@
       <button id="dj-player-trigger" class="floating-btn glass-panel" title="Listen to my mixes">
         <span class="btn-icon">🎧</span>
       </button>
+    </div>
+
+    <!-- Netlify Form capture for CV downloads -->
+    <form name="cv-downloads" data-netlify="true" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="purpose" />
+    </form>
+
+    <!-- CV Download Modal -->
+    <div id="cv-modal" class="modal-overlay hidden">
+      <div class="modal-card glass-panel">
+        <button id="cv-modal-close" class="modal-close-btn" aria-label="Close modal">&times;</button>
+        <h3 id="cv-modal-title" data-i18n="cv_modal_title">Request CV Access</h3>
+        <p id="cv-modal-desc" data-i18n="cv_modal_desc">Please enter your information to download the CV.</p>
+        
+        <form id="cv-modal-form" class="modal-form">
+          <div class="form-group">
+            <label for="cv-name" data-i18n="cv_label_name">Full Name</label>
+            <input type="text" id="cv-name" name="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="cv-email" data-i18n="cv_label_email">Email Address</label>
+            <input type="email" id="cv-email" name="email" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="cv-company" data-i18n="cv_label_company">Company / Organization</label>
+            <input type="text" id="cv-company" name="company" required placeholder="Virtuads">
+          </div>
+          <div class="form-group">
+            <label for="cv-purpose" data-i18n="cv_label_purpose">Purpose</label>
+            <select id="cv-purpose" name="purpose" required>
+              <option value="hire" data-i18n="cv_purpose_hire">Hiring / Recruiting</option>
+              <option value="collab" data-i18n="cv_purpose_collab">Collaboration / Partnership</option>
+              <option value="invest" data-i18n="cv_purpose_invest">Investment</option>
+              <option value="other" data-i18n="cv_purpose_other" selected>Other</option>
+            </select>
+          </div>
+          <div id="cv-form-error" class="form-error hidden"></div>
+          <button type="submit" id="cv-form-submit" class="btn btn-primary" style="width: 100%; border-radius: 30px; margin-top: 1rem;">
+            <span id="cv-submit-text" data-i18n="cv_submit_btn">Submit & Download</span>
+          </button>
+        </form>
+      </div>
     </div>
 
     <script type="module" src="/main.js"></script>
