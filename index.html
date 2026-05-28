@@ -519,7 +519,8 @@
     </div>
 
     <!-- Netlify Form capture for CV downloads -->
-    <form name="cv-downloads" data-netlify="true" hidden>
+    <form name="cv-downloads" method="POST" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="cv-downloads" />
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="text" name="company" />
