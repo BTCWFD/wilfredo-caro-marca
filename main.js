@@ -51,6 +51,25 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// --- Mobile Menu Toggle ---
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenuToggle && navLinks) {
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.classList.toggle('open');
+    navLinks.classList.toggle('active');
+  });
+
+  // Close menu when clicking a link
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuToggle.classList.remove('open');
+      navLinks.classList.remove('active');
+    });
+  });
+}
+
 // --- Scroll Reveal Animations ---
 const revealElements = document.querySelectorAll('.reveal');
 
@@ -74,6 +93,34 @@ const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
 revealElements.forEach(el => {
   revealObserver.observe(el);
 });
+
+// --- Skills Tab Switching ---
+const tabButtons = document.querySelectorAll('.skills-tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+if (tabButtons.length && tabContents.length) {
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.getAttribute('data-tab');
+
+      // Update active button
+      tabButtons.forEach(b => b.classList.toggle('active', b === btn));
+
+      // Update active content
+      tabContents.forEach(content => {
+        if (content.id === `skills-${targetTab}`) {
+          content.classList.add('active');
+          // Force reveal items inside the active tab
+          content.querySelectorAll('.reveal').forEach(el => {
+            el.classList.add('active');
+          });
+        } else {
+          content.classList.remove('active');
+        }
+      });
+    });
+  });
+}
 
 // --- Smooth Scrolling for Anchor Links ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -106,8 +153,9 @@ window.addEventListener('load', () => {
 // --- Custom Cursor Tracker ---
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorOutline = document.querySelector('.cursor-outline');
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-if (cursorDot && cursorOutline && window.matchMedia("(min-width: 769px)").matches) {
+if (cursorDot && cursorOutline && !isTouchDevice && window.matchMedia("(min-width: 769px)").matches) {
   window.addEventListener('mousemove', (e) => {
     const posX = e.clientX;
     const posY = e.clientY;
@@ -120,6 +168,9 @@ if (cursorDot && cursorOutline && window.matchMedia("(min-width: 769px)").matche
       top: `${posY}px`
     }, { duration: 250, fill: "forwards" });
   });
+} else {
+  if (cursorDot) cursorDot.style.display = 'none';
+  if (cursorOutline) cursorOutline.style.display = 'none';
 }
 
 // --- 3D Background (Three.js Network) ---
@@ -134,8 +185,9 @@ const initBg = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // Particles
-  const particlesCount = 120;
+  // Adjust particle density based on screen size/hardware
+  const isMobile = window.innerWidth <= 768 || isTouchDevice;
+  const particlesCount = isMobile ? 50 : 120;
   const positions = new Float32Array(particlesCount * 3);
   const velocities = new Float32Array(particlesCount * 3);
 
@@ -184,7 +236,7 @@ const initBg = () => {
     // Drawing lines (simplified for performance)
     if (lineMesh) scene.remove(lineMesh);
     const lineIndices = [];
-    const threshold = 2.5;
+    const threshold = isMobile ? 1.8 : 2.5;
     for (let i = 0; i < particlesCount; i++) {
       for (let j = i + 1; j < particlesCount; j++) {
         const dx = positionsArray[i * 3] - positionsArray[j * 3];
@@ -252,20 +304,30 @@ const handleAiChat = () => {
   addMessage(aiInput.value, 'user');
   aiInput.value = '';
 
+  const typingIndicator = document.getElementById('ai-typing');
+  if (typingIndicator) {
+    typingIndicator.classList.remove('hidden');
+    aiChat.scrollTop = aiChat.scrollHeight;
+  }
+
   // Simulate typing
   setTimeout(() => {
+    if (typingIndicator) {
+      typingIndicator.classList.add('hidden');
+    }
+
     let response = knowledgeBase.default;
-    if (query.includes('who') || query.includes('name')) response = knowledgeBase.who;
-    else if (query.includes('virtuadsai') || query.includes('company')) response = knowledgeBase.virtuadsai;
+    if (query.includes('who') || query.includes('name') || query.includes('quien') || query.includes('quién') || query.includes('ウィルフレド')) response = knowledgeBase.who;
+    else if (query.includes('virtuadsai') || query.includes('company') || query.includes('empresa') || query.includes('virtuads')) response = knowledgeBase.virtuadsai;
     else if (query.includes('orbit')) response = knowledgeBase.orbit;
     else if (query.includes('exequine')) response = knowledgeBase.exequine;
-    else if (query.includes('experience') || query.includes('work') || query.includes('journey')) response = knowledgeBase.experience;
-    else if (query.includes('skills') || query.includes('expertise') || query.includes('tech')) response = knowledgeBase.skills;
-    else if (query.includes('music') || query.includes('dj') || query.includes('mix')) response = knowledgeBase.music;
-    else if (query.includes('contact') || query.includes('email') || query.includes('social')) response = knowledgeBase.contact;
+    else if (query.includes('experience') || query.includes('work') || query.includes('journey') || query.includes('experiencia') || query.includes('trayectoria') || query.includes('trabajo')) response = knowledgeBase.experience;
+    else if (query.includes('skills') || query.includes('expertise') || query.includes('tech') || query.includes('habilidades') || query.includes('tecnología') || query.includes('tecnologia')) response = knowledgeBase.skills;
+    else if (query.includes('music') || query.includes('dj') || query.includes('mix') || query.includes('música') || query.includes('musica') || query.includes('set')) response = knowledgeBase.music;
+    else if (query.includes('contact') || query.includes('email') || query.includes('social') || query.includes('contacto') || query.includes('correo')) response = knowledgeBase.contact;
 
     addMessage(response, 'bot');
-  }, 600);
+  }, 1000);
 };
 
 if (aiTrigger && aiAssistant && aiClose) {
@@ -276,6 +338,99 @@ if (aiTrigger && aiAssistant && aiClose) {
   aiSend.addEventListener('click', handleAiChat);
   aiInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleAiChat();
+  });
+
+  // Suggestion buttons click handlers
+  const suggestButtons = document.querySelectorAll('.ai-suggest-btn');
+  suggestButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      aiInput.value = btn.textContent;
+      handleAiChat();
+    });
+  });
+}
+
+// --- 3D Card Tilt Effect ---
+const tiltContainer = document.querySelector('.about-visual');
+if (tiltContainer && !isTouchDevice) {
+  const img = tiltContainer.querySelector('img');
+  tiltContainer.addEventListener('mousemove', (e) => {
+    const { left, top, width, height } = tiltContainer.getBoundingClientRect();
+    const x = (e.clientX - left) / width;
+    const y = (e.clientY - top) / height;
+    
+    const tiltX = (y - 0.5) * 15; // max 15 degrees tilt
+    const tiltY = (0.5 - x) * 15;
+    
+    img.style.transform = `scale(1.05) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  });
+  
+  tiltContainer.addEventListener('mouseleave', () => {
+    img.style.transform = 'scale(1) rotateX(0deg) rotateY(0deg)';
+  });
+}
+
+// --- Custom DJ Player Logic (YouTube API) ---
+let ytPlayer;
+
+// Inject YouTube Iframe API Script
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+const playBtn = document.getElementById('player-play-btn');
+const prevBtn = document.getElementById('player-prev-btn');
+const nextBtn = document.getElementById('player-next-btn');
+const visualizer = document.querySelector('.player-visualizer');
+const artwork = document.querySelector('.track-artwork');
+let isPlaying = false;
+
+window.onYouTubeIframeAPIReady = () => {
+  ytPlayer = new YT.Player('youtube-player', {
+    events: {
+      'onStateChange': (event) => {
+        // 1 = playing, 2 = paused
+        if (event.data === 1) {
+          isPlaying = true;
+          if (playBtn) playBtn.textContent = '⏸';
+          if (visualizer) visualizer.classList.add('playing');
+          if (artwork) artwork.classList.add('playing');
+        } else {
+          isPlaying = false;
+          if (playBtn) playBtn.textContent = '▶';
+          if (visualizer) visualizer.classList.remove('playing');
+          if (artwork) artwork.classList.remove('playing');
+        }
+      }
+    }
+  });
+};
+
+if (playBtn) {
+  playBtn.addEventListener('click', () => {
+    if (!ytPlayer) return;
+    if (isPlaying) {
+      ytPlayer.pauseVideo();
+    } else {
+      ytPlayer.playVideo();
+    }
+  });
+}
+
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => {
+    if (ytPlayer && typeof ytPlayer.previousVideo === 'function') {
+      ytPlayer.previousVideo();
+    }
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    if (ytPlayer && typeof ytPlayer.nextVideo === 'function') {
+      ytPlayer.nextVideo();
+    }
   });
 }
 

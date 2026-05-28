@@ -97,10 +97,17 @@
           <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
           <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
         </ul>
-        <div class="lang-switcher">
-          <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="es">ES</button>
-          <button class="lang-btn" data-lang="ja">JA</button>
+        <div class="nav-right">
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+            <button class="lang-btn" data-lang="ja">JA</button>
+          </div>
+          <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
         </div>
       </div>
     </nav>
@@ -135,7 +142,7 @@
           </div>
         </div>
         <div class="about-visual reveal">
-          <img src="/profile.jpg" alt="Wilfredo Caro profile">
+          <img src="/wilfredo-portrait.jpg" alt="Wilfredo Caro profile">
         </div>
       </div>
     </section>
@@ -160,9 +167,9 @@
         </a>
 
         <!-- Orbit -->
-        <a href="#" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+        <div class="project-card glass-panel reveal">
           <div class="project-preview p-orbit">
-            <div class="preview-overlay">VIEW PROJECT</div>
+            <div class="preview-overlay" data-i18n="project_overlay_dev">IN DEVELOPMENT</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="project_orbit_name">Orbit</h3>
@@ -171,7 +178,7 @@
               <span>#CTO</span><span>#Cloud</span><span>#MobileDev</span>
             </div>
           </div>
-        </a>
+        </div>
 
         <!-- ExEquine -->
         <a href="https://nex-equine-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
@@ -188,9 +195,9 @@
         </a>
 
         <!-- Anti-Observer -->
-        <a href="#" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+        <div class="project-card glass-panel reveal">
           <div class="project-preview p-antigravity">
-            <div class="preview-overlay">VIEW PROJECT</div>
+            <div class="preview-overlay" data-i18n="project_overlay_dev">IN DEVELOPMENT</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="project_antiobserv_name">Anti-Observer</h3>
@@ -199,7 +206,7 @@
               <span>#AI</span><span>#CTO</span><span>#Monitoring</span>
             </div>
           </div>
-        </a>
+        </div>
 
       </div>
     </section>
@@ -300,8 +307,15 @@
     <!-- Skills Section -->
     <section id="skills" class="container">
       <h2 class="reveal" data-i18n="skills_title">Core <span class="text-gradient">Expertise</span></h2>
-      <div class="skills-grid">
-        
+      
+      <div class="skills-tabs reveal">
+        <button class="skills-tab-btn active" data-tab="leadership" data-i18n="skills_tab_leadership">Leadership & Strategy</button>
+        <button class="skills-tab-btn" data-tab="languages" data-i18n="skills_tab_languages">Programming Languages</button>
+        <button class="skills-tab-btn" data-tab="tools" data-i18n="skills_tab_tools">Cloud & Dev Operations</button>
+      </div>
+
+      <!-- Category 1: Leadership & Strategy -->
+      <div id="skills-leadership" class="skills-grid tab-content active">
         <div class="skill-card glass-panel reveal">
           <div class="skill-icon">🧠</div>
           <div class="skill-name" data-i18n="skill_ai">Artificial Intelligence</div>
@@ -315,10 +329,6 @@
           <div class="skill-name" data-i18n="skill_strategy">Business Strategy</div>
         </div>
         <div class="skill-card glass-panel reveal">
-          <div class="skill-icon">🌐</div>
-          <div class="skill-name" data-i18n="skill_webdev">Web Development</div>
-        </div>
-        <div class="skill-card glass-panel reveal">
           <div class="skill-icon">🎤</div>
           <div class="skill-name" data-i18n="skill_events">Event Management</div>
         </div>
@@ -326,7 +336,54 @@
           <div class="skill-icon">🎧</div>
           <div class="skill-name" data-i18n="skill_dj">DJing</div>
         </div>
+      </div>
 
+      <!-- Category 2: Programming Languages -->
+      <div id="skills-languages" class="skills-grid tab-content">
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🐍</div>
+          <div class="skill-name" data-i18n="skill_python">Python</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">📜</div>
+          <div class="skill-name" data-i18n="skill_solidity">Solidity</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">⚙️</div>
+          <div class="skill-name" data-i18n="skill_cpp">C++</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">💛</div>
+          <div class="skill-name" data-i18n="skill_javascript">JavaScript</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🦀</div>
+          <div class="skill-name" data-i18n="skill_rust">Rust</div>
+        </div>
+      </div>
+
+      <!-- Category 3: Cloud & Dev Operations -->
+      <div id="skills-tools" class="skills-grid tab-content">
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🌐</div>
+          <div class="skill-name" data-i18n="skill_webdev">Web Development</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🐳</div>
+          <div class="skill-name" data-i18n="skill_docker">Docker</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">☁️</div>
+          <div class="skill-name" data-i18n="skill_azure">Azure Cloud</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">📱</div>
+          <div class="skill-name" data-i18n="skill_android">Android Studio</div>
+        </div>
+        <div class="skill-card glass-panel reveal">
+          <div class="skill-icon">🟩</div>
+          <div class="skill-name" data-i18n="skill_nodejs">Node.js</div>
+        </div>
       </div>
     </section>
 
@@ -356,8 +413,11 @@
           <a href="https://github.com/BTCWFD" target="_blank" rel="noopener" title="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
-          <a href="#" target="_blank" rel="noopener" title="Facebook">
+          <a href="https://www.facebook.com/WILFREDOCAROG/about" target="_blank" rel="noopener" title="Facebook">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://discord.com/channels/@me" target="_blank" rel="noopener" title="Discord">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
           </a>
         </div>
 
@@ -374,11 +434,33 @@
         <div class="player-info">
           🎧 <span class="player-title" data-i18n="dj_player_title">W.Caro - Deep Tech Mix</span>
         </div>
-        <button id="player-toggle" class="player-toggle-btn">-</button>
+        <button id="player-toggle" class="player-toggle-btn">&times;</button>
       </div>
-      <div class="player-body">
-        <!-- YouTube Music Playlist -->
-        <iframe width="100%" height="166" src="https://www.youtube.com/embed/videoseries?list=PL_T0CLGyHoLmBAsvoiKUi3W9ksmdHmFse" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <div class="player-body custom-player">
+        <!-- Hidden YouTube Player for Audio Playback -->
+        <iframe id="youtube-player" width="1" height="1" style="position: absolute; opacity: 0; pointer-events: none;" src="https://www.youtube.com/embed/videoseries?list=PL_T0CLGyHoLmBAsvoiKUi3W9ksmdHmFse&enablejsapi=1" title="YouTube video player" frameborder="0" allow="autoplay"></iframe>
+        
+        <div class="custom-player-ui">
+          <div class="track-artwork">💿</div>
+          <div class="track-details">
+            <div class="track-name">Deep Tech Session 2026</div>
+            <div class="track-artist">Wilfredo Caro</div>
+          </div>
+          
+          <div class="player-visualizer">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          
+          <div class="player-controls">
+            <button id="player-prev-btn" class="ctrl-btn" title="Previous">⏮</button>
+            <button id="player-play-btn" class="ctrl-btn play-btn" title="Play">▶</button>
+            <button id="player-next-btn" class="ctrl-btn" title="Next">⏭</button>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -386,7 +468,9 @@
     <div id="ai-assistant" class="ai-assistant minimized">
       <div class="ai-header">
         <div class="ai-info">
-          <div class="ai-avatar">🤖</div>
+          <div class="ai-avatar">
+            <img src="/wilfredo-portrait.jpg" alt="Wilfredo AI Avatar">
+          </div>
           <div>
             <div class="ai-name">Wilfredo AI</div>
             <div class="ai-status">Online</div>
@@ -397,6 +481,20 @@
       <div id="ai-chat" class="ai-chat">
         <div class="ai-msg bot">Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!</div>
       </div>
+      
+      <div id="ai-typing" class="ai-typing-indicator hidden">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="ai-suggestions">
+        <button class="ai-suggest-btn" data-i18n="ai_suggest_who">Who is Wilfredo?</button>
+        <button class="ai-suggest-btn" data-i18n="ai_suggest_virtuadsai">About VirtuadsAi</button>
+        <button class="ai-suggest-btn" data-i18n="ai_suggest_orbit">What is Orbit?</button>
+        <button class="ai-suggest-btn" data-i18n="ai_suggest_music">Is he a DJ?</button>
+      </div>
+
       <div class="ai-input-wrap">
         <input type="text" id="ai-input" placeholder="Type a message..." autocomplete="off">
         <button id="ai-send" class="ai-send-btn">Send</button>
@@ -406,7 +504,7 @@
     <!-- Floating Buttons Container -->
     <div class="floating-controls">
       <button id="ai-trigger" class="floating-btn ai-trigger-btn" title="Chat with my AI">
-        <span class="btn-icon">🤖</span>
+        <img src="/wilfredo-portrait.jpg" alt="Wilfredo AI" class="btn-img">
       </button>
       <button id="dj-player-trigger" class="floating-btn glass-panel" title="Listen to my mixes">
         <span class="btn-icon">🎧</span>
