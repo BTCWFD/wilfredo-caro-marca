@@ -3,6 +3,55 @@ import translations from './src/translations.js';
 // Update Copyright Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// --- Dynamic Contact Info Block ---
+const renderContactInfo = () => {
+  const contactContainer = document.getElementById('contact-info-block');
+  if (!contactContainer) return;
+
+  contactContainer.innerHTML = '';
+  const isUnlocked = localStorage.getItem('cv_unlocked') === 'true';
+
+  if (isUnlocked) {
+    const mailLink = document.createElement('a');
+    mailLink.href = 'mailto:wilfredwfd86@gmail.com';
+    mailLink.className = 'btn btn-primary';
+    mailLink.style.textTransform = 'lowercase';
+    mailLink.style.letterSpacing = '0.5px';
+    mailLink.textContent = 'wilfredwfd86@gmail.com';
+    
+    const telLink = document.createElement('a');
+    telLink.href = 'tel:+573219723513';
+    telLink.className = 'btn btn-outline';
+    telLink.style.borderRadius = '30px';
+    telLink.textContent = '+57 321 972 35 13';
+
+    contactContainer.appendChild(mailLink);
+    contactContainer.appendChild(telLink);
+  } else {
+    const unlockBtn = document.createElement('button');
+    unlockBtn.id = 'contact-unlock-btn';
+    unlockBtn.className = 'btn btn-primary';
+    unlockBtn.style.borderRadius = '30px';
+    
+    const currentLang = localStorage.getItem('preferredLang') || 'en';
+    const btnText = (translations[currentLang] && translations[currentLang]['contact_unlock_btn']) || '🔓 Unlock Contact Details';
+    unlockBtn.textContent = btnText;
+
+    unlockBtn.addEventListener('click', () => {
+      const cvModal = document.getElementById('cv-modal');
+      const cvFormError = document.getElementById('cv-form-error');
+      const cvModalForm = document.getElementById('cv-modal-form');
+      if (cvModal) {
+        cvModal.classList.remove('hidden');
+        if (cvFormError) cvFormError.classList.add('hidden');
+        if (cvModalForm) cvModalForm.reset();
+      }
+    });
+
+    contactContainer.appendChild(unlockBtn);
+  }
+};
+
 // --- Multilingual (i18n) Logic ---
 const langButtons = document.querySelectorAll('.lang-btn');
 const translatableElements = document.querySelectorAll('[data-i18n]');
@@ -28,6 +77,9 @@ const updateLanguage = (lang) => {
   // Persist choice
   localStorage.setItem('preferredLang', lang);
   document.documentElement.lang = lang;
+
+  // Render contact info block
+  renderContactInfo();
 };
 
 langButtons.forEach(btn => {
@@ -285,7 +337,7 @@ const knowledgeBase = {
   "experience": "Wilfredo is currently CEO of VirtuadsAi and CTO of Orbit. His 2026 journey includes architecture for ExEquine and high-level strategy for AI agents with Anti-Observer.",
   "skills": "Wilfredo's core expertise includes Artificial Intelligence, Web3 & Blockchain Architecture, Cloud Dev Environments, and Business Strategy.",
   "music": "Wilfredo is also a DJ! He loves Deep Tech and Techno. You can listen to his mixes in the player on the right.",
-  "contact": "You can reach Wilfredo via email at wilfredwfd86@gmail.com or through his social media links in the footer.",
+  "contact": "Please unlock contact details in the footer.",
   "default": "That's an interesting question! I focus on Deep Tech, AI, and Web3 (including Orbit and VirtuadsAi). Could you specify what you'd like to know about Wilfredo's path?"
 };
 
@@ -316,6 +368,7 @@ const handleAiChat = () => {
       typingIndicator.classList.add('hidden');
     }
 
+    const currentLang = localStorage.getItem('preferredLang') || 'en';
     let response = knowledgeBase.default;
     if (query.includes('who') || query.includes('name') || query.includes('quien') || query.includes('quién') || query.includes('ウィルフレド')) response = knowledgeBase.who;
     else if (query.includes('virtuadsai') || query.includes('company') || query.includes('empresa') || query.includes('virtuads')) response = knowledgeBase.virtuadsai;
@@ -324,7 +377,26 @@ const handleAiChat = () => {
     else if (query.includes('experience') || query.includes('work') || query.includes('journey') || query.includes('experiencia') || query.includes('trayectoria') || query.includes('trabajo')) response = knowledgeBase.experience;
     else if (query.includes('skills') || query.includes('expertise') || query.includes('tech') || query.includes('habilidades') || query.includes('tecnología') || query.includes('tecnologia')) response = knowledgeBase.skills;
     else if (query.includes('music') || query.includes('dj') || query.includes('mix') || query.includes('música') || query.includes('musica') || query.includes('set')) response = knowledgeBase.music;
-    else if (query.includes('contact') || query.includes('email') || query.includes('social') || query.includes('contacto') || query.includes('correo')) response = knowledgeBase.contact;
+    else if (query.includes('contact') || query.includes('email') || query.includes('social') || query.includes('contacto') || query.includes('correo')) {
+      const isUnlocked = localStorage.getItem('cv_unlocked') === 'true';
+      if (isUnlocked) {
+        if (currentLang === 'es') {
+          response = "Puedes contactar a Wilfredo por correo electrónico a wilfredwfd86@gmail.com o por teléfono al +57 321 972 35 13. También tienes los enlaces de contacto directos en el pie de página.";
+        } else if (currentLang === 'ja') {
+          response = "ウィルフレドのメールアドレスは wilfredwfd86@gmail.com、電話番号は +57 321 972 35 13 です。フッターの連絡先リンクも直接ご利用いただけます。";
+        } else {
+          response = "You can reach Wilfredo via email at wilfredwfd86@gmail.com or phone at +57 321 972 35 13. You can also use the direct links in the footer.";
+        }
+      } else {
+        if (currentLang === 'es') {
+          response = "Los datos de contacto de Wilfredo están protegidos para evitar el spam. Puedes desbloquearlos haciendo clic en el botón '🔓 Desbloquear Datos de Contacto' en el pie de página o completando el formulario al descargar su CV.";
+        } else if (currentLang === 'ja') {
+          response = "スパム防止のため、ウィルフレドの連絡先情報は保護されています。フッターの「🔓 連絡先情報を開示する」ボタンをクリックするか、履歴書ダウンロード時のフォームに入力することで開示できます。";
+        } else {
+          response = "Wilfredo's contact details are locked to prevent spam. You can unlock them by clicking the '🔓 Unlock Contact Details' button in the footer or by registering when downloading his CV.";
+        }
+      }
+    }
 
     addMessage(response, 'bot');
   }, 1000);
@@ -566,6 +638,9 @@ if (cvModalForm) {
         localStorage.setItem('cv_lead_name', nameVal);
         localStorage.setItem('cv_lead_email', emailVal);
         
+        // Re-render contact details in the footer
+        renderContactInfo();
+
         // Trigger file download & close modal
         triggerCvDownload();
         closeCvModal();

@@ -80,7 +80,8 @@ const translations = {
     cv_purpose_other: "Other",
     cv_submit_btn: "Submit & Download",
     cv_error_empty: "Please fill in all fields.",
-    cv_error_email: "Please enter a valid email."
+    cv_error_email: "Please enter a valid email.",
+    contact_unlock_btn: "🔓 Unlock Contact Details"
   },
   es: {
     nav_about: "Sobre mí",
@@ -163,7 +164,8 @@ const translations = {
     cv_purpose_other: "Otro",
     cv_submit_btn: "Enviar y Descargar",
     cv_error_empty: "Por favor, completa todos los campos requeridos.",
-    cv_error_email: "Por favor, introduce un correo electrónico válido."
+    cv_error_email: "Por favor, introduce un correo electrónico válido.",
+    contact_unlock_btn: "🔓 Desbloquear Datos de Contacto"
   },
   ja: {
     nav_about: "私について",
@@ -246,7 +248,8 @@ const translations = {
     cv_purpose_other: "その他",
     cv_submit_btn: "送信してダウンロード",
     cv_error_empty: "すべての必須項目を入力してください。",
-    cv_error_email: "有効なメールアドレスを入力してください。"
+    cv_error_email: "有効なメールアドレスを入力してください。",
+    contact_unlock_btn: "🔓 連絡先情報を開示する"
   }
 };
 
