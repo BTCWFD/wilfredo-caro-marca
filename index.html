@@ -519,13 +519,15 @@
     </div>
 
     <!-- Netlify Form capture for CV downloads -->
-    <form name="cv-downloads" method="POST" data-netlify="true" hidden>
-      <input type="hidden" name="form-name" value="cv-downloads" />
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="company" />
-      <input type="text" name="purpose" />
-    </form>
+    <div style="display: none;">
+      <form name="cv-downloads" method="POST" action="/" netlify>
+        <input type="hidden" name="form-name" value="cv-downloads" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="company" />
+        <input type="text" name="purpose" />
+      </form>
+    </div>
 
     <!-- CV Download Modal -->
     <div id="cv-modal" class="modal-overlay hidden">
