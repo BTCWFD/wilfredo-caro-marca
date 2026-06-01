@@ -3,6 +3,36 @@ import translations from './src/translations.js';
 // Update Copyright Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// --- Theme Toggle Logic ---
+const themeToggleBtn = document.getElementById('theme-toggle');
+const iconSun = document.querySelector('.icon-sun');
+const iconMoon = document.querySelector('.icon-moon');
+
+// Initialize Theme
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  if (iconSun) iconSun.classList.add('hidden');
+  if (iconMoon) iconMoon.classList.remove('hidden');
+}
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener('click', () => {
+    let theme = document.documentElement.getAttribute('data-theme');
+    if (theme === 'light') {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'dark');
+      iconSun.classList.remove('hidden');
+      iconMoon.classList.add('hidden');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+      iconSun.classList.add('hidden');
+      iconMoon.classList.remove('hidden');
+    }
+  });
+}
+
 // --- Dynamic Contact Info Block ---
 const renderContactInfo = () => {
   const contactContainer = document.getElementById('contact-info-block');
@@ -295,8 +325,12 @@ const initBg = () => {
 
   camera.position.z = 5;
 
+  let animationFrameId;
+  let isVisible = true;
+
   const animate = () => {
-    requestAnimationFrame(animate);
+    if (!isVisible) return;
+    animationFrameId = requestAnimationFrame(animate);
 
     const positionsArray = geometry.attributes.position.array;
     
@@ -342,6 +376,17 @@ const initBg = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Battery Optimization: Pause animation when tab is not visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      isVisible = false;
+      cancelAnimationFrame(animationFrameId);
+    } else {
+      isVisible = true;
+      animate();
+    }
   });
 
   animate();
