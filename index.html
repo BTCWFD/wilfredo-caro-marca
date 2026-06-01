@@ -444,8 +444,8 @@
         <button id="player-toggle" class="player-toggle-btn">&times;</button>
       </div>
       <div class="player-body custom-player">
-        <!-- Hidden YouTube Player for Audio Playback -->
-        <iframe id="youtube-player" width="1" height="1" style="position: absolute; opacity: 0; pointer-events: none;" src="https://www.youtube.com/embed/videoseries?list=PL_T0CLGyHoLmBAsvoiKUi3W9ksmdHmFse&enablejsapi=1" title="YouTube video player" frameborder="0" allow="autoplay"></iframe>
+        <!-- Native Audio Player for Audio Playback -->
+        <audio id="audio-player" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="metadata" loop></audio>
         
         <div class="custom-player-ui">
           <div class="track-artwork">💿</div>
@@ -460,6 +460,14 @@
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
+          </div>
+
+          <div class="player-progress-container">
+            <span id="player-time-current">00:00</span>
+            <div class="player-progress-bar" id="player-progress-bar" role="slider" aria-label="Audio timeline" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="player-progress-fill" id="player-progress-fill"></div>
+            </div>
+            <span id="player-time-duration">00:00</span>
           </div>
           
           <div class="player-controls">

@@ -353,7 +353,8 @@ const handleAiChat = () => {
   const query = aiInput.value.toLowerCase().trim();
   if (!query) return;
 
-  addMessage(aiInput.value, 'user');
+  const originalQuery = aiInput.value.trim();
+  addMessage(originalQuery, 'user');
   aiInput.value = '';
 
   const typingIndicator = document.getElementById('ai-typing');
@@ -362,44 +363,39 @@ const handleAiChat = () => {
     aiChat.scrollTop = aiChat.scrollHeight;
   }
 
-  // Simulate typing
-  setTimeout(() => {
-    if (typingIndicator) {
-      typingIndicator.classList.add('hidden');
-    }
-
-    const currentLang = localStorage.getItem('preferredLang') || 'en';
-    let response = knowledgeBase.default;
-    if (query.includes('who') || query.includes('name') || query.includes('quien') || query.includes('quién') || query.includes('ウィルフレド')) response = knowledgeBase.who;
-    else if (query.includes('virtuadsai') || query.includes('company') || query.includes('empresa') || query.includes('virtuads')) response = knowledgeBase.virtuadsai;
-    else if (query.includes('orbit')) response = knowledgeBase.orbit;
-    else if (query.includes('exequine')) response = knowledgeBase.exequine;
-    else if (query.includes('experience') || query.includes('work') || query.includes('journey') || query.includes('experiencia') || query.includes('trayectoria') || query.includes('trabajo')) response = knowledgeBase.experience;
-    else if (query.includes('skills') || query.includes('expertise') || query.includes('tech') || query.includes('habilidades') || query.includes('tecnología') || query.includes('tecnologia')) response = knowledgeBase.skills;
-    else if (query.includes('music') || query.includes('dj') || query.includes('mix') || query.includes('música') || query.includes('musica') || query.includes('set')) response = knowledgeBase.music;
-    else if (query.includes('contact') || query.includes('email') || query.includes('social') || query.includes('contacto') || query.includes('correo')) {
-      const isUnlocked = localStorage.getItem('cv_unlocked') === 'true';
-      if (isUnlocked) {
-        if (currentLang === 'es') {
-          response = "Puedes contactar a Wilfredo por correo electrónico a wilfredwfd86@gmail.com o por teléfono al +57 321 972 35 13. También tienes los enlaces de contacto directos en el pie de página.";
-        } else if (currentLang === 'ja') {
-          response = "ウィルフレドのメールアドレスは wilfredwfd86@gmail.com、電話番号は +57 321 972 35 13 です。フッターの連絡先リンクも直接ご利用いただけます。";
-        } else {
-          response = "You can reach Wilfredo via email at wilfredwfd86@gmail.com or phone at +57 321 972 35 13. You can also use the direct links in the footer.";
-        }
-      } else {
-        if (currentLang === 'es') {
-          response = "Los datos de contacto de Wilfredo están protegidos para evitar el spam. Puedes desbloquearlos haciendo clic en el botón '🔓 Desbloquear Datos de Contacto' en el pie de página o completando el formulario al descargar su CV.";
-        } else if (currentLang === 'ja') {
-          response = "スパム防止のため、ウィルフレドの連絡先情報は保護されています。フッターの「🔓 連絡先情報を開示する」ボタンをクリックするか、履歴書ダウンロード時のフォームに入力することで開示できます。";
-        } else {
-          response = "Wilfredo's contact details are locked to prevent spam. You can unlock them by clicking the '🔓 Unlock Contact Details' button in the footer or by registering when downloading his CV.";
+  fetch('/.netlify/functions/chat', {
+    method: 'POST',
+    body: JSON.stringify({ message: originalQuery }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Network response was not ok');
+    return res.json();
+  })
+  .then(data => {
+    if (typingIndicator) typingIndicator.classList.add('hidden');
+    
+    let responseText = data.reply;
+    if (!responseText) throw new Error('No reply from server');
+    
+    addMessage(responseText, 'bot');
+  })
+  .catch(err => {
+    console.warn("AI Serverless function failed, falling back to local logic.", err);
+    setTimeout(() => {
+      if (typingIndicator) typingIndicator.classList.add('hidden');
+      
+      let response = knowledgeBase.default;
+      for (const key in knowledgeBase) {
+        if (key !== 'default' && query.includes(key)) {
+          response = knowledgeBase[key];
+          break;
         }
       }
-    }
-
-    addMessage(response, 'bot');
-  }, 1000);
+      
+      addMessage(response, 'bot');
+    }, 1000);
+  });
 };
 
 if (aiTrigger && aiAssistant && aiClose) {
@@ -442,68 +438,85 @@ if (tiltContainer && !isTouchDevice) {
   });
 }
 
-// --- Custom DJ Player Logic (YouTube API) ---
-let ytPlayer;
-
-// Inject YouTube Iframe API Script
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-const firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+// --- Custom DJ Player Logic (HTML5 Audio) ---
+const audioPlayer = document.getElementById('audio-player');
 const playBtn = document.getElementById('player-play-btn');
 const prevBtn = document.getElementById('player-prev-btn');
 const nextBtn = document.getElementById('player-next-btn');
 const visualizer = document.querySelector('.player-visualizer');
 const artwork = document.querySelector('.track-artwork');
-let isPlaying = false;
+const timeCurrent = document.getElementById('player-time-current');
+const timeDuration = document.getElementById('player-time-duration');
+const progressBar = document.getElementById('player-progress-bar');
+const progressFill = document.getElementById('player-progress-fill');
 
-window.onYouTubeIframeAPIReady = () => {
-  ytPlayer = new YT.Player('youtube-player', {
-    events: {
-      'onStateChange': (event) => {
-        // 1 = playing, 2 = paused
-        if (event.data === 1) {
-          isPlaying = true;
-          if (playBtn) playBtn.textContent = '⏸';
-          if (visualizer) visualizer.classList.add('playing');
-          if (artwork) artwork.classList.add('playing');
-        } else {
-          isPlaying = false;
-          if (playBtn) playBtn.textContent = '▶';
-          if (visualizer) visualizer.classList.remove('playing');
-          if (artwork) artwork.classList.remove('playing');
-        }
-      }
-    }
-  });
+const formatTime = (seconds) => {
+  if (isNaN(seconds)) return '00:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
-if (playBtn) {
-  playBtn.addEventListener('click', () => {
-    if (!ytPlayer) return;
-    if (isPlaying) {
-      ytPlayer.pauseVideo();
-    } else {
-      ytPlayer.playVideo();
-    }
+if (audioPlayer) {
+  // Sync UI with audio events
+  audioPlayer.addEventListener('play', () => {
+    if (playBtn) playBtn.textContent = '⏸';
+    if (visualizer) visualizer.classList.add('playing');
+    if (artwork) artwork.classList.add('playing');
   });
-}
 
-if (prevBtn) {
-  prevBtn.addEventListener('click', () => {
-    if (ytPlayer && typeof ytPlayer.previousVideo === 'function') {
-      ytPlayer.previousVideo();
-    }
+  audioPlayer.addEventListener('pause', () => {
+    if (playBtn) playBtn.textContent = '▶';
+    if (visualizer) visualizer.classList.remove('playing');
+    if (artwork) artwork.classList.remove('playing');
   });
-}
 
-if (nextBtn) {
-  nextBtn.addEventListener('click', () => {
-    if (ytPlayer && typeof ytPlayer.nextVideo === 'function') {
-      ytPlayer.nextVideo();
+  audioPlayer.addEventListener('timeupdate', () => {
+    if (timeCurrent) timeCurrent.textContent = formatTime(audioPlayer.currentTime);
+    if (audioPlayer.duration) {
+      const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+      if (progressFill) progressFill.style.width = `${progressPercent}%`;
+      if (progressBar) progressBar.setAttribute('aria-valuenow', Math.round(progressPercent));
     }
   });
+
+  audioPlayer.addEventListener('loadedmetadata', () => {
+    if (timeDuration) timeDuration.textContent = formatTime(audioPlayer.duration);
+  });
+
+  // Controls Event Listeners
+  if (playBtn) {
+    playBtn.addEventListener('click', () => {
+      if (audioPlayer.paused) {
+        audioPlayer.play().catch(err => console.log("Playback interrupted: ", err));
+      } else {
+        audioPlayer.pause();
+      }
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 10);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      audioPlayer.currentTime = Math.min(audioPlayer.duration || 0, audioPlayer.currentTime + 10);
+    });
+  }
+
+  // Timeline Scrubbing
+  if (progressBar) {
+    progressBar.addEventListener('click', (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      const clickPercent = clickX / width;
+      audioPlayer.currentTime = clickPercent * (audioPlayer.duration || 0);
+    });
+  }
 }
 
 // --- Floating UI Controls ---
