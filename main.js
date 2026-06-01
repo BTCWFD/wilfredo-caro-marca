@@ -414,12 +414,40 @@ const knowledgeBase = {
   "default": "That's an interesting question! I focus on Deep Tech, AI, and Web3 (including Orbit and VirtuadsAi). Could you specify what you'd like to know about Wilfredo's path?"
 };
 
+let isVoiceEnabled = false;
+const voiceToggleBtn = document.getElementById('ai-voice-toggle');
+
+if (voiceToggleBtn) {
+  voiceToggleBtn.addEventListener('click', () => {
+    isVoiceEnabled = !isVoiceEnabled;
+    if (isVoiceEnabled) {
+      voiceToggleBtn.classList.add('active');
+    } else {
+      voiceToggleBtn.classList.remove('active');
+      window.speechSynthesis.cancel();
+    }
+  });
+}
+
 const addMessage = (text, sender) => {
   const msg = document.createElement('div');
   msg.className = `ai-msg ${sender}`;
   msg.textContent = text;
   aiChat.appendChild(msg);
   aiChat.scrollTop = aiChat.scrollHeight;
+
+  // Web Speech API
+  if (sender === 'bot' && isVoiceEnabled && 'speechSynthesis' in window) {
+    window.speechSynthesis.cancel(); // Stop current speech
+    const utterance = new SpeechSynthesisUtterance(text);
+    // Optional: detect language based on current UI language
+    const currentLang = document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
+    if (currentLang === 'es') utterance.lang = 'es-ES';
+    else if (currentLang === 'ja') utterance.lang = 'ja-JP';
+    else utterance.lang = 'en-US';
+    
+    window.speechSynthesis.speak(utterance);
+  }
 };
 
 const handleAiChat = () => {
@@ -459,10 +487,26 @@ const handleAiChat = () => {
       if (typingIndicator) typingIndicator.classList.add('hidden');
       
       let response = knowledgeBase.default;
+      let maxScore = 0;
+      const queryWords = query.match(/\b(\w+)\b/g) || [];
+      
       for (const key in knowledgeBase) {
-        if (key !== 'default' && query.includes(key)) {
+        if (key === 'default') continue;
+        
+        let score = 0;
+        // High score for exact substring match
+        if (query.includes(key)) score += 5;
+        
+        // Partial word matches
+        queryWords.forEach(word => {
+          if (word.length > 3 && (key.includes(word) || word.includes(key))) {
+            score += 2;
+          }
+        });
+
+        if (score > maxScore && score > 0) {
+          maxScore = score;
           response = knowledgeBase[key];
-          break;
         }
       }
       
