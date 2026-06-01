@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python caches
+__pycache__/
+*.pyc
+
+# LinkedIn Session
+linkedin_session/
+
