@@ -56,25 +56,113 @@ const fetchGeoPricing = async () => {
     }
   };
 
-  try {
-    const res = await fetch('https://ipapi.co/json/');
-    const data = await res.json();
-    const isColombia = data.country_code === 'CO';
+  const updatePrices = (isColombia) => {
     const prices = isColombia ? pricing.CO : pricing.Global;
-    
     priceWeb.textContent = prices.web;
     priceAi.textContent = prices.ai;
     priceBrand.textContent = prices.brand;
     priceDj.textContent = prices.dj;
+  };
+
+  const toggle = document.getElementById('geo-pricing-toggle');
+  
+  if (toggle) {
+    toggle.addEventListener('change', (e) => {
+      updatePrices(e.target.checked);
+    });
+  }
+
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    const isColombia = data.country_code === 'CO';
+    if (toggle) toggle.checked = isColombia;
+    updatePrices(isColombia);
   } catch (err) {
     console.warn("Geo-Pricing fetch failed, defaulting to Global.", err);
-    priceWeb.textContent = pricing.Global.web;
-    priceAi.textContent = pricing.Global.ai;
-    priceBrand.textContent = pricing.Global.brand;
-    priceDj.textContent = pricing.Global.dj;
+    if (toggle) toggle.checked = false;
+    updatePrices(false);
   }
 };
 fetchGeoPricing();
+
+// --- Service Request Modal Logic ---
+const srvModal = document.getElementById('service-modal');
+const srvCloseBtn = document.getElementById('service-modal-close');
+const srvForm = document.getElementById('service-modal-form');
+const srvTypeSelect = document.getElementById('srv-type');
+const srvCountrySelect = document.getElementById('srv-country');
+const srvToggle = document.getElementById('geo-pricing-toggle');
+
+const openServiceModal = (serviceId) => {
+  if (!srvModal) return;
+  if (serviceId && srvTypeSelect) {
+    srvTypeSelect.value = serviceId;
+  }
+  if (srvCountrySelect && srvToggle) {
+    srvCountrySelect.value = srvToggle.checked ? 'CO' : 'Global';
+  }
+  srvModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+};
+
+const closeServiceModal = () => {
+  if (!srvModal) return;
+  srvModal.classList.add('hidden');
+  document.body.style.overflow = 'auto';
+};
+
+if (srvCloseBtn) srvCloseBtn.addEventListener('click', closeServiceModal);
+if (srvModal) {
+  srvModal.addEventListener('click', (e) => {
+    if (e.target === srvModal) closeServiceModal();
+  });
+}
+
+document.querySelectorAll('.service-modal-trigger').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openServiceModal(btn.dataset.service);
+  });
+});
+
+if (srvForm) {
+  srvForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('srv-form-submit');
+    const submitText = document.getElementById('srv-submit-text');
+    const errorDiv = document.getElementById('srv-form-error');
+    
+    submitBtn.disabled = true;
+    submitText.textContent = 'Enviando...';
+    errorDiv.classList.add('hidden');
+
+    const formData = new FormData(srvForm);
+    
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      });
+      
+      if (res.ok) {
+        srvForm.innerHTML = `<div style="text-align: center; padding: 2rem;">
+          <h3 style="color: var(--accent-primary);">¡Solicitud Enviada!</h3>
+          <p>Me pondré en contacto contigo pronto.</p>
+        </div>`;
+        setTimeout(() => closeServiceModal(), 3000);
+      } else {
+        throw new Error('Error en el envío');
+      }
+    } catch (err) {
+      errorDiv.textContent = 'Hubo un error al enviar el formulario. Intenta de nuevo.';
+      errorDiv.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitText.textContent = 'Submit Request';
+    }
+  });
+}
 
 // --- Dynamic Contact Info Block ---
 const renderContactInfo = () => {
