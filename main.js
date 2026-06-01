@@ -200,6 +200,23 @@ window.addEventListener('load', () => {
       }, 800);
     }, 2800);
   }
+
+  // --- Scroll Reveal Observer ---
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-active');
+        // observer.unobserve(entry.target); // Optional: Stop observing once revealed
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.15, // Trigger when 15% of the element is visible
+    rootMargin: "0px 0px -50px 0px"
+  });
+
+  revealElements.forEach(el => revealObserver.observe(el));
 });
 
 // --- Custom Cursor Tracker ---
@@ -219,6 +236,17 @@ if (cursorDot && cursorOutline && !isTouchDevice && window.matchMedia("(min-widt
       left: `${posX}px`,
       top: `${posY}px`
     }, { duration: 250, fill: "forwards" });
+  });
+
+  // Cursor hover effects on interactive elements
+  const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .btn, .ai-suggest-btn');
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorOutline.classList.add('cursor-hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorOutline.classList.remove('cursor-hover');
+    });
   });
 } else {
   if (cursorDot) cursorDot.style.display = 'none';
@@ -447,8 +475,7 @@ const visualizer = document.querySelector('.player-visualizer');
 const artwork = document.querySelector('.track-artwork');
 const timeCurrent = document.getElementById('player-time-current');
 const timeDuration = document.getElementById('player-time-duration');
-const progressBar = document.getElementById('player-progress-bar');
-const progressFill = document.getElementById('player-progress-fill');
+const timeline = document.getElementById('player-timeline');
 
 const formatTime = (seconds) => {
   if (isNaN(seconds)) return '00:00';
@@ -473,10 +500,9 @@ if (audioPlayer) {
 
   audioPlayer.addEventListener('timeupdate', () => {
     if (timeCurrent) timeCurrent.textContent = formatTime(audioPlayer.currentTime);
-    if (audioPlayer.duration) {
+    if (audioPlayer.duration && timeline) {
       const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-      if (progressFill) progressFill.style.width = `${progressPercent}%`;
-      if (progressBar) progressBar.setAttribute('aria-valuenow', Math.round(progressPercent));
+      timeline.value = progressPercent;
     }
   });
 
@@ -507,14 +533,13 @@ if (audioPlayer) {
     });
   }
 
-  // Timeline Scrubbing
-  if (progressBar) {
-    progressBar.addEventListener('click', (e) => {
-      const rect = progressBar.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const width = rect.width;
-      const clickPercent = clickX / width;
-      audioPlayer.currentTime = clickPercent * (audioPlayer.duration || 0);
+  // Timeline Scrubbing via input range
+  if (timeline) {
+    timeline.addEventListener('input', (e) => {
+      if (audioPlayer.duration) {
+        const scrubTime = (e.target.value / 100) * audioPlayer.duration;
+        audioPlayer.currentTime = scrubTime;
+      }
     });
   }
 }
@@ -654,9 +679,28 @@ if (cvModalForm) {
         // Re-render contact details in the footer
         renderContactInfo();
 
-        // Trigger file download & close modal
-        triggerCvDownload();
-        closeCvModal();
+        // Show Success Toast
+        const modalWrap = document.getElementById('cv-modal-content-wrap');
+        const successToast = document.getElementById('cv-success-toast');
+        if (modalWrap && successToast) {
+          modalWrap.classList.add('hidden');
+          successToast.classList.remove('hidden');
+          
+          setTimeout(() => {
+            // Trigger file download & close modal
+            triggerCvDownload();
+            closeCvModal();
+            // Reset for future
+            setTimeout(() => {
+              modalWrap.classList.remove('hidden');
+              successToast.classList.add('hidden');
+            }, 500);
+          }, 1500);
+        } else {
+          // Fallback if elements are missing
+          triggerCvDownload();
+          closeCvModal();
+        }
       } else {
         throw new Error('Failed Netlify Form submission');
       }

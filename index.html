@@ -135,7 +135,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="container">
+    <section id="about" class="container reveal-on-scroll">
       <h2 class="reveal" data-i18n="about_title">About <span class="text-gradient">Me</span></h2>
       <div class="about-grid">
         <div class="about-text reveal">
@@ -152,7 +152,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="container">
+    <section id="projects" class="container reveal-on-scroll">
       <h2 class="reveal" data-i18n="projects_title">Main <span class="text-gradient">Innovations</span></h2>
       <div class="projects-grid">
         
@@ -216,7 +216,7 @@
     </section>
 
     <!-- Collaborations Section -->
-    <section id="collaborations" class="container">
+    <section id="collaborations" class="container reveal-on-scroll">
       <h2 class="reveal" data-i18n="collab_title">Collaborations & <span class="text-gradient">Leadership</span></h2>
       <div class="projects-grid">
         
@@ -266,7 +266,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="container">
+    <section id="experience" class="container reveal-on-scroll">
       <h2 class="reveal" data-i18n="exp_title">Professional <span class="text-gradient">Journey</span></h2>
       <div class="timeline glass-panel reveal">
         
@@ -309,7 +309,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="container">
+    <section id="skills" class="container reveal-on-scroll">
       <h2 class="reveal" data-i18n="skills_title">Core <span class="text-gradient">Expertise</span></h2>
       
       <div class="skills-tabs reveal">
@@ -464,9 +464,7 @@
 
           <div class="player-progress-container">
             <span id="player-time-current">00:00</span>
-            <div class="player-progress-bar" id="player-progress-bar" role="slider" aria-label="Audio timeline" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-              <div class="player-progress-fill" id="player-progress-fill"></div>
-            </div>
+            <input type="range" class="player-timeline" id="player-timeline" min="0" max="100" value="0" step="0.1">
             <span id="player-time-duration">00:00</span>
           </div>
           
@@ -541,10 +539,11 @@
     <div id="cv-modal" class="modal-overlay hidden">
       <div class="modal-card glass-panel">
         <button id="cv-modal-close" class="modal-close-btn" aria-label="Close modal">&times;</button>
-        <h3 id="cv-modal-title" data-i18n="cv_modal_title">Request CV Access</h3>
-        <p id="cv-modal-desc" data-i18n="cv_modal_desc">Please enter your information to download the CV.</p>
-        
-        <form id="cv-modal-form" class="modal-form">
+        <div id="cv-modal-content-wrap">
+          <h3 id="cv-modal-title" data-i18n="cv_modal_title">Request CV Access</h3>
+          <p id="cv-modal-desc" data-i18n="cv_modal_desc">Please enter your information to download the CV.</p>
+          
+          <form id="cv-modal-form" class="modal-form">
           <div class="form-group">
             <label for="cv-name" data-i18n="cv_label_name">Full Name</label>
             <input type="text" id="cv-name" name="name" required placeholder="John Doe">
@@ -571,6 +570,20 @@
             <span id="cv-submit-text" data-i18n="cv_submit_btn">Submit & Download</span>
           </button>
         </form>
+        </div>
+        
+        <div id="cv-success-toast" class="cv-success-toast hidden">
+          <div class="success-checkmark">
+            <div class="check-icon">
+              <span class="icon-line line-tip"></span>
+              <span class="icon-line line-long"></span>
+              <div class="icon-circle"></div>
+              <div class="icon-fix"></div>
+            </div>
+          </div>
+          <h3 data-i18n="cv_success_title">¡Completado!</h3>
+          <p data-i18n="cv_success_desc">Tu descarga comenzará en un instante.</p>
+        </div>
       </div>
     </div>
 
