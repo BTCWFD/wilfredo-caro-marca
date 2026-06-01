@@ -32,6 +32,49 @@ if (themeToggleBtn) {
     }
   });
 }
+// --- Dynamic Geo-Pricing Logic ---
+const fetchGeoPricing = async () => {
+  const priceWeb = document.getElementById('price-web');
+  const priceAi = document.getElementById('price-ai');
+  const priceBrand = document.getElementById('price-brand');
+  const priceDj = document.getElementById('price-dj');
+
+  if (!priceWeb) return;
+
+  const pricing = {
+    CO: {
+      web: "Desde $1,500,000 COP",
+      ai: "Desde $1,200,000 COP",
+      brand: "Desde $800,000 COP/mes",
+      dj: "Desde $500,000 COP"
+    },
+    Global: {
+      web: "Desde $2,500 USD",
+      ai: "Desde $3,000 USD",
+      brand: "Desde $1,500 USD/mes",
+      dj: "Desde $900 USD"
+    }
+  };
+
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    const isColombia = data.country_code === 'CO';
+    const prices = isColombia ? pricing.CO : pricing.Global;
+    
+    priceWeb.textContent = prices.web;
+    priceAi.textContent = prices.ai;
+    priceBrand.textContent = prices.brand;
+    priceDj.textContent = prices.dj;
+  } catch (err) {
+    console.warn("Geo-Pricing fetch failed, defaulting to Global.", err);
+    priceWeb.textContent = pricing.Global.web;
+    priceAi.textContent = pricing.Global.ai;
+    priceBrand.textContent = pricing.Global.brand;
+    priceDj.textContent = pricing.Global.dj;
+  }
+};
+fetchGeoPricing();
 
 // --- Dynamic Contact Info Block ---
 const renderContactInfo = () => {
