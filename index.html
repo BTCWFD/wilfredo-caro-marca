@@ -43,8 +43,8 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/style.css">
 
-    <!-- Three.js for 3D Background -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Three.js for 3D Background (deferred so it doesn't block render) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Schema.org (JSON-LD) -->
     <script type="application/ld+json">
@@ -53,11 +53,26 @@
       "@type": "Person",
       "name": "Wilfredo Caro",
       "url": "https://wilfredocaro.com",
-      "jobTitle": "CEO",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "VirtuadsAi"
-      },
+      "jobTitle": ["CEO at VirtuadsAi", "CTO at Orbit"],
+      "worksFor": [
+        {
+          "@type": "Organization",
+          "name": "VirtuadsAi"
+        },
+        {
+          "@type": "Organization",
+          "name": "Orbit"
+        }
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "Web3",
+        "Blockchain",
+        "Deep Tech",
+        "Smart Contracts",
+        "Digital Advertising",
+        "Cloud Development Environments"
+      ],
       "sameAs": [
         "https://www.linkedin.com/in/wilfredo-caro/",
         "https://x.com/wilfredo_caro",
@@ -125,7 +140,7 @@
       <div class="container">
         <div class="hero-content reveal">
           <span class="hero-subtitle" data-i18n="hero_subtitle">Innovator & Strategist</span>
-          <h1 data-i18n="hero_title">Empowering the future with <br><span class="text-gradient">Deep Tech & AI</span></h1>
+          <h1 data-i18n="hero_title" data-i18n-html>Empowering the future with <br><span class="text-gradient">Deep Tech & AI</span></h1>
           <p class="hero-desc" data-i18n="hero_desc">I'm Wilfredo Caro, CEO at VirtuadsAi. I focus on the intersection of deep-tech and marketing, driving innovation in digital advertising through Web3 and Blockchain.</p>
           <div class="hero-cta">
             <a href="#contact" class="btn btn-primary" data-i18n="hero_cta_connect">Let's Connect</a>
@@ -146,7 +161,7 @@
 
     <!-- About Section -->
     <section id="about" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n="about_title">About <span class="text-gradient">Me</span></h2>
+      <h2 class="reveal" data-i18n="about_title" data-i18n-html>About <span class="text-gradient">Me</span></h2>
       <div class="about-grid">
         <div class="about-text reveal">
           <div class="glass-panel">
@@ -163,7 +178,7 @@
 
     <!-- Projects Section -->
     <section id="projects" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n="projects_title">Main <span class="text-gradient">Innovations</span></h2>
+      <h2 class="reveal" data-i18n="projects_title" data-i18n-html>Main <span class="text-gradient">Innovations</span></h2>
       <div class="projects-grid">
         
         <!-- VirtuadsAi -->
@@ -227,7 +242,7 @@
 
     <!-- Collaborations Section -->
     <section id="collaborations" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n="collab_title">Collaborations & <span class="text-gradient">Leadership</span></h2>
+      <h2 class="reveal" data-i18n="collab_title" data-i18n-html>Collaborations & <span class="text-gradient">Leadership</span></h2>
       <div class="projects-grid">
         
         <!-- Brave Software -->
@@ -277,7 +292,7 @@
 
     <!-- Services Section -->
     <section id="services" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n="services_title">Business <span class="text-gradient">Solutions</span></h2>
+      <h2 class="reveal" data-i18n="services_title" data-i18n-html>Business <span class="text-gradient">Solutions</span></h2>
       
       <div class="pricing-toggle-container reveal">
         <span class="toggle-label">🌍 Global (USD)</span>
@@ -331,7 +346,7 @@
 
     <!-- Experience Section -->
     <section id="experience" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n="exp_title">Professional <span class="text-gradient">Journey</span></h2>
+      <h2 class="reveal" data-i18n="exp_title" data-i18n-html>Professional <span class="text-gradient">Journey</span></h2>
       <div class="timeline glass-panel reveal">
         
         <div class="timeline-item">
@@ -374,7 +389,7 @@
 
     <!-- Skills Section -->
     <section id="skills" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n="skills_title">Core <span class="text-gradient">Expertise</span></h2>
+      <h2 class="reveal" data-i18n="skills_title" data-i18n-html>Core <span class="text-gradient">Expertise</span></h2>
       
       <div class="skills-tabs reveal">
         <button class="skills-tab-btn active" data-tab="leadership" data-i18n="skills_tab_leadership">Leadership & Strategy</button>
@@ -458,7 +473,7 @@
     <!-- Footer / Contact -->
     <footer id="contact">
       <div class="container contact-wrap">
-        <h2 class="reveal" data-i18n="contact_title">Let's build the <span class="text-gradient">future</span></h2>
+        <h2 class="reveal" data-i18n="contact_title" data-i18n-html>Let's build the <span class="text-gradient">future</span></h2>
         <p class="reveal" style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;" data-i18n="contact_desc">
           Whether you're interested in AI, Web3, or just want to connect over a good DJ set, I'd love to hear from you.
         </p>
@@ -494,7 +509,7 @@
 
       </div>
       
-      <div class="copyright" style="margin-top: 4rem;" data-i18n="footer_copy">
+      <div class="copyright" style="margin-top: 4rem;" data-i18n="footer_copy" data-i18n-html>
         &copy; <span id="year"></span> Wilfredo Caro. Empowered by VirtuadsAi.
       </div>
     </footer>

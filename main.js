@@ -238,8 +238,9 @@ const updateLanguage = (lang) => {
   translatableElements.forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang] && translations[lang][key]) {
-      // Use innerHTML for titles/texts that contain <span> or <br>
-      if (key.includes('title') || key.includes('footer')) {
+      // Only render HTML when the element explicitly opts in via data-i18n-html.
+      // Everything else uses textContent (safer against accidental markup injection).
+      if (el.hasAttribute('data-i18n-html')) {
         el.innerHTML = translations[lang][key];
       } else {
         el.textContent = translations[lang][key];
@@ -482,9 +483,17 @@ const initBg = () => {
   const points = new THREE.Points(geometry, material);
   scene.add(points);
 
-  // Connection Lines
+  // Connection Lines — one reusable geometry with a preallocated buffer.
+  // Avoids creating a new BufferGeometry + LineSegments on every frame (no GC churn).
   const lineMaterial = new THREE.LineBasicMaterial({ color: 0x1e8449, transparent: true, opacity: 0.2 });
-  let lineMesh;
+  const maxSegments = (particlesCount * (particlesCount - 1)) / 2;
+  const linePositions = new Float32Array(maxSegments * 6); // 2 endpoints × 3 coords
+  const lineGeometry = new THREE.BufferGeometry();
+  const linePositionAttr = new THREE.BufferAttribute(linePositions, 3);
+  linePositionAttr.setUsage(THREE.DynamicDrawUsage);
+  lineGeometry.setAttribute('position', linePositionAttr);
+  const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+  scene.add(lineMesh);
 
   camera.position.z = 5;
 
@@ -510,27 +519,30 @@ const initBg = () => {
     
     geometry.attributes.position.needsUpdate = true;
 
-    // Drawing lines (simplified for performance)
-    if (lineMesh) scene.remove(lineMesh);
-    const lineIndices = [];
-    const threshold = isMobile ? 1.8 : 2.5;
+    // Rebuild connection lines into the preallocated buffer (no per-frame allocation).
+    // Compare squared distance to avoid Math.sqrt on every pair.
+    const thresholdSq = isMobile ? 1.8 * 1.8 : 2.5 * 2.5;
+    let ptr = 0;
     for (let i = 0; i < particlesCount; i++) {
+      const ix = positionsArray[i * 3];
+      const iy = positionsArray[i * 3 + 1];
+      const iz = positionsArray[i * 3 + 2];
       for (let j = i + 1; j < particlesCount; j++) {
-        const dx = positionsArray[i * 3] - positionsArray[j * 3];
-        const dy = positionsArray[i * 3 + 1] - positionsArray[j * 3 + 1];
-        const dz = positionsArray[i * 3 + 2] - positionsArray[j * 3 + 2];
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-        if (dist < threshold) {
-          lineIndices.push(i, j);
+        const dx = ix - positionsArray[j * 3];
+        const dy = iy - positionsArray[j * 3 + 1];
+        const dz = iz - positionsArray[j * 3 + 2];
+        if (dx * dx + dy * dy + dz * dz < thresholdSq) {
+          linePositions[ptr++] = ix;
+          linePositions[ptr++] = iy;
+          linePositions[ptr++] = iz;
+          linePositions[ptr++] = positionsArray[j * 3];
+          linePositions[ptr++] = positionsArray[j * 3 + 1];
+          linePositions[ptr++] = positionsArray[j * 3 + 2];
         }
       }
     }
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setIndex(lineIndices);
-    lineGeometry.setAttribute('position', geometry.attributes.position);
-    lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(lineMesh);
+    lineGeometry.setDrawRange(0, ptr / 3);
+    linePositionAttr.needsUpdate = true;
 
     renderer.render(scene, camera);
   };
