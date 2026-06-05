@@ -2,15 +2,14 @@
 <html lang="en">
   <head>
     <!-- Google Analytics (GA4) -->
-    <!-- Google tag (gtag.js) -->
-    <!-- Replace G-XXXXXXXXXX with your Measurement ID -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- ⚠️ Reemplaza G-XXXXXXXXXX por tu Measurement ID real de GA4 para activar la analítica. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-XXXXXXXXXX');
-    </script> -->
+    </script>
 
     <meta charset="UTF-8" />
 
@@ -19,21 +18,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wilfredo Caro | CEO & Tech Innovator</title>
     <meta name="description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain for digital advertising." />
-    <link rel="canonical" href="https://wilfredo-caro.netlify.app/" />
+    <link rel="canonical" href="https://wilfredocaro.com/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://wilfredo-caro.netlify.app/" />
+    <meta property="og:url" content="https://wilfredocaro.com/" />
     <meta property="og:title" content="Wilfredo Caro | CEO & Tech Innovator" />
     <meta property="og:description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain." />
-    <meta property="og:image" content="https://wilfredo-caro.netlify.app/src/assets/hero.png" />
+    <meta property="og:image" content="https://wilfredocaro.com/og-image.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://wilfredo-caro.netlify.app/" />
+    <meta property="twitter:url" content="https://wilfredocaro.com/" />
     <meta property="twitter:title" content="Wilfredo Caro | CEO & Tech Innovator" />
     <meta property="twitter:description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain." />
-    <meta property="twitter:image" content="https://wilfredo-caro.netlify.app/src/assets/hero.png" />
+    <meta property="twitter:image" content="https://wilfredocaro.com/og-image.png" />
     
     <!-- Google Fonts -->
 
@@ -122,7 +121,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero constainer">
+    <section id="home" class="hero container">
       <div class="container">
         <div class="hero-content reveal">
           <span class="hero-subtitle" data-i18n="hero_subtitle">Innovator & Strategist</span>
@@ -130,11 +129,17 @@
           <p class="hero-desc" data-i18n="hero_desc">I'm Wilfredo Caro, CEO at VirtuadsAi. I focus on the intersection of deep-tech and marketing, driving innovation in digital advertising through Web3 and Blockchain.</p>
           <div class="hero-cta">
             <a href="#contact" class="btn btn-primary" data-i18n="hero_cta_connect">Let's Connect</a>
-            <a href="#experience" class="btn btn-outline" data-i18n="hero_cta_journey">My Journey</a>
             <a href="#" id="cv-download-btn" class="btn btn-cv">
               <span class="btn-text" data-i18n="hero_cta_cv">📄 Download CV</span>
             </a>
+            <a href="#experience" class="hero-link" data-i18n="hero_cta_journey">My Journey</a>
           </div>
+          <ul class="hero-proof" aria-label="Credentials">
+            <li>CEO · VirtuadsAi</li>
+            <li>CTO · Orbit</li>
+            <li data-i18n="hero_proof_brave">Ex-Brave Software · LATAM</li>
+            <li>Labitconf · Talent Land</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -164,7 +169,7 @@
         <!-- VirtuadsAi -->
         <a href="https://virtuadsai-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-virtuads">
-            <div class="preview-overlay">VIEW PROJECT</div>
+            <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="project_virtuadsai_name">VirtuadsAi</h3>
@@ -192,7 +197,7 @@
         <!-- ExEquine -->
         <a href="https://nex-equine-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-equine">
-            <div class="preview-overlay">VIEW PROJECT</div>
+            <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="project_exequine_name">ExEquine</h3>
@@ -228,7 +233,7 @@
         <!-- Brave Software -->
         <div class="project-card glass-panel reveal">
           <div class="project-preview p-brave">
-            <div class="preview-overlay">LATAM STAFF</div>
+            <div class="preview-overlay" data-i18n="collab_overlay_latam">LATAM STAFF</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="collab_brave_name">Brave Software</h3>
@@ -242,7 +247,7 @@
         <!-- Credit Ops -->
         <a href="https://witty-field-0ff8ede0f.2.azurestaticapps.net/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-fintech">
-            <div class="preview-overlay">VIEW PROJECT</div>
+            <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="project_creditops_name">Credit Ops Engine</h3>
@@ -256,7 +261,7 @@
         <!-- BeatLink -->
         <a href="https://beatlink.live/beatlink" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-beatlink">
-            <div class="preview-overlay">VIEW PROJECT</div>
+            <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
           <div class="project-info">
             <h3 data-i18n="project_beatlink_name">BeatLink Colombia</h3>
@@ -290,7 +295,7 @@
           <div class="service-icon">🌐</div>
           <h3 data-i18n="srv_web_name">Web & Deep-Tech Dev</h3>
           <p data-i18n="srv_web_desc">Custom web apps, high-conversion landing pages, and Web3 smart contracts architecture.</p>
-          <div class="service-price" id="price-web">Loading pricing...</div>
+          <div class="service-price" id="price-web" data-i18n="srv_price_loading">Loading pricing...</div>
           <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="web" data-i18n="srv_btn">Solicitar Presupuesto</a>
         </div>
 
@@ -299,7 +304,7 @@
           <div class="service-icon">🤖</div>
           <h3 data-i18n="srv_ai_name">AI Agents & Chatbots</h3>
           <p data-i18n="srv_ai_desc">Intelligent WhatsApp/Web chatbots and automated workflows to scale your customer service.</p>
-          <div class="service-price" id="price-ai">Loading pricing...</div>
+          <div class="service-price" id="price-ai" data-i18n="srv_price_loading">Loading pricing...</div>
           <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="ai" data-i18n="srv_btn">Solicitar Presupuesto</a>
         </div>
 
@@ -308,7 +313,7 @@
           <div class="service-icon">🚀</div>
           <h3 data-i18n="srv_brand_name">Personal Brand Boost</h3>
           <p data-i18n="srv_brand_desc">Strategic positioning, tech storytelling, and digital presence audits for leaders.</p>
-          <div class="service-price" id="price-brand">Loading pricing...</div>
+          <div class="service-price" id="price-brand" data-i18n="srv_price_loading">Loading pricing...</div>
           <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="brand" data-i18n="srv_btn">Solicitar Presupuesto</a>
         </div>
 
@@ -317,7 +322,7 @@
           <div class="service-icon">🎧</div>
           <h3 data-i18n="srv_dj_name">DJ Digital Presskit</h3>
           <p data-i18n="srv_dj_desc">Interactive EPKs with music players, high-res photos, and tech riders for clubs and promoters.</p>
-          <div class="service-price" id="price-dj">Loading pricing...</div>
+          <div class="service-price" id="price-dj" data-i18n="srv_price_loading">Loading pricing...</div>
           <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="dj" data-i18n="srv_btn">Solicitar Presupuesto</a>
         </div>
 
@@ -452,7 +457,7 @@
 
     <!-- Footer / Contact -->
     <footer id="contact">
-      <div class="container constact-wrap">
+      <div class="container contact-wrap">
         <h2 class="reveal" data-i18n="contact_title">Let's build the <span class="text-gradient">future</span></h2>
         <p class="reveal" style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;" data-i18n="contact_desc">
           Whether you're interested in AI, Web3, or just want to connect over a good DJ set, I'd love to hear from you.
@@ -509,7 +514,7 @@
         <div class="custom-player-ui">
           <div class="track-artwork">💿</div>
           <div class="track-details">
-            <div class="track-name">Deep Tech Session 2026</div>
+            <div class="track-name" data-i18n="dj_track_name">Deep Tech Session 2026</div>
             <div class="track-artist">Wilfredo Caro</div>
           </div>
           
@@ -554,7 +559,7 @@
         </div>
       </div>
       <div id="ai-chat" class="ai-chat">
-        <div class="ai-msg bot">Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!</div>
+        <div class="ai-msg bot" data-i18n="ai_greeting">Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!</div>
       </div>
       
       <div id="ai-typing" class="ai-typing-indicator hidden">

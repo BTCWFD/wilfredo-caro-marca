@@ -1,5 +1,15 @@
 import translations from './src/translations.js';
 
+// Accessibility: honor the user's reduced-motion preference across all animations
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// --- Analytics helper (safe no-op until a real GA4 ID is set in index.html) ---
+const trackEvent = (action, params = {}) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', action, params);
+  }
+};
+
 // Update Copyright Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -69,6 +79,7 @@ const fetchGeoPricing = async () => {
   if (toggle) {
     toggle.addEventListener('change', (e) => {
       updatePrices(e.target.checked);
+      trackEvent('toggle_pricing', { region: e.target.checked ? 'CO' : 'Global' });
     });
   }
 
@@ -104,6 +115,7 @@ const openServiceModal = (serviceId) => {
   }
   srvModal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  trackEvent('open_service_modal', { service: serviceId || 'unknown' });
 };
 
 const closeServiceModal = () => {
@@ -147,6 +159,11 @@ if (srvForm) {
       });
       
       if (res.ok) {
+        trackEvent('generate_lead', {
+          form: 'service-requests',
+          service: formData.get('service') || 'unknown',
+          country: formData.get('country') || 'unknown'
+        });
         srvForm.innerHTML = `<div style="text-align: center; padding: 2rem;">
           <h3 style="color: var(--accent-primary);">¡Solicitud Enviada!</h3>
           <p>Me pondré en contacto contigo pronto.</p>
@@ -356,13 +373,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   if(preloader) {
-    // Wait for animations to finish before fading out
+    // Fade out shortly after the page is actually ready (no arbitrary 2.8s wait).
+    // Skip the delay entirely for users who prefer reduced motion.
+    const minDelay = prefersReducedMotion ? 0 : 700;
     setTimeout(() => {
       preloader.style.opacity = '0';
       setTimeout(() => {
         preloader.style.display = 'none';
-      }, 800);
-    }, 2800);
+      }, prefersReducedMotion ? 0 : 400);
+    }, minDelay);
   }
 
   // --- Scroll Reveal Observer ---
@@ -421,6 +440,16 @@ if (cursorDot && cursorOutline && !isTouchDevice && window.matchMedia("(min-widt
 const initBg = () => {
   const canvas = document.querySelector('#bg-canvas');
   if (!canvas) return;
+  // Respect reduced-motion: skip the animated background entirely.
+  if (prefersReducedMotion) {
+    canvas.style.display = 'none';
+    return;
+  }
+  // Guard against Three.js failing to load from the CDN.
+  if (typeof THREE === 'undefined') {
+    canvas.style.display = 'none';
+    return;
+  }
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -607,6 +636,7 @@ const handleAiChat = () => {
   const originalQuery = aiInput.value.trim();
   addMessage(originalQuery, 'user');
   aiInput.value = '';
+  trackEvent('ai_chat_message');
 
   const typingIndicator = document.getElementById('ai-typing');
   if (typingIndicator) {
@@ -914,6 +944,7 @@ if (cvModalForm) {
       cvSubmitText.textContent = originalText;
 
       if (response.ok) {
+        trackEvent('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
         // Cache download unlock status
         localStorage.setItem('cv_unlocked', 'true');
         localStorage.setItem('cv_lead_name', nameVal);

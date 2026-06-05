@@ -81,7 +81,13 @@ const translations = {
     cv_submit_btn: "Submit & Download",
     cv_error_empty: "Please fill in all fields.",
     cv_error_email: "Please enter a valid email.",
-    contact_unlock_btn: "🔓 Unlock Contact Details"
+    contact_unlock_btn: "🔓 Unlock Contact Details",
+    hero_proof_brave: "Ex-Brave Software · LATAM",
+    project_overlay_view: "VIEW PROJECT",
+    collab_overlay_latam: "LATAM STAFF",
+    dj_track_name: "Deep Tech Session 2026",
+    srv_price_loading: "Loading pricing...",
+    ai_greeting: "Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!"
   },
   es: {
     nav_about: "Sobre mí",
@@ -165,7 +171,13 @@ const translations = {
     cv_submit_btn: "Enviar y Descargar",
     cv_error_empty: "Por favor, completa todos los campos requeridos.",
     cv_error_email: "Por favor, introduce un correo electrónico válido.",
-    contact_unlock_btn: "🔓 Desbloquear Datos de Contacto"
+    contact_unlock_btn: "🔓 Desbloquear Datos de Contacto",
+    hero_proof_brave: "Ex-Brave Software · LATAM",
+    project_overlay_view: "VER PROYECTO",
+    collab_overlay_latam: "STAFF LATAM",
+    dj_track_name: "Sesión Deep Tech 2026",
+    srv_price_loading: "Cargando precios...",
+    ai_greeting: "¡Hola! Soy el clon de IA de Wilfredo. Pregúntame lo que quieras sobre su trabajo en Deep-Tech, Web3 o incluso sus últimos sets de DJ."
   },
   ja: {
     nav_about: "私について",
@@ -249,7 +261,13 @@ const translations = {
     cv_submit_btn: "送信してダウンロード",
     cv_error_empty: "すべての必須項目を入力してください。",
     cv_error_email: "有効なメールアドレスを入力してください。",
-    contact_unlock_btn: "🔓 連絡先情報を開示する"
+    contact_unlock_btn: "🔓 連絡先情報を開示する",
+    hero_proof_brave: "元Brave Software · 中南米",
+    project_overlay_view: "プロジェクトを見る",
+    collab_overlay_latam: "中南米スタッフ",
+    dj_track_name: "ディープテック・セッション 2026",
+    srv_price_loading: "価格を読み込み中...",
+    ai_greeting: "こんにちは！私はウィルフレドのAIクローンです。ディープテック、Web3、最新のDJセットまで、何でも聞いてください！"
   }
 };
 

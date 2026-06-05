@@ -341,6 +341,53 @@ nav.scrolled {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Secondary text link (de-emphasized CTA) */
+.hero-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color var(--transition-fast);
+}
+
+.hero-link::after {
+  content: " \2192";
+  transition: transform var(--transition-fast);
+  display: inline-block;
+}
+
+.hero-link:hover {
+  color: var(--accent-primary);
+}
+
+.hero-link:hover::after {
+  transform: translateX(4px);
+}
+
+/* Hero credibility row (social proof) */
+.hero-proof {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.75rem;
+}
+
+.hero-proof li {
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  background: var(--glass-bg);
+  white-space: nowrap;
 }
 
 .btn-cv {
@@ -1960,5 +2007,37 @@ footer {
 .ai-voice-btn.active {
   opacity: 1;
   text-shadow: 0 0 10px var(--accent-primary);
+}
+
+/* ===== Accessibility: Reduced Motion (WCAG 2.3.3) ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Show reveal-on-scroll content immediately, without translate animations */
+  .reveal,
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Stop continuous/looping animations */
+  .player-visualizer .bar,
+  .track-artwork,
+  #preloader,
+  #bg-canvas {
+    animation: none !important;
+  }
+
+  /* The animated 3D background is disabled in JS as well */
+  #bg-canvas {
+    display: none !important;
+  }
 }
 
