@@ -30,3 +30,8 @@ __pycache__/
 # LinkedIn Session
 linkedin_session/
 
+# Local tooling / temp (not part of the site)
+COMMIT_MSG.tmp
+config-hook.cjs
+hook.json
+
