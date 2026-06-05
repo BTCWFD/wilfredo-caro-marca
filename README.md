@@ -30,6 +30,21 @@ npm run build    # genera /dist
 npm run preview  # previsualiza el build
 ```
 
+## Variables de entorno (Netlify → Site settings → Environment variables)
+
+Necesarias para la protección real del contacto y el CV (funciones `unlock`/`cv`):
+
+| Variable | Para qué |
+|----------|----------|
+| `UNLOCK_SECRET` | Cadena aleatoria larga para firmar los tokens (HMAC). **Imprescindible** para que la protección sea segura. |
+| `CONTACT_EMAIL` | Email revelado tras un lead válido (vive solo en el servidor). |
+| `CONTACT_PHONE` | Teléfono revelado tras un lead válido. |
+| `GEMINI_API_KEY` | Clave del chatbot (ya existente). |
+
+> El CV (`private/Wilfredo-CV-2026.pdf`) está **fuera** del sitio publicado y solo se
+> entrega por `/.netlify/functions/cv` con un token válido (10 min) emitido por
+> `/.netlify/functions/unlock` tras validar el formulario.
+
 ## Pendiente de configurar (manual)
 
 - **GA4**: reemplazar `G-XXXXXXXXXX` en `index.html` por el Measurement ID real.

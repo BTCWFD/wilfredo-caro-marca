@@ -1,0 +1,22 @@
+security: proteccion real del contacto y el CV (H4/H5)
+
+Sustituye la "seguridad por oscuridad" por un gating real server-side:
+
+- El CV (Wilfredo-CV-2026.pdf) y el Profile.pdf no usado se mueven a /private,
+  FUERA del sitio publicado (ya no accesibles por URL directa). netlify.toml los
+  incluye en el bundle de funciones (included_files).
+- netlify/functions/unlock.js: valida el lead (campos, email, longitudes), emite
+  un token firmado HMAC-SHA256 con caducidad de 10 min y devuelve email/telefono,
+  que viven SOLO server-side (env CONTACT_EMAIL/CONTACT_PHONE) y ya no en el bundle.
+  CORS restringido a la allowlist.
+- netlify/functions/cv.js: solo transmite el PDF si el token es valido y no ha
+  expirado (verificacion timing-safe); si no, 403.
+- main.js: elimina email/telefono hardcodeados; el contacto se cachea en
+  sessionStorage tras el lead y la descarga del CV pasa por el endpoint con token
+  (maneja expiracion reabriendo el formulario). Mantiene el registro en Netlify
+  Forms para notificaciones.
+- README: documenta UNLOCK_SECRET / CONTACT_EMAIL / CONTACT_PHONE.
+
+Build OK; node --check de unlock.js y cv.js OK; el PDF ya no aparece en dist/.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>

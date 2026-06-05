@@ -243,24 +243,30 @@ const renderContactInfo = () => {
   if (!contactContainer) return;
 
   contactContainer.innerHTML = '';
-  const isUnlocked = localStorage.getItem('cv_unlocked') === 'true';
 
-  if (isUnlocked) {
+  // Contact details are delivered by the server only after a valid lead, and
+  // cached for this browser session. Nothing is hardcoded in the client bundle.
+  let contact = null;
+  try { contact = JSON.parse(sessionStorage.getItem('cv_contact') || 'null'); } catch (e) { contact = null; }
+
+  if (contact && contact.email) {
     const mailLink = document.createElement('a');
-    mailLink.href = 'mailto:wilfredwfd86@gmail.com';
+    mailLink.href = `mailto:${contact.email}`;
     mailLink.className = 'btn btn-primary';
     mailLink.style.textTransform = 'lowercase';
     mailLink.style.letterSpacing = '0.5px';
-    mailLink.textContent = 'wilfredwfd86@gmail.com';
-    
-    const telLink = document.createElement('a');
-    telLink.href = 'tel:+573219723513';
-    telLink.className = 'btn btn-outline';
-    telLink.style.borderRadius = '30px';
-    telLink.textContent = '+57 321 972 35 13';
+    mailLink.textContent = contact.email;
 
     contactContainer.appendChild(mailLink);
-    contactContainer.appendChild(telLink);
+
+    if (contact.phone) {
+      const telLink = document.createElement('a');
+      telLink.href = `tel:${String(contact.phone).replace(/[^\d+]/g, '')}`;
+      telLink.className = 'btn btn-outline';
+      telLink.style.borderRadius = '30px';
+      telLink.textContent = contact.phone;
+      contactContainer.appendChild(telLink);
+    }
   } else {
     const unlockBtn = document.createElement('button');
     unlockBtn.id = 'contact-unlock-btn';
@@ -921,28 +927,53 @@ const cvFormError = document.getElementById('cv-form-error');
 const cvFormSubmit = document.getElementById('cv-form-submit');
 const cvSubmitText = document.getElementById('cv-submit-text');
 
-// Helper to trigger direct download
-const triggerCvDownload = () => {
-  const link = document.createElement('a');
-  link.href = '/Wilfredo-CV-2026.pdf';
-  link.download = 'Wilfredo-CV-2026.pdf';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+// Open the lead-capture modal
+const openCvModal = () => {
+  if (cvModal) {
+    cvModal.classList.remove('hidden');
+    if (cvFormError) cvFormError.classList.add('hidden');
+    if (cvModalForm) cvModalForm.reset();
+  }
 };
 
-// Check if already unlocked on load
+// Download the CV through the token-gated serverless endpoint.
+// If the session token is missing or expired, fall back to the lead form.
+const triggerCvDownload = async () => {
+  const token = sessionStorage.getItem('cv_token');
+  if (!token) {
+    openCvModal();
+    return;
+  }
+  try {
+    const res = await fetch(`/.netlify/functions/cv?token=${encodeURIComponent(token)}`);
+    if (!res.ok) {
+      // Token expired or invalid -> require a fresh lead.
+      sessionStorage.removeItem('cv_token');
+      openCvModal();
+      return;
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Wilfredo-CV-2026.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.warn('CV download failed:', err);
+    openCvModal();
+  }
+};
+
 if (cvDownloadBtn) {
   cvDownloadBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (localStorage.getItem('cv_unlocked') === 'true') {
+    if (sessionStorage.getItem('cv_token')) {
       triggerCvDownload();
     } else {
-      if (cvModal) {
-        cvModal.classList.remove('hidden');
-        cvFormError.classList.add('hidden');
-        cvModalForm.reset();
-      }
+      openCvModal();
     }
   });
 }
@@ -1004,7 +1035,7 @@ if (cvModalForm) {
     const loadingText = currentLang === 'es' ? 'Procesando...' : currentLang === 'ja' ? '送信中...' : 'Processing...';
     cvSubmitText.textContent = loadingText;
 
-    // Send payload using AJAX to Netlify Forms
+    // 1) Record the lead in Netlify Forms (for notifications) — best effort.
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -1016,45 +1047,54 @@ if (cvModalForm) {
         'purpose': purposeVal
       }).toString()
     })
-    .then((response) => {
+    // 2) Validate the lead server-side and obtain the contact + a CV token.
+    .then(() => fetch('/.netlify/functions/unlock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: nameVal, email: emailVal, company: companyVal, purpose: purposeVal })
+    }))
+    .then(async (response) => {
       // Restore submit button state
       cvFormSubmit.disabled = false;
       cvFormSubmit.classList.remove('btn-disabled');
       const originalText = (translations[currentLang] && translations[currentLang]['cv_submit_btn']) || 'Submit & Download';
       cvSubmitText.textContent = originalText;
 
-      if (response.ok) {
-        trackEvent('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
-        // Cache download unlock status (no PII persisted in localStorage)
-        localStorage.setItem('cv_unlocked', 'true');
+      if (!response.ok) throw new Error('Unlock request failed');
+      const data = await response.json();
+      if (!data || !data.token) throw new Error('No token returned');
 
-        // Re-render contact details in the footer
-        renderContactInfo();
+      trackEvent('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
 
-        // Show Success Toast
-        const modalWrap = document.getElementById('cv-modal-content-wrap');
-        const successToast = document.getElementById('cv-success-toast');
-        if (modalWrap && successToast) {
-          modalWrap.classList.add('hidden');
-          successToast.classList.remove('hidden');
-          
-          setTimeout(() => {
-            // Trigger file download & close modal
-            triggerCvDownload();
-            closeCvModal();
-            // Reset for future
-            setTimeout(() => {
-              modalWrap.classList.remove('hidden');
-              successToast.classList.add('hidden');
-            }, 500);
-          }, 1500);
-        } else {
-          // Fallback if elements are missing
+      // Cache token + contact for THIS session only (no PII in localStorage).
+      sessionStorage.setItem('cv_token', data.token);
+      sessionStorage.setItem('cv_contact', JSON.stringify({ email: data.email, phone: data.phone }));
+      localStorage.setItem('cv_unlocked', 'true'); // UX hint only; real gate is the token
+
+      // Re-render contact details in the footer
+      renderContactInfo();
+
+      // Show Success Toast
+      const modalWrap = document.getElementById('cv-modal-content-wrap');
+      const successToast = document.getElementById('cv-success-toast');
+      if (modalWrap && successToast) {
+        modalWrap.classList.add('hidden');
+        successToast.classList.remove('hidden');
+
+        setTimeout(() => {
+          // Trigger token-gated file download & close modal
           triggerCvDownload();
           closeCvModal();
-        }
+          // Reset for future
+          setTimeout(() => {
+            modalWrap.classList.remove('hidden');
+            successToast.classList.add('hidden');
+          }, 500);
+        }, 1500);
       } else {
-        throw new Error('Failed Netlify Form submission');
+        // Fallback if elements are missing
+        triggerCvDownload();
+        closeCvModal();
       }
     })
     .catch((error) => {

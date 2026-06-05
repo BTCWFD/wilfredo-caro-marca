@@ -1,0 +1,11 @@
+{
+  "site_id": "f6a66661-1e22-4827-a91d-6af729ab91a1",
+  "hook": {
+    "site_id": "f6a66661-1e22-4827-a91d-6af729ab91a1",
+    "event": "submission_created",
+    "type": "email",
+    "data": {
+      "email": "wilfredwfd86@gmail.com"
+    }
+  }
+}
