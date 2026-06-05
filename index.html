@@ -15,7 +15,12 @@
 
     <!-- SEO & Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Wilfredo Caro | CEO & Tech Innovator</title>
     <meta name="description" content="Portfolio and personal brand of Wilfredo Caro, CEO at VirtuadsAi. Specializing in Deep-Tech, Web3, and Blockchain for digital advertising." />
     <link rel="canonical" href="https://wilfredocaro.com/" />
@@ -117,6 +122,10 @@
           <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
         </ul>
         <div class="nav-right">
+          <button id="wallet-connect" class="wallet-btn" title="Connect Wallet">
+            <span class="wallet-dot" aria-hidden="true"></span>
+            <span id="wallet-label">Connect Wallet</span>
+          </button>
           <div class="lang-switcher">
             <button class="lang-btn active" data-lang="en">EN</button>
             <button class="lang-btn" data-lang="es">ES</button>
@@ -240,6 +249,55 @@
       </div>
     </section>
 
+    <!-- Case Studies Section -->
+    <!--
+      SCAFFOLD: estructura lista. Reemplaza los marcadores [XX] por métricas REALES.
+      No se han inventado cifras. Idealmente, traducir estos textos en src/translations.js (EN/ES/JA).
+    -->
+    <section id="case-studies" class="container reveal-on-scroll">
+      <h2 class="reveal" data-i18n-html>Proven <span class="text-gradient">Impact</span></h2>
+      <p class="section-lead reveal">Resultados, no solo descripciones. (Cifras pendientes de confirmar.)</p>
+      <div class="case-grid">
+
+        <article class="case-card glass-panel reveal">
+          <div class="case-tag">VirtuadsAi · CEO</div>
+          <h3 class="case-problem">El problema</h3>
+          <p>Las marcas globales no podían anunciarse en mundos virtuales por la fricción financiera y la falta de transparencia.</p>
+          <h3 class="case-solution">La solución</h3>
+          <p>Arquitectura de publicidad basada en IA, Web3 y Blockchain que elimina intermediarios y hace medible cada impresión.</p>
+          <div class="case-result">
+            <span class="case-metric">[XX]%</span>
+            <span class="case-metric-label">reducción de fricción financiera <em>(confirmar cifra)</em></span>
+          </div>
+        </article>
+
+        <article class="case-card glass-panel reveal">
+          <div class="case-tag">Orbit · CTO</div>
+          <h3 class="case-problem">El problema</h3>
+          <p>Los entornos de desarrollo en la nube no estaban pensados para móvil, frenando a los equipos que trabajan fuera del escritorio.</p>
+          <h3 class="case-solution">La solución</h3>
+          <p>Interfaz segura y mobile-first que redefine el flujo de trabajo de desarrollo en la nube desde el teléfono.</p>
+          <div class="case-result">
+            <span class="case-metric">[XX]</span>
+            <span class="case-metric-label">métrica clave de Orbit <em>(p. ej. usuarios / tiempo ahorrado — confirmar)</em></span>
+          </div>
+        </article>
+
+        <article class="case-card glass-panel reveal">
+          <div class="case-tag">ExEquine · Blockchain Architect</div>
+          <h3 class="case-problem">El problema</h3>
+          <p>El registro de identidad y pedigrí equino dependía de procesos centralizados y falsificables.</p>
+          <h3 class="case-solution">La solución</h3>
+          <p>Registro descentralizado on-chain donde cada caballo recibe una identidad digital única y verificable.</p>
+          <div class="case-result">
+            <span class="case-metric">[XX]</span>
+            <span class="case-metric-label">identidades / transacciones registradas <em>(confirmar)</em></span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
     <!-- Collaborations Section -->
     <section id="collaborations" class="container reveal-on-scroll">
       <h2 class="reveal" data-i18n="collab_title" data-i18n-html>Collaborations & <span class="text-gradient">Leadership</span></h2>
@@ -332,15 +390,19 @@
           <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="brand" data-i18n="srv_btn">Solicitar Presupuesto</a>
         </div>
 
-        <!-- DJ Presskit -->
-        <div class="service-card glass-panel reveal">
-          <div class="service-icon">🎧</div>
+      </div>
+
+      <!-- DJ Presskit — personal facet, intentionally separate from the B2B/tech offering -->
+      <div class="services-aside glass-panel reveal">
+        <div class="services-aside-icon">🎧</div>
+        <div class="services-aside-text">
           <h3 data-i18n="srv_dj_name">DJ Digital Presskit</h3>
           <p data-i18n="srv_dj_desc">Interactive EPKs with music players, high-res photos, and tech riders for clubs and promoters.</p>
-          <div class="service-price" id="price-dj" data-i18n="srv_price_loading">Loading pricing...</div>
+        </div>
+        <div class="services-aside-cta">
+          <div class="service-price service-price--inline" id="price-dj" data-i18n="srv_price_loading">Loading pricing...</div>
           <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="dj" data-i18n="srv_btn">Solicitar Presupuesto</a>
         </div>
-
       </div>
     </section>
 
@@ -598,6 +660,9 @@
 
     <!-- Floating Buttons Container -->
     <div class="floating-controls">
+      <button id="quote-trigger" class="floating-btn quote-trigger-btn" title="Solicitar presupuesto" aria-label="Solicitar presupuesto">
+        <span class="btn-icon">💬</span>
+      </button>
       <button id="ai-trigger" class="floating-btn ai-trigger-btn" title="Chat with my AI">
         <img src="/wilfredo-portrait.jpg" alt="Wilfredo AI" class="btn-img">
       </button>

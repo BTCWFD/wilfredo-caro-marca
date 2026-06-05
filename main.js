@@ -138,6 +138,61 @@ document.querySelectorAll('.service-modal-trigger').forEach(btn => {
   });
 });
 
+// Floating "Cotizar" button -> open the proposal modal (defaults to web service)
+const quoteTrigger = document.getElementById('quote-trigger');
+if (quoteTrigger) {
+  quoteTrigger.addEventListener('click', () => {
+    trackEvent('quote_cta_click', { source: 'floating' });
+    openServiceModal('web');
+  });
+}
+
+// --- Web3: Connect Wallet (injected EIP-1193 provider, no external deps/RPC) ---
+const walletBtn = document.getElementById('wallet-connect');
+const walletLabel = document.getElementById('wallet-label');
+if (walletBtn && walletLabel) {
+  const shortAddr = (a) => `${a.slice(0, 6)}…${a.slice(-4)}`;
+  const setConnected = (addr) => {
+    walletLabel.textContent = shortAddr(addr);
+    walletBtn.classList.add('connected');
+    walletBtn.title = addr;
+  };
+  const setDisconnected = () => {
+    walletLabel.textContent = 'Connect Wallet';
+    walletBtn.classList.remove('connected');
+    walletBtn.title = 'Connect Wallet';
+  };
+
+  if (window.ethereum) {
+    // Restore session silently if already authorized
+    window.ethereum.request({ method: 'eth_accounts' })
+      .then((accs) => { if (accs && accs[0]) setConnected(accs[0]); })
+      .catch(() => {});
+    if (typeof window.ethereum.on === 'function') {
+      window.ethereum.on('accountsChanged', (accs) => {
+        if (accs && accs[0]) setConnected(accs[0]);
+        else setDisconnected();
+      });
+    }
+  }
+
+  walletBtn.addEventListener('click', async () => {
+    if (!window.ethereum) {
+      window.open('https://metamask.io/download/', '_blank', 'noopener');
+      return;
+    }
+    try {
+      const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (accs && accs[0]) {
+        setConnected(accs[0]);
+        trackEvent('wallet_connect');
+      }
+    } catch (err) {
+      console.warn('Wallet connection rejected or failed.', err);
+    }
+  });
+}
+
 if (srvForm) {
   srvForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -602,6 +657,18 @@ const knowledgeBase = {
     "music": "¡Wilfredo también es DJ! Le apasiona el Deep Tech y el Techno. Puedes escuchar sus mezclas en el reproductor a la derecha.",
     "contacto": "Por favor, desbloquea los detalles de contacto en el pie de página.",
     "default": "¡Esa es una pregunta interesante! Me enfoco en Deep Tech, IA y Web3 (incluyendo Orbit y VirtuadsAi). ¿Podrías especificar qué te gustaría saber sobre la trayectoria de Wilfredo?"
+  },
+  ja: {
+    "who": "私はVirtuadsAiのCEO、OrbitのCTOであり、AIとブロックチェーンを専門とするウィルフレド・カロのAIクローンです。",
+    "virtuadsai": "VirtuadsAiは、AI・Web3・ブロックチェーンを活用してデジタル広告を再設計し、透明性と効率を高める企業です。",
+    "orbit": "Orbitは、ウィルフレドがCTOを務める、クラウド開発環境向けのセキュアなモバイルファースト・インターフェースです。",
+    "exequine": "ExEquineは、ウィルフレドがフルスタック兼ブロックチェーン・アーキテクトとして携わった、ブロックチェーン上の分散型レジストリ・プロジェクトです。",
+    "experience": "ウィルフレドは現在VirtuadsAiのCEO兼OrbitのCTOです。2026年の活動にはExEquineのアーキテクチャやAnti-ObserverでのAIエージェント戦略が含まれます。",
+    "skills": "ウィルフレドの主な専門分野は、人工知能、Web3・ブロックチェーン設計、クラウド開発環境、ビジネス戦略です。",
+    "music": "ウィルフレドはDJでもあります！ディープテックとテクノを得意としています。右側のプレーヤーでミックスを聴けます。",
+    "dj": "ウィルフレドはDJでもあります！ディープテックとテクノを得意としています。右側のプレーヤーでミックスを聴けます。",
+    "contact": "フッターで連絡先情報のロックを解除してください。",
+    "default": "面白いご質問ですね！私はディープテック、AI、Web3（OrbitやVirtuadsAiを含む）に注力しています。ウィルフレドの経歴について何を知りたいか教えていただけますか？"
   }
 };
 

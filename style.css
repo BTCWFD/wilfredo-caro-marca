@@ -2009,6 +2009,144 @@ footer {
   text-shadow: 0 0 10px var(--accent-primary);
 }
 
+/* ===== Connect Wallet button (navbar) ===== */
+.wallet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 30px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  min-height: 38px;
+}
+.wallet-btn:hover { border-color: var(--accent-primary); }
+.wallet-btn .wallet-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--text-secondary);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.wallet-btn.connected { border-color: var(--accent-primary); }
+.wallet-btn.connected .wallet-dot {
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-primary);
+}
+
+/* ===== Services aside (DJ — personal facet, separated from B2B grid) ===== */
+.services-aside {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  opacity: 0.92;
+}
+.services-aside-icon { font-size: 2rem; line-height: 1; }
+.services-aside-text { flex: 1 1 240px; }
+.services-aside-text h3 { font-size: 1.05rem; margin: 0 0 0.25rem; }
+.services-aside-text p { font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
+.services-aside-cta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.service-price--inline { margin: 0; font-size: 1rem; }
+
+/* ===== Case studies ===== */
+.section-lead {
+  text-align: center;
+  color: var(--text-secondary);
+  margin: 0.5rem auto 0;
+  max-width: 560px;
+}
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.case-card { padding: 1.75rem 1.5rem; display: flex; flex-direction: column; }
+.case-tag {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 30px;
+  background: rgba(30, 132, 73, 0.12);
+  color: var(--accent-primary);
+  margin-bottom: 1rem;
+}
+.case-card h3.case-problem,
+.case-card h3.case-solution {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent-secondary);
+  margin: 0.75rem 0 0.25rem;
+}
+.case-card p { font-size: 0.92rem; color: var(--text-secondary); margin: 0; }
+.case-result {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+.case-metric {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.case-metric-label { font-size: 0.8rem; color: var(--text-secondary); }
+.case-metric-label em { opacity: 0.7; }
+
+/* ===== Floating "Cotizar" button ===== */
+.quote-trigger-btn {
+  background: var(--accent-gradient);
+  color: #fff;
+  border-color: transparent;
+}
+.quote-trigger-btn:hover { color: #fff; filter: brightness(1.08); }
+
+/* ===== Mobile modernization (latest Android / iOS) ===== */
+* { -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* Honor display notches / rounded corners via safe-area insets */
+#navbar { padding-top: env(safe-area-inset-top, 0); }
+.floating-controls {
+  bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+  right: calc(30px + env(safe-area-inset-right, 0px));
+}
+.dj-player, .ai-assistant {
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Use small-viewport units where supported to avoid the mobile 100vh jump */
+@supports (height: 100svh) {
+  .hero { min-height: 100svh; }
+}
+
+@media (max-width: 768px) {
+  /* Hide the wallet label to save space; keep the dot + tap target */
+  .wallet-btn { padding: 0.4rem 0.6rem; }
+  .wallet-btn #wallet-label { display: none; }
+  .wallet-btn .wallet-dot { width: 10px; height: 10px; }
+
+  /* Comfortable touch targets (Apple HIG / Material ≈ 44–48px) */
+  .lang-btn { min-width: 40px; min-height: 36px; }
+  .nav-links a { padding: 0.5rem 0; display: inline-block; }
+  .services-aside { flex-direction: column; align-items: flex-start; text-align: left; }
+}
+
 /* ===== Accessibility: Reduced Motion (WCAG 2.3.3) ===== */
 @media (prefers-reduced-motion: reduce) {
   *,
