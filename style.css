@@ -2135,6 +2135,44 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .hero { min-height: 100svh; }
 }
 
+/* Dynamic viewport units for full-screen fixed elements (no URL-bar jump) */
+@supports (height: 100dvh) {
+  #bg-canvas { height: 100dvh; }
+  .modal-overlay { height: 100dvh; }
+  #preloader { height: 100dvh; }
+}
+
+/* Prevent scroll-chaining / accidental pull-to-refresh inside scrollables */
+.ai-chat,
+.modal-overlay,
+.modal-card {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 16px inputs avoid iOS Safari auto-zoom on focus */
+#ai-input,
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  font-size: 16px;
+}
+
+/* Keyboard-aware AI panel: lift the input above the virtual keyboard.
+   --kb-offset is set from the visualViewport API in main.js (0 on desktop). */
+.ai-assistant {
+  padding-bottom: var(--kb-offset, 0px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s, padding-bottom 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  /* Respect the iOS home indicator inside full-screen panels */
+  .ai-input-wrap { padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px)); }
+  .dj-player .custom-player { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)) !important; }
+  /* Landscape notch on the left */
+  .floating-controls { left: auto; }
+}
+
 @media (max-width: 768px) {
   /* Hide the wallet label to save space; keep the dot + tap target */
   .wallet-btn { padding: 0.4rem 0.6rem; }

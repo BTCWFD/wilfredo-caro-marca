@@ -1076,3 +1076,41 @@ if (cvModalForm) {
   });
 }
 
+// --- Mobile: light haptic feedback (Android only; iOS Safari has no Vibration API) ---
+const haptic = (ms = 10) => {
+  if (!prefersReducedMotion && typeof navigator.vibrate === 'function') navigator.vibrate(ms);
+};
+[
+  document.getElementById('player-play-btn'),
+  document.getElementById('ai-send'),
+  document.getElementById('mobile-menu-toggle'),
+  document.getElementById('quote-trigger'),
+  document.getElementById('ai-trigger'),
+].forEach((el) => el && el.addEventListener('click', () => haptic()));
+
+// --- Mobile: keep the AI chat input above the virtual keyboard (visualViewport) ---
+const aiAssistantEl = document.getElementById('ai-assistant');
+if (aiAssistantEl && window.visualViewport) {
+  let vvRaf = 0;
+  const syncKeyboardOffset = () => {
+    cancelAnimationFrame(vvRaf);
+    vvRaf = requestAnimationFrame(() => {
+      const vv = window.visualViewport;
+      // How much of the layout viewport the keyboard is covering at the bottom.
+      const overlap = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop));
+      aiAssistantEl.style.setProperty('--kb-offset', `${overlap}px`);
+    });
+  };
+  window.visualViewport.addEventListener('resize', syncKeyboardOffset);
+  window.visualViewport.addEventListener('scroll', syncKeyboardOffset);
+}
+
+// --- PWA: register the service worker (skip on localhost to keep dev/HMR clean) ---
+if ('serviceWorker' in navigator && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => {
+      console.warn('Service worker registration failed:', err);
+    });
+  });
+}
+

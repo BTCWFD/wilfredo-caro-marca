@@ -15,6 +15,8 @@
 
     <!-- SEO & Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
@@ -180,7 +182,7 @@
           </div>
         </div>
         <div class="about-visual reveal">
-          <img src="/wilfredo-portrait.jpg" alt="Wilfredo Caro profile">
+          <img src="/wilfredo-portrait.jpg" alt="Wilfredo Caro profile" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
@@ -623,7 +625,7 @@
       <div class="ai-header">
         <div class="ai-info">
           <div class="ai-avatar">
-            <img src="/wilfredo-portrait.jpg" alt="Wilfredo AI Avatar">
+            <img src="/wilfredo-portrait.jpg" alt="Wilfredo AI Avatar" loading="lazy" decoding="async">
           </div>
           <div>
             <div class="ai-name">Wilfredo AI</div>
@@ -653,7 +655,7 @@
       </div>
 
       <div class="ai-input-wrap">
-        <input type="text" id="ai-input" placeholder="Type a message..." autocomplete="off">
+        <input type="text" id="ai-input" placeholder="Type a message..." autocomplete="off" inputmode="text" enterkeyhint="send">
         <button id="ai-send" class="ai-send-btn">Send</button>
       </div>
     </div>
@@ -693,15 +695,15 @@
           <form id="cv-modal-form" class="modal-form">
           <div class="form-group">
             <label for="cv-name" data-i18n="cv_label_name">Full Name</label>
-            <input type="text" id="cv-name" name="name" required placeholder="John Doe">
+            <input type="text" id="cv-name" name="name" required placeholder="John Doe" autocomplete="name" enterkeyhint="next">
           </div>
           <div class="form-group">
             <label for="cv-email" data-i18n="cv_label_email">Email Address</label>
-            <input type="email" id="cv-email" name="email" required placeholder="john@example.com">
+            <input type="email" id="cv-email" name="email" required placeholder="john@example.com" inputmode="email" autocomplete="email" enterkeyhint="next">
           </div>
           <div class="form-group">
             <label for="cv-company" data-i18n="cv_label_company">Company / Organization</label>
-            <input type="text" id="cv-company" name="company" required placeholder="Virtuads">
+            <input type="text" id="cv-company" name="company" required placeholder="Virtuads" autocomplete="organization" enterkeyhint="next">
           </div>
           <div class="form-group">
             <label for="cv-purpose" data-i18n="cv_label_purpose">Purpose</label>
@@ -758,11 +760,11 @@
           <input type="hidden" name="form-name" value="service-requests" />
           <div class="form-group">
             <label for="srv-name" data-i18n="cv_label_name">Full Name</label>
-            <input type="text" id="srv-name" name="name" required placeholder="John Doe">
+            <input type="text" id="srv-name" name="name" required placeholder="John Doe" autocomplete="name" enterkeyhint="next">
           </div>
           <div class="form-group">
             <label for="srv-email" data-i18n="cv_label_email">Email Address</label>
-            <input type="email" id="srv-email" name="email" required placeholder="john@example.com">
+            <input type="email" id="srv-email" name="email" required placeholder="john@example.com" inputmode="email" autocomplete="email" enterkeyhint="next">
           </div>
           <div class="form-group">
             <label for="srv-type" data-i18n="srv_label_type">Service</label>
