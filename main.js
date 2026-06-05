@@ -1103,8 +1103,10 @@ if (aiAssistantEl && window.visualViewport) {
   window.visualViewport.addEventListener('scroll', syncKeyboardOffset);
 }
 
-// --- PWA: register the service worker (skip on localhost to keep dev/HMR clean) ---
-if ('serviceWorker' in navigator && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+// --- PWA: register the service worker only for built output (PROD) ---
+// Skips the Vite dev server (HMR stays clean) but runs in `vite preview` and
+// production, so installability can be tested locally via `npm run preview`.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch((err) => {
       console.warn('Service worker registration failed:', err);
