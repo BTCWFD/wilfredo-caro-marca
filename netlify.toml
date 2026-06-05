@@ -8,12 +8,10 @@
 [functions]
   included_files = ["private/**"]
 
-# Canonicalize: 301 the old Netlify subdomain to the brand domain
-[[redirects]]
-  from = "https://wilfredo-caro.netlify.app/*"
-  to = "https://wilfredocaro.com/:splat"
-  status = 301
-  force = true
+# NOTE: the canonical 301 (netlify.app -> wilfredocaro.com) is intentionally
+# removed until the custom domain is configured in Netlify. Once you add
+# wilfredocaro.com as the primary domain, Netlify performs that redirect
+# automatically — no manual rule needed here.
 
 [[headers]]
   for = "/*"
