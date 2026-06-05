@@ -193,7 +193,7 @@
       <div class="projects-grid">
         
         <!-- VirtuadsAi -->
-        <a href="https://virtuadsai-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+        <a href="https://virtuadsai-ui.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-virtuads">
             <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
@@ -221,7 +221,7 @@
         </div>
 
         <!-- ExEquine -->
-        <a href="https://nex-equine-ui.vercel.app/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+        <a href="https://nex-equine-ui.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-equine">
             <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
@@ -320,7 +320,7 @@
         </div>
 
         <!-- Credit Ops -->
-        <a href="https://witty-field-0ff8ede0f.2.azurestaticapps.net/" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+        <a href="https://witty-field-0ff8ede0f.2.azurestaticapps.net/" target="_blank" rel="noopener noreferrer" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-fintech">
             <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
@@ -334,7 +334,7 @@
         </a>
 
         <!-- BeatLink -->
-        <a href="https://beatlink.live/beatlink" target="_blank" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
+        <a href="https://beatlink.live/beatlink" target="_blank" rel="noopener noreferrer" class="project-card glass-panel reveal" style="text-decoration: none; color: inherit;">
           <div class="project-preview p-beatlink">
             <div class="preview-overlay" data-i18n="project_overlay_view">VIEW PROJECT</div>
           </div>
@@ -675,8 +675,9 @@
 
     <!-- Netlify Form capture for CV downloads -->
     <div style="display: none;">
-      <form name="cv-downloads" method="POST" action="/" netlify>
+      <form name="cv-downloads" method="POST" action="/" netlify netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="cv-downloads" />
+        <input type="hidden" name="bot-field" />
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="company" />
@@ -739,8 +740,9 @@
     <script type="module" src="/main.js"></script>
     <!-- Netlify Form capture for Services -->
     <div style="display: none;">
-      <form action='/' method='POST' name='service-requests' data-netlify="true">
+      <form action='/' method='POST' name='service-requests' data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="service-requests" />
+        <input type="hidden" name="bot-field" />
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="service" />

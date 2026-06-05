@@ -1024,11 +1024,9 @@ if (cvModalForm) {
 
       if (response.ok) {
         trackEvent('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
-        // Cache download unlock status
+        // Cache download unlock status (no PII persisted in localStorage)
         localStorage.setItem('cv_unlocked', 'true');
-        localStorage.setItem('cv_lead_name', nameVal);
-        localStorage.setItem('cv_lead_email', emailVal);
-        
+
         // Re-render contact details in the footer
         renderContactInfo();
 

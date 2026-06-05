@@ -1,10 +1,25 @@
 // Netlify Serverless Function: Chat with Wilfredo Caro AI Clone
-const fetch = globalThis.fetch || require('node-fetch');
+// Node 18+ (Netlify default) provides a global fetch — no dependency needed.
+const fetch = globalThis.fetch;
+
+// Only these origins may call the chat function (prevents other sites from
+// abusing the Gemini quota in the user's name).
+const ALLOWED_ORIGINS = [
+  'https://wilfredocaro.com',
+  'https://www.wilfredocaro.com',
+  'https://wilfredo-caro.netlify.app'
+];
+const MAX_MESSAGE_LENGTH = 1000;
 
 exports.handler = async function (event, context) {
+  // Reflect the origin only if it's allow-listed; otherwise send 'null'.
+  const origin = event.headers.origin || event.headers.Origin || '';
+  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : 'null';
+
   // CORS Headers
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Vary': 'Origin',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
@@ -28,12 +43,19 @@ exports.handler = async function (event, context) {
   }
 
   try {
-    const { message } = JSON.parse(event.body);
-    if (!message) {
+    const { message } = JSON.parse(event.body || '{}');
+    if (typeof message !== 'string' || message.trim().length === 0) {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ error: 'Missing message body' })
+        body: JSON.stringify({ error: 'Missing or invalid message' })
+      };
+    }
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return {
+        statusCode: 413,
+        headers,
+        body: JSON.stringify({ error: 'Message too long' })
       };
     }
 
