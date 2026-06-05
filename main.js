@@ -84,9 +84,10 @@ const fetchGeoPricing = async () => {
   }
 
   try {
-    const res = await fetch('https://ipapi.co/json/');
+    // Netlify Edge Function (first-party) — visitor IP never leaves Netlify.
+    const res = await fetch('/api/geo');
     const data = await res.json();
-    const isColombia = data.country_code === 'CO';
+    const isColombia = data.country === 'CO';
     if (toggle) toggle.checked = isColombia;
     updatePrices(isColombia);
   } catch (err) {

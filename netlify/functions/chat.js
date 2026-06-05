@@ -11,6 +11,27 @@ const ALLOWED_ORIGINS = [
 ];
 const MAX_MESSAGE_LENGTH = 1000;
 
+// Best-effort in-memory rate limit (per warm instance). Not a hard guarantee
+// across cold starts / multiple instances — for strict limits use Netlify's
+// native rate limiting — but it cheaply blunts rapid abuse loops from one IP.
+const RATE_LIMIT = 15; // requests
+const RATE_WINDOW_MS = 60 * 1000; // per minute
+const hits = new Map(); // ip -> [timestamps]
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  // opportunistic cleanup to bound memory
+  if (hits.size > 5000) {
+    for (const [k, v] of hits) {
+      if (!v.some((t) => now - t < RATE_WINDOW_MS)) hits.delete(k);
+    }
+  }
+  return recent.length > RATE_LIMIT;
+}
+
 exports.handler = async function (event, context) {
   // Reflect the origin only if it's allow-listed; otherwise send 'null'.
   const origin = event.headers.origin || event.headers.Origin || '';
@@ -39,6 +60,19 @@ exports.handler = async function (event, context) {
       statusCode: 405,
       headers,
       body: JSON.stringify({ error: 'Method Not Allowed' })
+    };
+  }
+
+  // Rate limit per client IP
+  const ip = event.headers['x-nf-client-connection-ip']
+    || event.headers['client-ip']
+    || (event.headers['x-forwarded-for'] || '').split(',')[0].trim()
+    || 'unknown';
+  if (isRateLimited(ip)) {
+    return {
+      statusCode: 429,
+      headers: { ...headers, 'Retry-After': '60' },
+      body: JSON.stringify({ error: 'Too many requests. Please slow down.' })
     };
   }
 
