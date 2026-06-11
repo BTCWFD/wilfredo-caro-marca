@@ -384,7 +384,12 @@
           <h3 data-i18n="srv_web_name">Web & Deep-Tech Dev</h3>
           <p data-i18n="srv_web_desc">Custom web apps, high-conversion landing pages, and Web3 smart contracts architecture.</p>
           <div class="service-price" id="price-web" data-i18n="srv_price_loading">Loading pricing...</div>
-          <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="web" data-i18n="srv_btn">Solicitar Presupuesto</a>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+            <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="web" data-i18n="srv_btn">Solicitar Presupuesto</a>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="300000000" data-ref="WEB-DEV-01">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui">Pagar con Bold</button>
+            <button class="btn btn-outline pay-wenia-btn">Pagar con Cripto (Wenia)</button>
+          </div>
         </div>
 
         <!-- AI Chatbots -->
@@ -393,7 +398,11 @@
           <h3 data-i18n="srv_ai_name">AI Agents & Chatbots</h3>
           <p data-i18n="srv_ai_desc">Intelligent WhatsApp/Web chatbots and automated workflows to scale your customer service.</p>
           <div class="service-price" id="price-ai" data-i18n="srv_price_loading">Loading pricing...</div>
-          <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="ai" data-i18n="srv_btn">Solicitar Presupuesto</a>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+            <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="ai" data-i18n="srv_btn">Solicitar Presupuesto</a>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="150000000" data-ref="AI-AGENT-01">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui">Pagar con Bold</button>
+          </div>
         </div>
 
         <!-- Personal Brand -->
@@ -402,7 +411,11 @@
           <h3 data-i18n="srv_brand_name">Personal Brand Boost</h3>
           <p data-i18n="srv_brand_desc">Strategic positioning, tech storytelling, and digital presence audits for leaders.</p>
           <div class="service-price" id="price-brand" data-i18n="srv_price_loading">Loading pricing...</div>
-          <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="brand" data-i18n="srv_btn">Solicitar Presupuesto</a>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+            <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="brand" data-i18n="srv_btn">Solicitar Presupuesto</a>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="50000000" data-ref="BRAND-01">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui">Pagar con Bold</button>
+          </div>
         </div>
 
       </div>
@@ -416,7 +429,10 @@
         </div>
         <div class="services-aside-cta">
           <div class="service-price service-price--inline" id="price-dj" data-i18n="srv_price_loading">Loading pricing...</div>
-          <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="dj" data-i18n="srv_btn">Solicitar Presupuesto</a>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+            <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="dj" data-i18n="srv_btn">Solicitar Presupuesto</a>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="80000000" data-ref="DJ-EPK-01">Pagar con Wompi/Nequi</button>
+          </div>
         </div>
       </div>
 
@@ -570,8 +586,15 @@
 
         <!-- Calendly inline widget begin -->
         <div class="calendly-inline-widget reveal glass-panel" data-url="https://calendly.com/wilfredo-caro?hide_gdpr_banner=1" style="min-width:320px;height:700px; width: 100%; border-radius: 12px; margin-top: 3rem; overflow: hidden;"></div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-        <!-- Calendly inline widget end -->
+        
+        <!-- Calendly link widget -->
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+        
+        <!-- Wompi Widget -->
+        <script src="https://checkout.wompi.co/widget.js"></script>
+        
+        <script type="module" src="/main.js" defer></script>
         
         <div class="social-links reveal" style="margin-top: 3rem;">
           <a href="https://www.linkedin.com/in/wilfredo-caro/" target="_blank" rel="noopener" title="LinkedIn">
