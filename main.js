@@ -631,6 +631,61 @@ const initBg = () => {
 
 initBg();
 
+// --- Medium Blog Dynamic Fetch ---
+const fetchMediumBlog = async () => {
+  const blogGrid = document.getElementById('blog-grid');
+  if (!blogGrid) return;
+
+  const mediumUsername = '@wilfredocaro';
+  const rssUrl = `https://medium.com/feed/${mediumUsername}`;
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+
+    if (data.status === 'ok' && data.items.length > 0) {
+      blogGrid.innerHTML = ''; // Clear loading text
+      
+      // Get latest 3 posts
+      const posts = data.items.slice(0, 3);
+      
+      posts.forEach(post => {
+        // Extract first image from description if thumbnail is empty
+        let imgUrl = post.thumbnail;
+        if (!imgUrl) {
+          const imgMatch = post.description.match(/<img[^>]+src="([^">]+)"/);
+          imgUrl = imgMatch ? imgMatch[1] : '/og-image.png'; // Fallback
+        }
+
+        const pubDate = new Date(post.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        
+        const cardHTML = `
+          <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="project-card glass-panel" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
+            <div class="project-preview" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center; min-height: 200px;">
+              <div class="preview-overlay">READ ARTICLE</div>
+            </div>
+            <div class="project-info" style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+              <div style="font-size: 0.8rem; color: var(--accent-primary); margin-bottom: 0.5rem;">${pubDate}</div>
+              <h3 style="margin-top: 0; font-size: 1.2rem; line-height: 1.4;">${post.title}</h3>
+              <div class="project-tags" style="margin-top: auto; padding-top: 1rem;">
+                ${post.categories.slice(0, 3).map(cat => `<span>#${cat}</span>`).join('')}
+              </div>
+            </div>
+          </a>
+        `;
+        blogGrid.insertAdjacentHTML('beforeend', cardHTML);
+      });
+    } else {
+      blogGrid.innerHTML = '<p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">No articles published yet. Check back later!</p>';
+    }
+  } catch (err) {
+    console.error('Failed to fetch Medium RSS:', err);
+    blogGrid.innerHTML = '<p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">Failed to load articles.</p>';
+  }
+};
+fetchMediumBlog();
+
 // --- AI Assistant Logic ---
 const aiTrigger = document.getElementById('ai-trigger');
 const aiAssistant = document.getElementById('ai-assistant');

@@ -38,3 +38,4 @@ hook.json
 
 # Local Netlify folder
 .netlify
+.env
