@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /.netlify/
+Disallow: /private/
 
 Sitemap: https://wilfredocaro.com/sitemap.xml

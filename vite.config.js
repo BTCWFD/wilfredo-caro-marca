@@ -11,11 +11,15 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'Wilfredo Caro | Web3 & AI Development',
         short_name: 'W.Caro',
         description: 'Portfolio of Wilfredo Caro, specializing in Deep-Tech, Web3, and AI Bots.',
         theme_color: '#050505',
+        background_color: '#050505',
+        display: 'standalone',
+        orientation: 'portrait',
         icons: [
           {
             src: 'icon-192.png',
@@ -26,6 +30,12 @@ export default defineConfig({
             src: 'icon-512.png',
             sizes: '512x512',
             type: 'image/png'
+          },
+          {
+            src: 'icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
           }
         ]
       }
