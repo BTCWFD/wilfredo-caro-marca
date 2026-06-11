@@ -35,3 +35,6 @@ COMMIT_MSG.tmp
 config-hook.cjs
 hook.json
 
+
+# Local Netlify folder
+.netlify
