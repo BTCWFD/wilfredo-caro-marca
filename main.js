@@ -1,4 +1,14 @@
 import translations from './src/translations.js';
+import { registerSW } from 'virtual:pwa-register';
+
+const updateSW = registerSW({
+  onNeedRefresh() {
+    console.log("New content available, click on reload button to update.");
+  },
+  onOfflineReady() {
+    console.log("App ready to work offline");
+  },
+});
 
 // Accessibility: honor the user's reduced-motion preference across all animations
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
