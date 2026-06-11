@@ -37,9 +37,6 @@ export default defineConfig({
     target: 'es2018',
     rollupOptions: {
       output: {
-        manualChunks: {
-          translations: ['./src/translations.js']
-        }
       }
     }
   },
