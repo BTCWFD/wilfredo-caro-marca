@@ -2023,18 +2023,30 @@ footer {
   color: var(--text-primary);
   font-family: var(--font-main);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
-  min-height: 38px;
+  transition: all var(--transition-fast);
+  animation: walletGlow 2s infinite alternate;
 }
+@keyframes walletGlow {
+  0% { box-shadow: 0 0 5px rgba(232, 29, 45, 0.2); }
+  100% { box-shadow: 0 0 20px rgba(232, 29, 45, 0.6); }
+}
+
+#dj-player-trigger {
+  display: none !important;
+}
+
 .wallet-btn:hover { border-color: var(--accent-primary); }
 .wallet-btn .wallet-dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--text-secondary);
   transition: background var(--transition-fast), box-shadow var(--transition-fast);
 }
-.wallet-btn.connected { border-color: var(--accent-primary); }
+.wallet-btn.connected { 
+  border-color: var(--accent-primary); 
+  animation: none;
+}
 .wallet-btn.connected .wallet-dot {
   background: var(--accent-primary);
   box-shadow: 0 0 8px var(--accent-primary);

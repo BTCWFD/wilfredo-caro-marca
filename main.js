@@ -1239,6 +1239,15 @@ const haptic = (ms = 10) => {
 
 // --- Mobile: keep the AI chat input above the virtual keyboard (visualViewport) ---
 const aiAssistantEl = document.getElementById('ai-assistant');
+
+// Auto-open AI Bot to greet B2B prospects
+if (aiAssistantEl) {
+  setTimeout(() => {
+    aiAssistantEl.classList.remove('minimized');
+    trackEvent('ai_auto_opened');
+  }, 2500);
+}
+
 if (aiAssistantEl && window.visualViewport) {
   let vvRaf = 0;
   const syncKeyboardOffset = () => {
