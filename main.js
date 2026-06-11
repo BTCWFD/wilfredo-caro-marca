@@ -1,14 +1,8 @@
-import translations from './src/translations.js';
-window.translations = translations;
-import { registerSW } from 'virtual:pwa-register';
-
-window.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-window.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-window.trackEvent = (action, params = {}) => {
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', action, params);
-  }
-};
+// main.js — Orquestador de módulos.
+// bootstrap.js se importa primero: define window.trackEvent, window.translations,
+// window.prefersReducedMotion y window.isTouchDevice antes de que cualquier
+// otro módulo se evalúe.
+import './src/modules/bootstrap.js';
 import './src/modules/analytics-1.js';
 import './src/modules/theme.js';
 import './src/modules/pricing.js';
@@ -34,7 +28,7 @@ import './src/modules/haptic.js';
 import './src/modules/viewport.js';
 import './src/modules/payments.js';
 
-// --- PWA: register the service worker only for built output (PROD) ---
+// PWA: register the service worker only for built output (PROD)
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch((err) => {
