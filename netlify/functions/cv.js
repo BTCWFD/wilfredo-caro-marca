@@ -5,7 +5,10 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const SECRET = process.env.UNLOCK_SECRET || 'dev-only-insecure-secret-change-me';
+const SECRET = process.env.UNLOCK_SECRET;
+if (!SECRET) {
+  throw new Error('FATAL: UNLOCK_SECRET environment variable is missing.');
+}
 const PDF_NAME = 'Wilfredo-CV-2026.pdf';
 
 function sign(payloadB64) {

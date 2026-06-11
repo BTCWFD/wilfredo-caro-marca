@@ -9,9 +9,22 @@ const SwipeToDeploy = ({ onDeploy }) => {
   const containerRef = useRef(null);
   const thumbRef = useRef(null);
 
-  const maxDrag = containerRef.current && thumbRef.current 
-    ? containerRef.current.offsetWidth - thumbRef.current.offsetWidth - 10 
-    : 200; // fallback
+  const [maxDrag, setMaxDrag] = useState(200);
+
+  useEffect(() => {
+    const updateMaxDrag = () => {
+      if (containerRef.current && thumbRef.current) {
+        setMaxDrag(containerRef.current.offsetWidth - thumbRef.current.offsetWidth - 10);
+      }
+    };
+    updateMaxDrag();
+    window.addEventListener('resize', updateMaxDrag);
+    window.addEventListener('orientationchange', updateMaxDrag);
+    return () => {
+      window.removeEventListener('resize', updateMaxDrag);
+      window.removeEventListener('orientationchange', updateMaxDrag);
+    };
+  }, []);
 
   const handleDragStart = (e) => {
     if (isDeployed) return;
@@ -22,6 +35,9 @@ const SwipeToDeploy = ({ onDeploy }) => {
 
   const handleDragMove = (e) => {
     if (!isDragging || isDeployed) return;
+    if (e.cancelable) {
+      e.preventDefault();
+    }
     const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
     let newX = clientX - startX;
     
@@ -57,17 +73,20 @@ const SwipeToDeploy = ({ onDeploy }) => {
       window.addEventListener('mouseup', handleDragEnd);
       window.addEventListener('touchmove', handleDragMove, { passive: false });
       window.addEventListener('touchend', handleDragEnd);
+      window.addEventListener('touchcancel', handleDragEnd);
     } else {
       window.removeEventListener('mousemove', handleDragMove);
       window.removeEventListener('mouseup', handleDragEnd);
       window.removeEventListener('touchmove', handleDragMove);
       window.removeEventListener('touchend', handleDragEnd);
+      window.removeEventListener('touchcancel', handleDragEnd);
     }
     return () => {
       window.removeEventListener('mousemove', handleDragMove);
       window.removeEventListener('mouseup', handleDragEnd);
       window.removeEventListener('touchmove', handleDragMove);
       window.removeEventListener('touchend', handleDragEnd);
+      window.removeEventListener('touchcancel', handleDragEnd);
     };
   }, [isDragging, currentX, maxDrag]);
 

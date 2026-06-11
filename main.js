@@ -1158,11 +1158,14 @@ if (cvModalForm) {
       }).toString()
     })
     // 2) Validate the lead server-side and obtain the contact + a CV token.
-    .then(() => fetch('/.netlify/functions/unlock', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: nameVal, email: emailVal, company: companyVal, purpose: purposeVal })
-    }))
+    .then(() => {
+      const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value || '';
+      return fetch('/.netlify/functions/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: nameVal, email: emailVal, company: companyVal, purpose: purposeVal, turnstileToken })
+      });
+    })
     .then(async (response) => {
       // Restore submit button state
       cvFormSubmit.disabled = false;
