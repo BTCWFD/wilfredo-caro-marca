@@ -56,4 +56,3 @@ Para cada error en consola, pantalla en blanco o anomalía visual documentada po
 - [ ] El subagente `browser` certifica que las consolas en `dev` y `preview` están libres de excepciones o errores 404 durante la navegación profunda.
 - [ ] Se genera un documento final `browser_audit_fixes.md` con las capturas/rutas testeadas y una lista de los commits/cambios realizados para corregir los bugs detectados.
 </USER_REQUEST>
-

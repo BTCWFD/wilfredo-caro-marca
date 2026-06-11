@@ -32,7 +32,6 @@ import './src/modules/floating-ui.js';
 import './src/modules/cv-download.js';
 import './src/modules/haptic.js';
 import './src/modules/viewport.js';
-import './src/modules/pwa:-47.js';
 import './src/modules/payments.js';
 
 // --- PWA: register the service worker only for built output (PROD) ---
