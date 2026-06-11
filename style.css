@@ -1166,14 +1166,14 @@ footer {
   bottom: 20px;
   right: 20px;
   width: 320px;
-  background: rgba(10, 10, 11, 0.85); /* Slightly darker glass */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05); /* Premium glass */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
   z-index: 9990;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.3s;
   transform-origin: bottom right;
 }

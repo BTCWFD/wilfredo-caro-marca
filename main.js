@@ -571,10 +571,32 @@ const initBg = () => {
 
   let animationFrameId;
   let isVisible = true;
+  
+  // Interaction state
+  let targetRotationX = 0;
+  let targetRotationY = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+
+  // Listeners for interaction
+  document.addEventListener('mousemove', (event) => {
+    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    targetRotationY = mouseX * 0.2;
+    targetRotationX = -mouseY * 0.2;
+  });
+
+  document.addEventListener('scroll', () => {
+    targetRotationX += window.scrollY * 0.0001;
+  });
 
   const animate = () => {
     if (!isVisible) return;
     animationFrameId = requestAnimationFrame(animate);
+
+    // Smooth rotation interpolation
+    scene.rotation.y += (targetRotationY - scene.rotation.y) * 0.05;
+    scene.rotation.x += (targetRotationX - scene.rotation.x) * 0.05;
 
     const positionsArray = geometry.attributes.position.array;
     
