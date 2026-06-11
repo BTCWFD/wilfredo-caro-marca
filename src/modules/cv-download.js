@@ -1,4 +1,5 @@
 // --- CV Download Guard and Modal Logic ---
+import { renderContactInfo } from './contact-info.js';
 const cvDownloadBtn = document.getElementById('cv-download-btn');
 const cvModal = document.getElementById('cv-modal');
 const cvModalClose = document.getElementById('cv-modal-close');

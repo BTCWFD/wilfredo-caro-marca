@@ -1,5 +1,5 @@
 // --- Dynamic Contact Info Block ---
-const renderContactInfo = () => {
+export const renderContactInfo = () => {
   const contactContainer = document.getElementById('contact-info-block');
   if (!contactContainer) return;
 

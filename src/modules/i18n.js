@@ -1,4 +1,5 @@
 // --- Multilingual (i18n) Logic ---
+import { renderContactInfo } from './contact-info.js';
 const langButtons = document.querySelectorAll('.lang-btn');
 const translatableElements = document.querySelectorAll('[data-i18n]');
 

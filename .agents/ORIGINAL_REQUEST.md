@@ -56,3 +56,22 @@ Para cada error en consola, pantalla en blanco o anomalía visual documentada po
 - [ ] El subagente `browser` certifica que las consolas en `dev` y `preview` están libres de excepciones o errores 404 durante la navegación profunda.
 - [ ] Se genera un documento final `browser_audit_fixes.md` con las capturas/rutas testeadas y una lista de los commits/cambios realizados para corregir los bugs detectados.
 </USER_REQUEST>
+
+## Follow-up — 2026-06-11T23:16:35Z
+
+<USER_REQUEST>
+ATENCIÓN ORQUESTADOR: Los bugs del Milestone 3 YA FUERON CORREGIDOS directamente por el agente padre. No es necesario spawnar un worker para los fixes de `srvForm` y `trackEvent`. 
+
+**Correcciones ya aplicadas y en master (commit `363ba26`):**
+1. `ReferenceError: srvForm is not defined` → El bloque fue movido de `web3.js` a `service-modal.js` donde `srvForm` sí está en scope.
+2. `TypeError: window.trackEvent is not a function` → Se creó `src/modules/bootstrap.js` que define todas las utilidades globales (`window.trackEvent`, `window.translations`, `window.prefersReducedMotion`, `window.isTouchDevice`) y se importa como el PRIMER módulo en `main.js`, resolviendo el bug de hoisting de ES Modules.
+3. Import inválido `pwa:-47.js` → Eliminado de `main.js`.
+4. `const quoteTrigger` faltante → Añadido a `service-modal.js`.
+5. `npm run build` confirma ✓ build exitoso en 400ms (34 módulos).
+
+**Acción recomendada para el Milestone 3:**
+- Marcar todos los bugs como RESUELTOS.
+- Avanzar al **Milestone 4: Verificación Final** usando el subagente `browser` para confirmar consola limpia en `npm run preview`.
+- Generar el reporte final `browser_audit_fixes.md` (ya existe una versión inicial que puede ser actualizada).
+</USER_REQUEST>
+
