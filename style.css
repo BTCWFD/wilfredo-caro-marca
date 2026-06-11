@@ -1074,13 +1074,6 @@ footer {
 @media (min-width: 769px) { /* Only on desktop */
   body { cursor: none; }
   a, button, input { cursor: none; }
-  
-  /* Hover states for interactive elements */
-  a:hover ~ .cursor-outline, button:hover ~ .cursor-outline {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(30, 132, 73, 0.1);
-  }
 }
 
 /* Preloader */
@@ -1983,7 +1976,7 @@ footer {
 
 /* Custom Magnetic Cursor Hover */
 .cursor-hover {
-  transform: scale(1.5);
+  transform: translate(-50%, -50%) scale(1.5);
   background-color: rgba(30, 132, 73, 0.2);
   border-color: var(--accent-primary);
 }

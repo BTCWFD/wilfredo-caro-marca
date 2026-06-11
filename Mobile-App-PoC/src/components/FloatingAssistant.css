@@ -1,6 +1,6 @@
 .floating-assistant-container {
   position: fixed;
-  bottom: 20px;
+  bottom: calc(20px + var(--kb-offset, 0px));
   right: 20px;
   z-index: 1000;
   display: flex;
