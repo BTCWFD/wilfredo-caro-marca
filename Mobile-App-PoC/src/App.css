@@ -1,0 +1,80 @@
+.app-container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* Background elements for glass effect to show */
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff00cc 0%, transparent 70%);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.app-container::after {
+  content: '';
+  position: absolute;
+  bottom: 100px;
+  left: -50px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+  opacity: 0.2;
+  z-index: -1;
+}
+
+.app-header {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #fff, var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.app-header p {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.dashboard {
+  padding: 1.5rem;
+}
+
+.dashboard h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard p {
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.action-area {
+  margin-top: auto;
+  padding-bottom: 2rem;
+}
