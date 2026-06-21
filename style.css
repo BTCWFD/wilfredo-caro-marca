@@ -795,6 +795,8 @@ footer {
 .p-antigravity { background: linear-gradient(135deg, #050505 0%, #1a1a1a 100%); position: relative; }
 .p-antigravity::after { content: 'AI'; position: absolute; font-size: 5rem; opacity: 0.1; font-weight: 800; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--accent-primary); }
 .p-brave { background: linear-gradient(135deg, #fb542b 0%, #343546 100%); } /* Brave Colors */
+.p-ovacion { background: linear-gradient(135deg, #2a0a3e 0%, #b8862b 100%); position: relative; } /* Web3 deportes: violeta -> oro */
+.p-ovacion::after { content: '⚽'; position: absolute; font-size: 4.5rem; opacity: 0.14; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .p-fintech { background: linear-gradient(135deg, #2e1c0a 0%, #84491e 100%); }
 .p-beatlink { background: linear-gradient(135deg, #1c0a2e 0%, #491e84 100%); }
 
