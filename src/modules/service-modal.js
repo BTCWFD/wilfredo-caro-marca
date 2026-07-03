@@ -70,6 +70,23 @@ if (srvForm) {
       });
 
       if (res.ok) {
+        // Save request to localStorage for local CRM
+        try {
+          const localLeads = JSON.parse(localStorage.getItem('local_leads') || '[]');
+          localLeads.push({
+            id: Date.now(),
+            name: formData.get('name') || '',
+            email: formData.get('email') || '',
+            service: formData.get('service') || '',
+            country: formData.get('country') || '',
+            details: formData.get('details') || '',
+            date: new Date().toISOString()
+          });
+          localStorage.setItem('local_leads', JSON.stringify(localLeads));
+        } catch (e) {
+          console.warn('Could not save lead to localStorage:', e);
+        }
+
         window.trackEvent('generate_lead', {
           form: 'service-requests',
           service: formData.get('service') || 'unknown',

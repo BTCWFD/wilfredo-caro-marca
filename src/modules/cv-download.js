@@ -148,6 +148,22 @@ if (cvModalForm) {
       const data = await response.json();
       if (!data || !data.token) throw new Error('No token returned');
 
+      // Save CV Request to localStorage for local CRM
+      try {
+        const localCvRequests = JSON.parse(localStorage.getItem('local_cv_requests') || '[]');
+        localCvRequests.push({
+          id: Date.now(),
+          name: nameVal,
+          email: emailVal,
+          company: companyVal,
+          purpose: purposeVal,
+          date: new Date().toISOString()
+        });
+        localStorage.setItem('local_cv_requests', JSON.stringify(localCvRequests));
+      } catch (e) {
+        console.warn('Could not save CV request to localStorage:', e);
+      }
+
       window.trackEvent('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
 
       // Cache token + contact for THIS session only (no PII in localStorage).

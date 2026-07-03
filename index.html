@@ -125,6 +125,7 @@
         <div class="logo">W<span class="text-gradient">.</span>Caro</div>
         <ul class="nav-links">
           <li><a href="#about" data-i18n="nav_about">About</a></li>
+          <li><a href="#ai-orchestration" data-i18n="nav_orchestration">AI Orchestration</a></li>
           <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
           <li><a href="#services" data-i18n="nav_services">Services</a></li>
           <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
@@ -136,10 +137,19 @@
             <span class="wallet-dot" aria-hidden="true"></span>
             <span id="wallet-label">Connect Wallet</span>
           </button>
-          <div class="lang-switcher">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="es">ES</button>
-            <button class="lang-btn" data-lang="ja">JA</button>
+          <div class="lang-switcher-dropdown">
+            <button class="lang-dropdown-toggle" id="lang-dropdown-toggle" aria-haspopup="true" aria-expanded="false" title="Switch Language">
+              🌐 <span id="current-lang-label">English</span> <span class="arrow">▼</span>
+            </button>
+            <ul class="lang-dropdown-menu" id="lang-dropdown-menu" aria-labelledby="lang-dropdown-toggle">
+              <li><button class="lang-btn" data-lang="en">🇺🇸 English</button></li>
+              <li><button class="lang-btn" data-lang="es">🇪🇸 Español</button></li>
+              <li><button class="lang-btn" data-lang="ja">🇯🇵 日本語</button></li>
+              <li><button class="lang-btn" data-lang="zh">🇨🇳 简体中文</button></li>
+              <li><button class="lang-btn" data-lang="ko">🇰🇷 한국어</button></li>
+              <li><button class="lang-btn" data-lang="ru">🇷🇺 Русский</button></li>
+              <li><button class="lang-btn" data-lang="ar">🇸🇦 العربية (RTL)</button></li>
+            </ul>
           </div>
           <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
             <span class="icon-sun">☀️</span>
@@ -192,6 +202,28 @@
         <div class="about-visual reveal">
           <img src="/wilfredo-portrait.jpg" alt="Wilfredo Caro profile" loading="lazy" decoding="async">
         </div>
+      </div>
+    </section>
+
+    <!-- AI Agent Orchestration (sección destacada) -->
+    <section id="ai-orchestration" class="container reveal-on-scroll">
+      <h2 class="reveal" data-i18n="orch_title" data-i18n-html>AI Agent <span class="text-gradient">Orchestration</span></h2>
+      <p class="orch-lead reveal" data-i18n="orch_lead">I orchestrate swarms of AI agents and take them to production with observability, governance and mobile mission control.</p>
+      <div class="orch-grid">
+        <a href="https://github.com/BTCWFD/antigravity-monitor" target="_blank" rel="noopener noreferrer" class="orch-card glass-panel reveal" style="text-decoration:none;color:inherit;">
+          <div class="orch-badge">FLAGSHIP</div>
+          <h3>Antigravity Monitor</h3>
+          <p data-i18n="orch_monitor_pitch">"Datadog for AI agent swarms": real-time observability of Antigravity subagents — hierarchy reconstruction, live anti-pattern detection, PII redaction, 3D coworking view and an Electron desktop app.</p>
+          <div class="project-tags"><span>#AIAgents</span><span>#Observability</span><span>#Governance</span></div>
+          <span class="orch-cta" data-i18n="orch_cta">View on GitHub →</span>
+        </a>
+        <a href="https://github.com/BTCWFD/ORBIT-APP" target="_blank" rel="noopener noreferrer" class="orch-card glass-panel reveal" style="text-decoration:none;color:inherit;">
+          <div class="orch-badge orch-badge--alt">MOBILE</div>
+          <h3>Orbit</h3>
+          <p data-i18n="orch_orbit_pitch">Mobile-first mission control: a secure bridge phone↔cloud IDE. The Monitor spots an agent going off the rails — you step in from your phone with Orbit.</p>
+          <div class="project-tags"><span>#MobileDev</span><span>#Cloud</span><span>#MissionControl</span></div>
+          <span class="orch-cta" data-i18n="orch_cta">View on GitHub →</span>
+        </a>
       </div>
     </section>
 

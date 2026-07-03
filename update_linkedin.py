@@ -316,7 +316,7 @@ def run():
                             ">Copy Skills List</button>
                         </div>
                         <div style="background: #09090b; padding: 8px; border-radius: 4px; border: 1px solid #1c1c1f; color: #d4d4d8; font-size: 12px;">
-                            \${{skills.map(s => `<span style="display: inline-block; background: #27272a; padding: 2px 6px; border-radius: 12px; margin: 2px; font-size: 11px;">\${{s}}</span>`).join('')}}
+                            \${{skills.map(s => '<span style="display: inline-block; background: #27272a; padding: 2px 6px; border-radius: 12px; margin: 2px; font-size: 11px;">' + s + '</span>').join('')}}
                         </div>
                     </div>
                 `;
