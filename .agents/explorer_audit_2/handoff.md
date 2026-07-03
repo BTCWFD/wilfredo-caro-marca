@@ -1,86 +1,53 @@
-# Handoff Report: Brand Project Codebase Audit (Explorer 2)
+# Handoff Report: Security Audit Completed
 
 ## 1. Observation
-
-Direct observations made on the codebase of Wilfredo Caro's brand project:
-
-### A. Codebase Structure & Build Configuration
-* **`package.json`**: Contains a minimal build setup powered by Vite (`v8.0.4`) and `vite-plugin-pwa` (`v1.3.0`). No external runtime dependencies (like Three.js, Ethers, or Google Analytics) are declared in `package.json` (lines 11-14):
-  ```json
-  "devDependencies": {
-    "vite": "^8.0.4",
-    "vite-plugin-pwa": "^1.3.0"
-  }
-  ```
-* **`vite.config.js`**: Defines the root as `.` and configures the `VitePWA` plugin with `registerType: 'autoUpdate'` and standard manifest details (lines 12-32).
-* **`netlify.toml`**: Bundles a gated PDF directory (`private/**`) into Netlify functions and defines strict security headers (lines 8-26):
-  * Strict-Transport-Security, X-Frame-Options (DENY), X-Content-Type-Options (nosniff), X-XSS-Protection (1; mode=block), Referrer-Policy, Permissions-Policy, and a detailed Content-Security-Policy (CSP) that lists permitted script/style/connect/frame sources.
-* **`vercel.json`**: Configures build command `npm run build` and output directory `dist`.
-* **`config-hook.cjs` & `hook.json`**: Script and JSON structure designed to register a Netlify submission webhook (`submission_created` event targeting `wilfredwfd86@gmail.com`).
-
-### B. Client Interactivity (`main.js`, `index.html`, `style.css`)
-* **Monolithic Interactivity**: `main.js` is a single file of 1331 lines that handles multiple concerns: PWA service worker registration, Google Analytics helper, theme toggle, geo-pricing, Web3 wallet connection, Netlify form submissions, contact details rendering, multilingual (i18n) translation logic, cursor tracking, Three.js 3D background, SoundCloud dynamic blog rendering, AI assistant chatbot, 3D card tilt effect, custom DJ HTML5 player, and haptic feedback.
-* **Translation System**: Centralized in `src/translations.js` (lines 1-275), loaded via an ES module import in `main.js` (line 1), and mapped to HTML elements using the `data-i18n` attribute.
-* **Styling & Themes**: `style.css` (2234 lines) provides dark and light themes using CSS variables (lines 2-36) and features focus-visible outlines for accessibility (lines 99-108).
-
-### C. CDN Dependencies & Integrations
-* **CDN Scripts in `index.html`**:
-  * **Three.js**: Loaded via Cloudflare CDN (line 57) with Subresource Integrity (SRI) attributes.
-  * **Cloudflare Turnstile**: Loaded via `https://challenges.cloudflare.com/turnstile/v0/api.js` (line 54).
-  * **Calendly Widget**: Scripts and stylesheets loaded from `https://assets.calendly.com/assets/external/widget.js` (lines 591-592).
-  * **Wompi Widget**: Loaded via `https://checkout.wompi.co/widget.js` (line 595).
-  * **Google Analytics (GA4)**: Loaded from `https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX` (lines 6-12), using the hardcoded placeholder `G-XXXXXXXXXX`.
-
-### D. Three.js Optimization
-* **Visibility-aware loop**: Animation pauses when the document is hidden via `visibilitychange` (lines 674-682).
-* **Preallocated buffers**: The connection lines between particles are drawn using a single preallocated Float32Array buffer in `THREE.BufferAttribute` with `DynamicDrawUsage` (lines 583-591).
-* **Math optimizations**: Square-distance checks are used instead of `Math.sqrt` to evaluate proximity (line 651).
-* **Reduced motion**: Canvas is hidden entirely if the user prefers reduced motion (lines 539-543).
-
-### E. Web3 Connect Wallet
-* **Injected provider integration**: Direct usage of `window.ethereum` (EIP-1193) in `main.js` (lines 161-228) without importing heavy third-party libraries (e.g. ethers.js or web3.js). Includes listeners for `accountsChanged` and restores existing sessions silently.
-
-### F. Security & Gated Content
-* **Gated CV**: The CV PDF is stored in `private/Wilfredo-CV-2026.pdf` (not public). The Netlify serverless function `cv.js` checks a cryptographically signed HMAC token (issued by `unlock.js` after a valid lead submission) using a timing-safe equality check (`crypto.timingSafeEqual`) (line 20) before streaming the file.
+We have inspected the requested files and documented the following specific code behaviors:
+1. **Web3 Integration (`src/modules/web3.js`):**
+   - Lines 27-32: Directly injects the short address of the connected account into the `innerHTML` of the `#vip-dashboard` element.
+   - Lines 40-51: Quietly recovers/connects accounts without verifying network or chain IDs.
+2. **Payment Gateways (`src/modules/payments.js`):**
+   - Line 15: Uses a hardcoded public key for Wompi sandbox testing.
+   - Lines 5, 12: Reads the payment amount directly from the button's `data-amount` attribute.
+   - Line 6: Uses `Math.random()` to generate the transaction reference.
+   - Lines 17-25: Validates transaction success using client-side callbacks (`transaction.status === 'APPROVED'`).
+   - Lines 37-39: Directly redirects the user to the URL stored in the button's `data-link` attribute without validation.
+3. **Post-Quantum Cryptography:**
+   - No post-quantum cryptographic primitives (such as ML-KEM, Kyber, ML-DSA, or Dilithium) are implemented or executed anywhere in the repository.
+   - Mention of these algorithms exists only as textual marketing claims in system prompts (`chat.js`), knowledge bases (`ai-assistant.js`), and simulated logs (`planner.html`).
+4. **Serverless Functions (`unlock.js` and `cv.js`):**
+   - `unlock.js` lines 10-15: Doesn't throw when `UNLOCK_SECRET` is missing, leading to unhandled runtime TypeError in `makeToken()`.
+   - `unlock.js` lines 38-39: Sets `Access-Control-Allow-Origin` to `'null'` if the request origin is not in the whitelist.
+   - `unlock.js` lines 74-86: Validates Cloudflare Turnstile token via siteverify, but doesn't supply visitor IP, verify hostname, or challenge timestamp.
+   - `cv.js` lines 21-23: Short-circuits comparison if signature lengths differ, causing a timing side-channel leak.
+   - `cv.js` lines 24-26: Performs `JSON.parse` directly on the decoded base64url input without checking size restrictions.
 
 ---
 
 ## 2. Logic Chain
-
-From the direct observations, the following logic chain is constructed:
-
-1. **Maintainability Risk**: Because `main.js` is a monolithic file (1331 lines) containing 12+ separate UI/backend integration concerns, any updates to one feature (e.g., the DJ Audio Player) risk breaking unrelated features (e.g., the Web3 Wallet or AI Assistant). The code would be more maintainable if split into modular, single-responsibility ES modules.
-2. **CDN Vulnerability**: Because critical assets like Three.js, Calendly, and Wompi are loaded directly from external CDNs, any service outage, network failure, or censorship in target regions will break the 3D visual network, scheduling widget, or payment methods. Bundling them via npm packages reduces external point-of-failure risks.
-3. **Google Analytics Defect**: The GA4 configuration in `index.html` relies on a hardcoded placeholder `G-XXXXXXXXXX`. Since this string is not replaced at build time, analytics event tracking will fail in production. Resolving this requires dynamic injection of the Measurement ID via Vite build variables.
-4. **Three.js Performance**: The implementation of the 3D network particle system is highly optimized. By throttling device pixel ratio to 2, scaling down particles for mobile, utilizing preallocated buffers, and using squared distances, the runtime overhead is kept low, preventing CPU-bound frame drops and Garbage Collection (GC) pauses.
-5. **Web3 Lightweight Design**: By utilizing `window.ethereum` directly rather than dragging in heavy libraries like Web3Modal or ethers.js, the developer successfully optimized bundle size and load time, which aligns with CTO performance goals for client-side web loading.
-6. **Lead-Gating Security**: The serverless gated download architecture in `unlock.js` and `cv.js` is highly secure. Moving the PDF to a private folder outside the deploy root prevents direct URL guessing. Signing the token with SHA-256 HMAC and validating it using `timingSafeEqual` prevents signature forging and timing-analysis attacks.
+1. **Wallet Injection & Network Risk:** If a user connects their wallet via a custom/malicious provider, `shortAddr(addr)` may not sanitize HTML characters, allowing DOM-based XSS when parsing the string template. Since chain IDs are never checked, users could sign testnet or incorrect network transactions when real smart contract operations are implemented.
+2. **Payment Bypass:** An attacker can alter the `data-amount` or `data-link` attributes of checkout buttons directly in their browser. Because reference generation is weak and status checks are done entirely client-side, the checkout process can be bypassed.
+3. **Token & Capctha Vulnerabilities:** The serverless functions are vulnerable to DDoS (via large JSON inputs) and timing attacks (via signature comparisons). CORS fallback to `'null'` allows access from sandboxed contexts or local pages. Lack of hostname and timestamp verification in Turnstile validation allows tokens to be replayed.
 
 ---
 
 ## 3. Caveats
-
-* The local system environment was not booted to test runtime performance on actual devices (such as frames-per-second measuring under heavy load).
-* The Netlify Functions were evaluated purely statically based on their source code; their behavior in production depends on environment variables (`UNLOCK_SECRET`, `CONTACT_EMAIL`, `CONTACT_PHONE`, and `GEMINI_API_KEY`) being correctly configured in the Netlify settings.
-* It is assumed that the `private/Wilfredo-CV-2026.pdf` file is present in the build environment as it is required by the serverless function.
+- No access to production Netlify dashboard variables to confirm if they are set.
+- Wompi sandbox mode is assumed to be replaced by live production configurations.
 
 ---
 
 ## 4. Conclusion
-
-The codebase demonstrates high-quality engineering with a focus on modern CSS layout, accessibility, serverless security, and raw Web3 integration. However, to scale the project to enterprise standards, several enhancements should be implemented:
-
-1. **Refactoring (Senior Developer)**: Deconstruct `main.js` into small ES modules (e.g., `ai-chat.js`, `three-bg.js`, `wallet.js`, `audio-player.js`, `geo-pricing.js`) to increase maintainability and testability.
-2. **Dependency Management (DevOps)**: Package Three.js as an npm dependency instead of using an external CDN script tag, allowing Vite to bundle, hash, and optimize the resource.
-3. **Analytics Integration (DevOps)**: Replace the hardcoded `G-XXXXXXXXXX` with `import.meta.env.VITE_GA_ID` to dynamically set the GA4 measurement ID during the deployment pipeline.
-4. **Lazy Loading (Senior Developer)**: Load Three.js dynamically using `import()` only when the canvas enters the viewport, and defer the Calendly script loading until the user requests scheduling, reducing the initial load size.
+The current codebase exhibits multiple security vulnerabilities, architectural flaws, and mismatch between marketing assertions and active code. 
+A comprehensive, line-by-line security analysis and a detailed remediation roadmap are provided in `.agents/explorer_audit_2/report.md`.
 
 ---
 
 ## 5. Verification Method
-
-To verify these conclusions and configurations:
-1. **Build Verification**: Run `npm run build` in the root directory to confirm Vite successfully bundles the assets without compiler errors.
-2. **PWA Check**: Use `npm run preview` to run a local preview and inspect `dist/sw.js` and `dist/manifest.webmanifest` to verify service worker registration.
-3. **Local Functions Test**: Use `netlify dev` to spin up a local simulation of serverless functions and verify `/.netlify/functions/unlock` and `/api/geo` respond correctly.
-4. **GA Key Audit**: Search `dist/index.html` after a build to verify if `G-XXXXXXXXXX` has been replaced by the actual GA key.
+To verify the findings:
+1. **Code Audit:** Inspect `src/modules/web3.js`, `src/modules/payments.js`, `netlify/functions/unlock.js`, and `netlify/functions/cv.js` at the lines indicated in the Observation section.
+2. **Simulated Price Manipulation:** In a browser console on the website, execute:
+   ```javascript
+   document.querySelector('.pay-wompi-btn').setAttribute('data-amount', '100'); // Changes checkout amount to 1 COP
+   ```
+   Click the button and observe that Wompi opens a transaction with a value of $1 COP instead of the official price.
+3. **Turnstile Replay Validation:** Attempt to issue a token by manually invoking the serverless function with a mock Turnstile response token resolved from another site utilizing the same sitekey.

@@ -1,4 +1,12 @@
 // --- Payment Gateways Logic ---
+const getTranslation = (key, fallback) => {
+  const lang = document.documentElement.lang || 'en';
+  if (window.translations && window.translations[lang] && window.translations[lang][key]) {
+    return window.translations[lang][key];
+  }
+  return fallback;
+};
+
 document.querySelectorAll('.pay-wompi-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -18,15 +26,15 @@ document.querySelectorAll('.pay-wompi-btn').forEach(btn => {
         const transaction = result.transaction;
         console.log('Transaction result: ', transaction);
         if (transaction.status === 'APPROVED') {
-          alert('¡Pago aprobado con éxito!');
+          alert(getTranslation('pay_alert_success', 'Payment approved successfully!'));
         } else {
-          alert('El pago no pudo ser procesado o fue cancelado.');
+          alert(getTranslation('pay_alert_failed', 'Payment could not be processed or was cancelled.'));
         }
       });
       window.trackEvent('open_wompi_checkout', { ref: ref });
     } else {
       console.error('Wompi Widget not loaded.');
-      alert('Error cargando la pasarela de pagos. Por favor intenta más tarde.');
+      alert(getTranslation('pay_alert_error', 'Error loading payment gateway. Please try again later.'));
     }
   });
 });
@@ -46,9 +54,9 @@ document.querySelectorAll('.pay-wenia-btn').forEach(btn => {
     window.trackEvent('open_crypto_checkout');
     if (window.ethereum) {
        // Simple fallback to connect wallet if desired, but here we just alert
-       alert('La integración Web3 para pagos en Wenia / USDC está en configuración. Contáctame por Calendly.');
+       alert(getTranslation('pay_alert_wenia_config', 'Web3 integration for Wenia / USDC payments is in configuration. Contact me via Calendly.'));
     } else {
-       alert('Por favor instala MetaMask o una billetera Web3 para pagos Cripto (Wenia).');
+       alert(getTranslation('pay_alert_install_wallet', 'Please install MetaMask or a Web3 wallet for Crypto (Wenia) payments.'));
     }
   });
 });

@@ -6,8 +6,47 @@ const srvTypeSelect = document.getElementById('srv-type');
 const srvCountrySelect = document.getElementById('srv-country');
 const srvToggle = document.getElementById('geo-pricing-toggle');
 
+let srvTriggerElement = null;
+
+const getFocusableElements = (container) => {
+  const elements = Array.from(container.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  ));
+  return elements.filter(el => {
+    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+  });
+};
+
+const srvModalKeydownHandler = (e) => {
+  if (e.key === 'Escape') {
+    closeServiceModal();
+    return;
+  }
+
+  if (e.key === 'Tab') {
+    const focusable = getFocusableElements(srvModal);
+    if (focusable.length === 0) return;
+    
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+
+    if (e.shiftKey) { // Shift + Tab
+      if (document.activeElement === firstFocusable) {
+        lastFocusable.focus();
+        e.preventDefault();
+      }
+    } else { // Tab
+      if (document.activeElement === lastFocusable) {
+        firstFocusable.focus();
+        e.preventDefault();
+      }
+    }
+  }
+};
+
 const openServiceModal = (serviceId) => {
   if (!srvModal) return;
+  srvTriggerElement = document.activeElement;
   if (serviceId && srvTypeSelect) {
     srvTypeSelect.value = serviceId;
   }
@@ -17,12 +56,27 @@ const openServiceModal = (serviceId) => {
   srvModal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   window.trackEvent('open_service_modal', { service: serviceId || 'unknown' });
+
+  // Focus the first input field
+  const firstInput = document.getElementById('srv-name');
+  if (firstInput) {
+    firstInput.focus();
+  }
+
+  document.addEventListener('keydown', srvModalKeydownHandler);
 };
 
 const closeServiceModal = () => {
   if (!srvModal) return;
   srvModal.classList.add('hidden');
   document.body.style.overflow = 'auto';
+
+  document.removeEventListener('keydown', srvModalKeydownHandler);
+
+  if (srvTriggerElement) {
+    srvTriggerElement.focus();
+    srvTriggerElement = null;
+  }
 };
 
 if (srvCloseBtn) srvCloseBtn.addEventListener('click', closeServiceModal);

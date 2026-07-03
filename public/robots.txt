@@ -4,6 +4,8 @@ Disallow: /.netlify/
 Disallow: /private/
 Disallow: /.agents/
 Disallow: /planner.html
+Disallow: /app/
+Disallow: /app/index.html
 
 # Block aggressive AI training scrapers
 User-agent: GPTBot

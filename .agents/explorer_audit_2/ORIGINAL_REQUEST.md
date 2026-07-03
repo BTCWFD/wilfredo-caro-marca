@@ -1,3 +1,17 @@
-## 2026-06-11T22:20:33Z
+## 2026-07-03T11:21:22Z
 
-You are teamwork_preview_explorer (Explorer 2). Your working directory is c:\Users\USER\Wilfredo-Caro-Marca\.agents\explorer_audit_2. Your task is to analyze the codebase of Wilfredo Caro's brand project from the perspectives of CTO, DevOps, and SENIOR Developer. Examine package.json, vite.config.js, index.html, main.js, style.css, and build configuration scripts to evaluate: 1) Technical architecture, code design patterns, readability, and maintainability. 2) Deployment pipelines, PWA configurations (vite-plugin-pwa), CDN dependency risks, Three.js runtime performance, and Google Analytics configuration (GA4). 3) Security, Web3 connect wallet injection logic, and potential performance optimizations (code-splitting, lazy loading). Write your findings to handoff.md in your working directory and notify the parent orchestrator.
+You are explorer_audit_2, a teamwork_preview_explorer agent.
+Your working directory is c:\Users\USER\Wilfredo-Caro-Marca\.agents\explorer_audit_2.
+
+Your mission is to perform a deep technical audit of the following areas:
+1. Web3 Smart Contract Integration: In src/modules/web3.js or other Web3-related files.
+2. Payment Gateways: Wompi, Wenia integration in src/modules/payments.js.
+3. Post-Quantum Algorithms: Implementation of ML-KEM/ML-DSA or potential areas where they should be implemented or are partially implemented.
+4. Static Analysis of Serverless Functions: Static security analysis of netlify/functions/unlock.js and netlify/functions/cv.js to identify injection vulnerabilities, key/token leaks, or Cloudflare Turnstile flaws.
+
+Instructions:
+- Inspect src/modules/web3.js, src/modules/payments.js, netlify/functions/unlock.js, and netlify/functions/cv.js.
+- Document every vulnerability, bug, configuration flaw, or security risk, including line-by-line analysis of failures (pointing out the file and line numbers/ranges where they occur).
+- Draft detailed refactoring/remediation plans.
+- Write your findings to a file named 'report.md' in your working directory (c:\Users\USER\Wilfredo-Caro-Marca\.agents\explorer_audit_2\report.md).
+- Notify the orchestrator when you are done via send_message.

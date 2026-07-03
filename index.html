@@ -77,13 +77,18 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Schema.org (JSON-LD) -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="schema-ld">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Wilfredo Caro",
-      "url": "https://wilfredocaro.com",
-      "jobTitle": ["AI Multi-Agent Systems Architect", "CEO at VirtuadsAi", "CTO at Orbit", "Fullstack & Blockchain Architect"],
+      "url": "https://wilfredocaro.com/",
+      "jobTitle": [
+        "AI Multi-Agent Systems Architect",
+        "CEO at VirtuadsAi",
+        "CTO at Orbit",
+        "Fullstack & Blockchain Architect"
+      ],
       "worksFor": [
         {
           "@type": "Organization",
@@ -101,10 +106,10 @@
         "Artificial Intelligence",
         "Web3",
         "Blockchain",
-        "Deep Tech",
+        "Solidity",
+        "DeFi",
         "Smart Contracts",
-        "Digital Advertising",
-        "Cloud Development Environments"
+        "Digital Advertising"
       ],
       "sameAs": [
         "https://www.linkedin.com/in/wilfredo-caro/",
@@ -116,7 +121,7 @@
         "https://www.tiktok.com/@wilfredwfdcarog",
         "https://www.facebook.com/WILFREDOCAROG/about"
       ],
-      "description": "Wilfredo Caro — AI Multi-Agent Systems Architect. Orquesta enjambres de agentes IA y los lleva a producción con observabilidad, gobernanza y mando móvil. CEO at VirtuadsAi, CTO at Orbit."
+      "description": "Wilfredo Caro — AI Multi-Agent Systems Architect. Specialist in Web3, Solidity, DeFi, and Agent Observability. CEO at VirtuadsAi and CTO at Orbit."
     }
     </script>
   </head>
@@ -330,43 +335,43 @@
       No se han inventado cifras. Idealmente, traducir estos textos en src/translations.js (EN/ES/JA).
     -->
     <section id="case-studies" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n-html>Proven <span class="text-gradient">Impact</span></h2>
-      <p class="section-lead reveal">Resultados medibles y verificables de nuestras integraciones tecnológicas.</p>
+      <h2 class="reveal" data-i18n="proven_impact_title" data-i18n-html>Proven <span class="text-gradient">Impact</span></h2>
+      <p class="section-lead reveal" data-i18n="proven_impact_lead">Resultados medibles y verificables de nuestras integraciones tecnológicas.</p>
       <div class="case-grid">
 
         <article class="case-card glass-panel reveal">
-          <div class="case-tag">VirtuadsAi · CEO</div>
-          <h3 class="case-problem">El problema</h3>
-          <p>Las marcas globales no podían anunciarse en mundos virtuales por la fricción financiera y la falta de transparencia.</p>
-          <h3 class="case-solution">La solución</h3>
-          <p>Arquitectura de publicidad basada en IA, Web3 y Blockchain que elimina intermediarios y hace medible cada impresión.</p>
+          <div class="case-tag" data-i18n="case_virtuads_tag">VirtuadsAi · CEO</div>
+          <h3 class="case-problem" data-i18n="case_virtuads_problem_title">El problema</h3>
+          <p data-i18n="case_virtuads_problem_desc">Las marcas globales no podían anunciarse en mundos virtuales por la fricción financiera y la falta de transparencia.</p>
+          <h3 class="case-solution" data-i18n="case_virtuads_solution_title">La solución</h3>
+          <p data-i18n="case_virtuads_solution_desc">Arquitectura de publicidad basada en IA, Web3 y Blockchain que elimina intermediarios y hace medible cada impresión.</p>
           <div class="case-result">
-            <span class="case-metric">85%</span>
-            <span class="case-metric-label">reducción de fricción financiera en pautas virtuales</span>
+            <span class="case-metric" data-i18n="case_virtuads_metric">85%</span>
+            <span class="case-metric-label" data-i18n="case_virtuads_metric_label">reducción de fricción financiera en pautas virtuales</span>
           </div>
         </article>
 
         <article class="case-card glass-panel reveal">
-          <div class="case-tag">Orbit · CTO</div>
-          <h3 class="case-problem">El problema</h3>
-          <p>Los entornos de desarrollo en la nube no estaban pensados para móvil, frenando a los equipos que trabajan fuera del escritorio.</p>
-          <h3 class="case-solution">La solución</h3>
-          <p>Interfaz segura y mobile-first que redefine el flujo de trabajo de desarrollo en la nube desde el teléfono.</p>
+          <div class="case-tag" data-i18n="case_orbit_tag">Orbit · CTO</div>
+          <h3 class="case-problem" data-i18n="case_orbit_problem_title">El problema</h3>
+          <p data-i18n="case_orbit_problem_desc">Los entornos de desarrollo en la nube no estaban pensados para móvil, frenando a los equipos que trabajan fuera del escritorio.</p>
+          <h3 class="case-solution" data-i18n="case_orbit_solution_title">La solución</h3>
+          <p data-i18n="case_orbit_solution_desc">Interfaz segura y mobile-first que redefine el flujo de trabajo de desarrollo en la nube desde el teléfono.</p>
           <div class="case-result">
-            <span class="case-metric">+40%</span>
-            <span class="case-metric-label">de incremento en productividad al codificar en la nube desde el móvil</span>
+            <span class="case-metric" data-i18n="case_orbit_metric">+40%</span>
+            <span class="case-metric-label" data-i18n="case_orbit_metric_label">de incremento en productividad al codificar en la nube desde el móvil</span>
           </div>
         </article>
 
         <article class="case-card glass-panel reveal">
-          <div class="case-tag">ExEquine · Blockchain Architect</div>
-          <h3 class="case-problem">El problema</h3>
-          <p>El registro de identidad y pedigrí equino dependía de procesos centralizados y falsificables.</p>
-          <h3 class="case-solution">La solución</h3>
-          <p>Registro descentralizado on-chain donde cada caballo recibe una identidad digital única y verificable.</p>
+          <div class="case-tag" data-i18n="case_exequine_tag">ExEquine · Blockchain Architect</div>
+          <h3 class="case-problem" data-i18n="case_exequine_problem_title">El problema</h3>
+          <p data-i18n="case_exequine_problem_desc">El registro de identidad y pedigrí equino dependía de procesos centralizados y falsificables.</p>
+          <h3 class="case-solution" data-i18n="case_exequine_solution_title">La solución</h3>
+          <p data-i18n="case_exequine_solution_desc">Registro descentralizado on-chain donde cada caballo recibe una identidad digital única y verificable.</p>
           <div class="case-result">
-            <span class="case-metric">100%</span>
-            <span class="case-metric-label">trazabilidad inmutable e identidades registradas on-chain con éxito</span>
+            <span class="case-metric" data-i18n="case_exequine_metric">100%</span>
+            <span class="case-metric-label" data-i18n="case_exequine_metric_label">trazabilidad inmutable e identidades registradas on-chain con éxito</span>
           </div>
         </article>
 
@@ -375,11 +380,11 @@
 
     <!-- Thought Leadership (Dynamic Blog) -->
     <section id="blog" class="container reveal-on-scroll">
-      <h2 class="reveal" data-i18n-html>Thought <span class="text-gradient">Leadership</span></h2>
-      <p class="section-lead reveal" style="margin-bottom: 2rem;">Latest insights from my Medium.</p>
+      <h2 class="reveal" data-i18n="thought_leadership_title" data-i18n-html>Thought <span class="text-gradient">Leadership</span></h2>
+      <p class="section-lead reveal" style="margin-bottom: 2rem;" data-i18n="thought_leadership_lead">Latest insights from my Medium.</p>
       <div id="blog-grid" class="projects-grid reveal" style="display: grid; gap: 2rem;">
         <!-- Blog posts will be injected here by main.js -->
-        <p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">Loading latest articles...</p>
+        <p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;" data-i18n="thought_leadership_loading">Loading latest articles...</p>
       </div>
     </section>
 
@@ -438,12 +443,12 @@
       <h2 class="reveal" data-i18n="services_title" data-i18n-html>Business <span class="text-gradient">Solutions</span></h2>
       
       <div class="pricing-toggle-container reveal">
-        <span class="toggle-label">🌍 Global (USD)</span>
+        <span class="toggle-label" data-i18n="pricing_toggle_global">🌍 Global (USD)</span>
         <label class="switch">
           <input type="checkbox" id="geo-pricing-toggle" checked>
           <span class="slider round"></span>
         </label>
-        <span class="toggle-label">🇨🇴 Colombia (COP)</span>
+        <span class="toggle-label" data-i18n="pricing_toggle_local">🇨🇴 Colombia (COP)</span>
       </div>
 
       <div class="services-grid">
@@ -456,9 +461,9 @@
           <div class="service-price" id="price-web" data-i18n="srv_price_loading">Loading pricing...</div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
             <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="web" data-i18n="srv_btn">Solicitar Presupuesto</a>
-            <button class="btn btn-primary pay-wompi-btn" data-amount="300000000" data-ref="WEB-DEV-01">Pagar con Wompi/Nequi</button>
-            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui">Pagar con Bold</button>
-            <button class="btn btn-outline pay-wenia-btn">Pagar con Cripto (Wenia)</button>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="300000000" data-ref="WEB-DEV-01" data-i18n="pay_wompi">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui" data-i18n="pay_bold">Pagar con Bold</button>
+            <button class="btn btn-outline pay-wenia-btn" data-i18n="pay_wenia">Pagar con Cripto (Wenia)</button>
           </div>
         </div>
 
@@ -470,8 +475,8 @@
           <div class="service-price" id="price-ai" data-i18n="srv_price_loading">Loading pricing...</div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
             <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="ai" data-i18n="srv_btn">Solicitar Presupuesto</a>
-            <button class="btn btn-primary pay-wompi-btn" data-amount="150000000" data-ref="AI-AGENT-01">Pagar con Wompi/Nequi</button>
-            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui">Pagar con Bold</button>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="150000000" data-ref="AI-AGENT-01" data-i18n="pay_wompi">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui" data-i18n="pay_bold">Pagar con Bold</button>
           </div>
         </div>
 
@@ -483,8 +488,8 @@
           <div class="service-price" id="price-brand" data-i18n="srv_price_loading">Loading pricing...</div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
             <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="brand" data-i18n="srv_btn">Solicitar Presupuesto</a>
-            <button class="btn btn-primary pay-wompi-btn" data-amount="50000000" data-ref="BRAND-01">Pagar con Wompi/Nequi</button>
-            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui">Pagar con Bold</button>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="50000000" data-ref="BRAND-01" data-i18n="pay_wompi">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-outline pay-bold-btn" data-link="https://bold.co/link/tu-link-aqui" data-i18n="pay_bold">Pagar con Bold</button>
           </div>
         </div>
 
@@ -501,7 +506,7 @@
           <div class="service-price service-price--inline" id="price-dj" data-i18n="srv_price_loading">Loading pricing...</div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
             <a href="#" class="btn btn-outline btn-service service-modal-trigger" data-service="dj" data-i18n="srv_btn">Solicitar Presupuesto</a>
-            <button class="btn btn-primary pay-wompi-btn" data-amount="80000000" data-ref="DJ-EPK-01">Pagar con Wompi/Nequi</button>
+            <button class="btn btn-primary pay-wompi-btn" data-amount="80000000" data-ref="DJ-EPK-01" data-i18n="pay_wompi">Pagar con Wompi/Nequi</button>
           </div>
         </div>
       </div>
@@ -710,7 +715,7 @@
       </div>
       <div class="player-body">
         <!-- SoundCloud Official Iframe Widget -->
-        <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
+        <iframe title="SoundCloud Player" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
           src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/wfd-crypptoland-tv&color=%231e8449&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
         </iframe>
       </div>
@@ -782,7 +787,7 @@
     </div>
 
     <!-- CV Download Modal -->
-    <div id="cv-modal" class="modal-overlay hidden">
+    <div id="cv-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cv-modal-title">
       <div class="modal-card glass-panel">
         <button id="cv-modal-close" class="modal-close-btn" aria-label="Close modal">&times;</button>
         <div id="cv-modal-content-wrap">
@@ -853,7 +858,7 @@
     </div>
 
     <!-- Service Request Modal -->
-    <div id="service-modal" class="modal-overlay hidden">
+    <div id="service-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="service-modal-title">
       <div class="modal-card glass-panel">
         <button id="service-modal-close" class="modal-close-btn" aria-label="Close modal">&times;</button>
         <h3 id="service-modal-title" data-i18n="srv_modal_title">Request a Proposal</h3>

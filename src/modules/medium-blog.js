@@ -1,4 +1,12 @@
 // --- Medium Blog Dynamic Fetch ---
+const getTranslation = (key, fallback) => {
+  const lang = document.documentElement.lang || 'en';
+  if (window.translations && window.translations[lang] && window.translations[lang][key]) {
+    return window.translations[lang][key];
+  }
+  return fallback;
+};
+
 const fetchMediumBlog = async () => {
   const blogGrid = document.getElementById('blog-grid');
   if (!blogGrid) return;
@@ -30,7 +38,7 @@ const fetchMediumBlog = async () => {
         const cardHTML = `
           <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="project-card glass-panel" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
             <div class="project-preview" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center; min-height: 200px;">
-              <div class="preview-overlay">READ ARTICLE</div>
+              <div class="preview-overlay">${getTranslation('blog_read_article', 'READ ARTICLE')}</div>
             </div>
             <div class="project-info" style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column;">
               <div style="font-size: 0.8rem; color: var(--accent-primary); margin-bottom: 0.5rem;">${pubDate}</div>
@@ -44,11 +52,11 @@ const fetchMediumBlog = async () => {
         blogGrid.insertAdjacentHTML('beforeend', cardHTML);
       });
     } else {
-      blogGrid.innerHTML = '<p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">No articles published yet. Check back later!</p>';
+      blogGrid.innerHTML = `<p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">${getTranslation('thought_leadership_no_posts', 'No articles published yet. Check back later!')}</p>`;
     }
   } catch (err) {
     console.error('Failed to fetch Medium RSS:', err);
-    blogGrid.innerHTML = '<p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">Failed to load articles.</p>';
+    blogGrid.innerHTML = `<p style="color: var(--text-secondary); text-align: center; grid-column: 1/-1;">${getTranslation('thought_leadership_failed', 'Failed to load articles.')}</p>`;
   }
 };
 fetchMediumBlog();

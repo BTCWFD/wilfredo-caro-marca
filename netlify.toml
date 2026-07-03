@@ -22,4 +22,73 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com https://assets.calendly.com https://checkout.wompi.co https://translate.googleapis.com https://translate.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com https://www.gstatic.com https://translate.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self' https://www.youtube.com https://challenges.cloudflare.com https://calendly.com https://checkout.wompi.co; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://api.rss2json.com https://production.wompi.co https://sandbox.wompi.co; media-src 'self' https://www.soundhelix.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.googletagmanager.com https://challenges.cloudflare.com https://assets.calendly.com https://checkout.wompi.co https://translate.googleapis.com https://translate.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com https://www.gstatic.com https://translate.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'self' https://www.youtube.com https://w.soundcloud.com https://challenges.cloudflare.com https://calendly.com https://checkout.wompi.co; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://api.rss2json.com https://production.wompi.co https://sandbox.wompi.co; media-src 'self' https://www.soundhelix.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
+
+# Language Redirects based on Accept-Language
+[[redirects]]
+  from = "/"
+  to = "/index.html?lang=es"
+  status = 302
+  conditions = {Language = ["es"]}
+
+[[redirects]]
+  from = "/"
+  to = "/index.html?lang=ja"
+  status = 302
+  conditions = {Language = ["ja"]}
+
+[[redirects]]
+  from = "/"
+  to = "/index.html?lang=zh"
+  status = 302
+  conditions = {Language = ["zh"]}
+
+[[redirects]]
+  from = "/"
+  to = "/index.html?lang=ko"
+  status = 302
+  conditions = {Language = ["ko"]}
+
+[[redirects]]
+  from = "/"
+  to = "/index.html?lang=ru"
+  status = 302
+  conditions = {Language = ["ru"]}
+
+[[redirects]]
+  from = "/"
+  to = "/index.html?lang=ar"
+  status = 302
+  conditions = {Language = ["ar"]}
+
+# Path-based rewrites for clean URLs
+[[redirects]]
+  from = "/es/*"
+  to = "/index.html?lang=es"
+  status = 200
+
+[[redirects]]
+  from = "/ja/*"
+  to = "/index.html?lang=ja"
+  status = 200
+
+[[redirects]]
+  from = "/zh/*"
+  to = "/index.html?lang=zh"
+  status = 200
+
+[[redirects]]
+  from = "/ko/*"
+  to = "/index.html?lang=ko"
+  status = 200
+
+[[redirects]]
+  from = "/ru/*"
+  to = "/index.html?lang=ru"
+  status = 200
+
+[[redirects]]
+  from = "/ar/*"
+  to = "/index.html?lang=ar"
+  status = 200
+

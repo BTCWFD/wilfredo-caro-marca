@@ -1,5 +1,6 @@
 // --- Multilingual (i18n) Logic ---
 import { renderContactInfo } from './contact-info.js';
+import schemas from './schema.js';
 
 const dropdownToggle = document.getElementById('lang-dropdown-toggle');
 const dropdownMenu = document.getElementById('lang-dropdown-menu');
@@ -71,6 +72,27 @@ const updateLanguage = (lang) => {
     }
   }
 
+  // Update canonical URL, og:url, twitter:url
+  const canonicalEl = document.querySelector('link[rel="canonical"]');
+  const targetUrl = lang === 'en' ? 'https://wilfredocaro.com/' : `https://wilfredocaro.com/?lang=${lang}`;
+  if (canonicalEl) {
+    canonicalEl.setAttribute('href', targetUrl);
+  }
+  const ogUrlEl = document.querySelector('meta[property="og:url"]');
+  if (ogUrlEl) {
+    ogUrlEl.setAttribute('content', targetUrl);
+  }
+  const twitterUrlEl = document.querySelector('meta[name="twitter:url"]');
+  if (twitterUrlEl) {
+    twitterUrlEl.setAttribute('content', targetUrl);
+  }
+
+  // Update Schema JSON-LD
+  const schemaScript = document.getElementById('schema-ld');
+  if (schemaScript && schemas && schemas[lang]) {
+    schemaScript.textContent = JSON.stringify(schemas[lang], null, 2).replace(/</g, '\\u003c');
+  }
+
   // Render contact info block
   renderContactInfo();
 };
@@ -103,6 +125,26 @@ langButtons.forEach(btn => {
   });
 });
 
-// Initialize Language
-const savedLang = localStorage.getItem('preferredLang') || 'en';
-updateLanguage(savedLang);
+// Initialize Language from parameter, localStorage, browser language or default 'en'
+const getInitialLanguage = () => {
+  const params = new URLSearchParams(window.location.search);
+  const queryLang = params.get('lang');
+  if (queryLang && langNames[queryLang]) {
+    return queryLang;
+  }
+  
+  const savedLang = localStorage.getItem('preferredLang');
+  if (savedLang && langNames[savedLang]) {
+    return savedLang;
+  }
+
+  const browserLang = (navigator.language || navigator.userLanguage || '').substring(0, 2);
+  if (browserLang && langNames[browserLang]) {
+    return browserLang;
+  }
+
+  return 'en';
+};
+
+const initialLang = getInitialLanguage();
+updateLanguage(initialLang);

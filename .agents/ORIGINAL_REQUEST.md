@@ -115,4 +115,75 @@ Integrity mode: demo
 - [ ] Los leads capturados en el modal de contacto se persisten correctamente en el `localStorage` del navegador.
 </USER_REQUEST>
 
+## Follow-up — 2026-07-03T11:20:03Z
+
+<USER_REQUEST>
+Realizar una auditoría técnica, de marca, UX/UI y funcional profunda y exhaustiva para el portafolio y marca personal de Wilfredo Caro, con reportes detallados y planes de refactorización por especialidad (UX/UI, Blockchain Dev, CTO/Arquitectura, Social Media y Mobile).
+
+Working directory: c:\Users\USER\Wilfredo-Caro-Marca
+Integrity mode: demo
+
+## Requirements
+
+### R1. Auditoría Profunda de UX/UI
+- Analizar minuciosamente la consistencia visual de la paleta de colores cobalto/cian, legibilidad tipográfica y adaptabilidad responsiva.
+- Auditar transiciones de animaciones (preloader, cursor magnético, hovers) e identificar bugs o desalineaciones visuales con planes de mitigación de CLS.
+
+### R2. Auditoría Exhaustiva de Blockchain & DeFi Dev
+- Evaluar a nivel de código la integración de contratos inteligentes Web3, pasarelas de pago (Wompi, Wenia) y la implementación de algoritmos poscuánticos (ML-KEM/ML-DSA).
+- Realizar análisis estático en las funciones serverless de Netlify (`unlock.js`, `cv.js`) para identificar posibles inyecciones, fugas de llaves o fallos de Turnstile.
+
+### R3. Auditoría de Arquitectura Técnica (CTO)
+- Evaluar la modularidad del código de `main.js` y `src/modules/`, dependencias de npm y configuración en `vite.config.js`.
+- Auditar configuraciones de SEO (metadatos, canonical, robots.txt, sitemap.xml) y configuraciones de seguridad (cabeceras CSP, mitigación de DOM-XSS).
+
+### R4. Auditoría de Social Media & Mobile App PoC
+- Auditar la consistencia del planificador y la estructura de bios/copies con respecto al perfil Web3.
+- Analizar a nivel de componentes la app React en `Mobile-App-PoC` (gestión de límites `maxDrag` en `SwipeToDeploy.jsx` y oclusión de teclado en `FloatingAssistant.jsx`).
+
+## Acceptance Criteria
+
+### Reporte de Auditoría Consolidado
+- [ ] Se genera un archivo markdown llamado `auditoria_actualizacion.md` en la raíz del proyecto.
+- [ ] El archivo contiene una sección dedicada para cada una de las 5 especialidades (UX/UI, Blockchain, CTO, Social Media, Mobile) con análisis línea por línea de fallos y planes detallados de refactorización.
+- [ ] Incluye una sección final de "Plan de Acción / TODOs" priorizada para resolver todos los hallazgos críticos.
+</USER_REQUEST>
+
+## Follow-up — 2026-07-03T11:22:33Z
+
+<USER_REQUEST>
+Optimizar el posicionamiento SEO en buscadores y la autoridad de marca digital de Wilfredo Caro en su rol como CEO y fundador Web3, mejorando la indexabilidad técnica del portafolio y diseñando una estrategia de relaciones públicas, contenidos de autoridad y enlaces (backlinks) de alto valor.
+
+Working directory: c:\Users\USER\Wilfredo-Caro-Marca
+Integrity mode: demo
+
+## Requirements
+
+### R1. SEO Técnico On-Page e Indexación
+- Auditar y optimizar metatags HTML, estructura de encabezados (H1-H6) y descripciones de búsqueda en todas las páginas compiladas del portafolio.
+- Configurar datos estructurados JSON-LD diferenciados por idioma (Schema.org de tipo Person, CEO, Specialist) para mejorar fragmentos enriquecidos (rich snippets).
+- Mapear e implementar redirecciones y hreflang para evitar duplicados en la indexación de los 7 idiomas activos.
+
+### R2. Estrategia de Contenidos y SEO Semántico
+- Diseñar un mapa de palabras clave transaccionales e informativas vinculadas a desarrollo Web3, Solidity, DeFi y observabilidad de agentes.
+- Optimizar la semántica del portafolio y del blog incorporando estas palabras clave en títulos, copys y metadescripciones para aumentar la relevancia orgánica.
+
+### R3. Estrategia de Presencia de Marca (Off-Page & Redes)
+- Diseñar plantillas y guías de optimización SEO para perfiles externos (LinkedIn, Medium, GitHub) para consolidar la autoridad de dominio de Wilfredo Caro en internet.
+- Establecer recomendaciones de interlinking (enlaces internos y externos) entre el portafolio, repositorios públicos y perfiles corporativos.
+
+### R4. Estrategia de Relaciones Públicas y Autoridad B2B (PR & B2B Authority)
+- Diseñar una guía estratégica de contenidos de autoridad (liderazgo de opinión) para publicaciones periódicas en Medium y LinkedIn.
+- Estructurar una plantilla y plan de distribución para notas de prensa dirigidas a portales de noticias de tecnología y Web3 de habla hispana e inglesa.
+
+## Acceptance Criteria
+
+### Resultados Verificables
+- [ ] Se genera un informe consolidado `seo_brand_plan.md` en la raíz del proyecto.
+- [ ] La estructura de datos JSON-LD del portafolio se valida exitosamente sin errores de sintaxis.
+- [ ] Todos los hreflang y etiquetas canónicas están correctamente inyectados en la cabecera del portafolio compilado.
+- [ ] El informe incluye un plan estratégico detallado para notas de prensa y backlinks con 5 ejemplos concretos de ganchos editoriales.
+</USER_REQUEST>
+
+
 

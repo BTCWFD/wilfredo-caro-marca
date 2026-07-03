@@ -115,5 +115,40 @@ Integrity mode: demo
 - [ ] Los leads capturados en el modal de contacto se persisten correctamente en el `localStorage` del navegador.
 </USER_REQUEST>
 
+## Follow-up — 2026-07-03T11:20:03Z
+
+<USER_REQUEST>
+Realizar una auditoría técnica, de marca, UX/UI y funcional profunda y exhaustiva para el portafolio y marca personal de Wilfredo Caro, con reportes detallados y planes de refactorización por especialidad (UX/UI, Blockchain Dev, CTO/Arquitectura, Social Media y Mobile).
+
+Working directory: c:\Users\USER\Wilfredo-Caro-Marca
+Integrity mode: demo
+
+## Requirements
+
+### R1. Auditoría Profunda de UX/UI
+- Analizar minuciosamente la consistencia visual de la paleta de colores cobalto/cian, legibilidad tipográfica y adaptabilidad responsiva.
+- Auditar transiciones de animaciones (preloader, cursor magnético, hovers) e identificar bugs o desalineaciones visuales con planes de mitigación de CLS.
+
+### R2. Auditoría Exhaustiva de Blockchain & DeFi Dev
+- Evaluar a nivel de código la integración de contratos inteligentes Web3, pasarelas de pago (Wompi, Wenia) y la implementación de algoritmos poscuánticos (ML-KEM/ML-DSA).
+- Realizar análisis estático en las funciones serverless de Netlify (`unlock.js`, `cv.js`) para identificar posibles inyecciones, fugas de llaves o fallos de Turnstile.
+
+### R3. Auditoría de Arquitectura Técnica (CTO)
+- Evaluar la modularidad del código de `main.js` y `src/modules/`, dependencias de npm y configuración en `vite.config.js`.
+- Auditar configuraciones de SEO (metadatos, canonical, robots.txt, sitemap.xml) y configuraciones de seguridad (cabeceras CSP, mitigación de DOM-XSS).
+
+### R4. Auditoría de Social Media & Mobile App PoC
+- Auditar la consistencia del planificador y la estructura de bios/copies con respecto al perfil Web3.
+- Analizar a nivel de componentes la app React en `Mobile-App-PoC` (gestión de límites `maxDrag` en `SwipeToDeploy.jsx` y oclusión de teclado en `FloatingAssistant.jsx`).
+
+## Acceptance Criteria
+
+### Reporte de Auditoría Consolidado
+- [ ] Se genera un archivo markdown llamado `auditoria_actualizacion.md` en la raíz del proyecto.
+- [ ] El archivo contiene una sección dedicada para cada una de las 5 especialidades (UX/UI, Blockchain, CTO, Social Media, Mobile) con análisis línea por línea de fallos y planes detallados de refactorización.
+- [ ] Incluye una sección final de "Plan de Acción / TODOs" priorizada para resolver todos los hallazgos críticos.
+</USER_REQUEST>
+
+
 
 

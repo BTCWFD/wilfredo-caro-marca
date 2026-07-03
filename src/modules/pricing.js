@@ -1,4 +1,12 @@
 // --- Dynamic Geo-Pricing Logic ---
+const getTranslation = (key, fallback) => {
+  const lang = document.documentElement.lang || 'en';
+  if (window.translations && window.translations[lang] && window.translations[lang][key]) {
+    return window.translations[lang][key];
+  }
+  return fallback;
+};
+
 const fetchGeoPricing = async () => {
   const priceWeb = document.getElementById('price-web');
   const priceAi = document.getElementById('price-ai');
@@ -7,27 +15,21 @@ const fetchGeoPricing = async () => {
 
   if (!priceWeb) return;
 
-  const pricing = {
-    CO: {
-      web: "Desde $1,500,000 COP",
-      ai: "Desde $1,200,000 COP",
-      brand: "Desde $800,000 COP/mes",
-      dj: "Desde $500,000 COP"
-    },
-    Global: {
-      web: "Desde $2,500 USD",
-      ai: "Desde $3,000 USD",
-      brand: "Desde $1,500 USD/mes",
-      dj: "Desde $900 USD"
-    }
-  };
-
   const updatePrices = (isColombia) => {
-    const prices = isColombia ? pricing.CO : pricing.Global;
-    priceWeb.textContent = prices.web;
-    priceAi.textContent = prices.ai;
-    priceBrand.textContent = prices.brand;
-    priceDj.textContent = prices.dj;
+    const prefix = getTranslation('price_prefix', 'Starting from');
+    const suffixMonth = getTranslation('price_suffix_month', '/month');
+
+    if (isColombia) {
+      priceWeb.textContent = `${prefix} $1,500,000 COP`;
+      priceAi.textContent = `${prefix} $1,200,000 COP`;
+      priceBrand.textContent = `${prefix} $800,000 COP${suffixMonth}`;
+      priceDj.textContent = `${prefix} $500,000 COP`;
+    } else {
+      priceWeb.textContent = `${prefix} $2,500 USD`;
+      priceAi.textContent = `${prefix} $3,000 USD`;
+      priceBrand.textContent = `${prefix} $1,500 USD${suffixMonth}`;
+      priceDj.textContent = `${prefix} $900 USD`;
+    }
   };
 
   const toggle = document.getElementById('geo-pricing-toggle');

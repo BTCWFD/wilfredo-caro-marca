@@ -8,12 +8,59 @@ const cvFormError = document.getElementById('cv-form-error');
 const cvFormSubmit = document.getElementById('cv-form-submit');
 const cvSubmitText = document.getElementById('cv-submit-text');
 
+let cvTriggerElement = null;
+
+const getFocusableElements = (container) => {
+  const elements = Array.from(container.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  ));
+  return elements.filter(el => {
+    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+  });
+};
+
+const cvModalKeydownHandler = (e) => {
+  if (e.key === 'Escape') {
+    closeCvModal();
+    return;
+  }
+
+  if (e.key === 'Tab') {
+    const focusable = getFocusableElements(cvModal);
+    if (focusable.length === 0) return;
+    
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+
+    if (e.shiftKey) { // Shift + Tab
+      if (document.activeElement === firstFocusable) {
+        lastFocusable.focus();
+        e.preventDefault();
+      }
+    } else { // Tab
+      if (document.activeElement === lastFocusable) {
+        firstFocusable.focus();
+        e.preventDefault();
+      }
+    }
+  }
+};
+
 // Open the lead-capture modal
 const openCvModal = () => {
   if (cvModal) {
+    cvTriggerElement = document.activeElement;
     cvModal.classList.remove('hidden');
     if (cvFormError) cvFormError.classList.add('hidden');
     if (cvModalForm) cvModalForm.reset();
+    
+    // Focus the first input field
+    const firstInput = document.getElementById('cv-name');
+    if (firstInput) {
+      firstInput.focus();
+    }
+    
+    document.addEventListener('keydown', cvModalKeydownHandler);
   }
 };
 
@@ -63,6 +110,11 @@ if (cvDownloadBtn) {
 const closeCvModal = () => {
   if (cvModal) {
     cvModal.classList.add('hidden');
+    document.removeEventListener('keydown', cvModalKeydownHandler);
+    if (cvTriggerElement) {
+      cvTriggerElement.focus();
+      cvTriggerElement = null;
+    }
   }
 };
 
