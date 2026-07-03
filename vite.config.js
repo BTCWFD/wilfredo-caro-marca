@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import fs from 'fs';
+import translations from './src/translations.js';
 
-// Explicit config so the build is unambiguous.
-// The real entry files live at the project root:
-//   index.html -> /main.js + /style.css  (NOT the old src/ template files)
-//   main.js    -> ./src/translations.js
+// Auto-sync translations.json on Vite config load
+try {
+  fs.writeFileSync('translations.json', JSON.stringify(translations, null, 2), 'utf-8');
+} catch (err) {
+  console.error('Failed to auto-sync translations.json:', err);
+}
+
 export default defineConfig({
   root: '.',
   publicDir: 'public',
@@ -46,6 +51,11 @@ export default defineConfig({
     emptyOutDir: true,
     target: 'es2018',
     rollupOptions: {
+      input: {
+        main: 'index.html',
+        planner: 'planner.html',
+        linkedin_helper: 'linkedin_helper.html'
+      },
       output: {
       }
     }

@@ -148,15 +148,20 @@ if (cvModalForm) {
       const data = await response.json();
       if (!data || !data.token) throw new Error('No token returned');
 
+const sanitizeInput = (val) => {
+  if (typeof val !== 'string') return val;
+  return val.replace(/<[^>]*>/g, '').trim();
+};
+
       // Save CV Request to localStorage for local CRM
       try {
         const localCvRequests = JSON.parse(localStorage.getItem('local_cv_requests') || '[]');
         localCvRequests.push({
           id: Date.now(),
-          name: nameVal,
-          email: emailVal,
-          company: companyVal,
-          purpose: purposeVal,
+          name: sanitizeInput(nameVal),
+          email: sanitizeInput(emailVal),
+          company: sanitizeInput(companyVal),
+          purpose: sanitizeInput(purposeVal),
           date: new Date().toISOString()
         });
         localStorage.setItem('local_cv_requests', JSON.stringify(localCvRequests));

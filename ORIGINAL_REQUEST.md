@@ -75,4 +75,45 @@ ATENCIÓN ORQUESTADOR: Los bugs del Milestone 3 YA FUERON CORREGIDOS directament
 - Generar el reporte final `browser_audit_fixes.md` (ya existe una versión inicial que puede ser actualizada).
 </USER_REQUEST>
 
+## Follow-up — 2026-07-03T10:32:17Z
+
+<USER_REQUEST>
+Optimizar y reestructurar el portafolio y marca personal de Wilfredo Caro para posicionarlo como un desarrollador y arquitecto Web3, Solidity & DeFi de élite, impulsando la adopción y estrellas en GitHub para su producto estrella, Antigravity Monitor.
+
+Working directory: c:\Users\USER\Wilfredo-Caro-Marca
+Integrity mode: demo
+
+## Requirements
+
+### R1. Auditoría Técnica, Seguridad y SEO Web3
+- Establecer y verificar métricas de carga ideales (LCP ~0.8s, FCP ~0.5s, TBT <50ms, CLS 0.01) optimizando assets.
+- Diseñar una lista de control de seguridad: mitigación de DOM-XSS en el portafolio, validación estricta de formularios y protección contra Jailbreaks.
+- Generar una estructura de SEO técnico recomendada: etiquetas canónicas, metadatos Open Graph, Twitter Cards, robots.txt que bloquee scrapers de IA agresivos y sitemap.xml.
+
+### R2. Arquitectura Web y Sistema de Diseño Premium
+- Adaptar las variables de estilo a una estética premium "Space-Tech" en azul cobalto, gris espacial y detalles de luz cian neón.
+- Implementar un sistema de contacto y reserva de consultorías ligero que almacene localmente los leads en `localStorage`.
+
+### R3. Internacionalización a 7 Idiomas
+- Soporte para 7 idiomas: Inglés, Español, Japonés, Chino, Coreano, Ruso y Árabe.
+- Configurar soporte dinámico para Right-to-Left (RTL) para árabe, invirtiendo la dirección de lectura de la página web de manera interactiva.
+
+### R4. Planificador de Contenidos y Dashboard Local (`planner.html`)
+- Crear un archivo interactivo independiente `planner.html` en la raíz del proyecto.
+- Debe incluir:
+  1. **Leads CRM**: Administrador de solicitudes locales.
+  2. **Planificador de Redes**: Con cuadro de redacción y previsualización de LinkedIn en tiempo real.
+  3. **Generador de Prompts de IA**: Compilador de prompts para retratos ejecutivos en Midjourney v6.
+  4. **Simulador de Enjambres**: Simulación interactiva de agentes de marketing Web3 en tiempo real.
+
+## Acceptance Criteria
+
+### Build & Estructura
+- [ ] El proyecto compila limpiamente mediante `npm run build` sin advertencias ni errores.
+- [ ] El archivo `planner.html` es completamente autónomo y funcional localmente desde la raíz.
+- [ ] La dirección del texto cambia dinámicamente a RTL al seleccionar el idioma árabe.
+- [ ] Los leads capturados en el modal de contacto se persisten correctamente en el `localStorage` del navegador.
+</USER_REQUEST>
+
+
 

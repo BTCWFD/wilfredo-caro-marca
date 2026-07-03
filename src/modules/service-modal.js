@@ -48,6 +48,11 @@ if (quoteTrigger) {
   });
 }
 
+const sanitizeInput = (val) => {
+  if (typeof val !== 'string') return val;
+  return val.replace(/<[^>]*>/g, '').trim();
+};
+
 // --- Service Request Form Submission ---
 if (srvForm) {
   srvForm.addEventListener('submit', async (e) => {
@@ -75,11 +80,11 @@ if (srvForm) {
           const localLeads = JSON.parse(localStorage.getItem('local_leads') || '[]');
           localLeads.push({
             id: Date.now(),
-            name: formData.get('name') || '',
-            email: formData.get('email') || '',
-            service: formData.get('service') || '',
-            country: formData.get('country') || '',
-            details: formData.get('details') || '',
+            name: sanitizeInput(formData.get('name') || ''),
+            email: sanitizeInput(formData.get('email') || ''),
+            service: sanitizeInput(formData.get('service') || ''),
+            country: sanitizeInput(formData.get('country') || ''),
+            details: sanitizeInput(formData.get('details') || ''),
             date: new Date().toISOString()
           });
           localStorage.setItem('local_leads', JSON.stringify(localLeads));

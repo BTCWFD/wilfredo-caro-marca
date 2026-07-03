@@ -110,7 +110,9 @@ const translations = {
     collab_overlay_latam: "LATAM STAFF",
     dj_track_name: "Deep Tech Session 2026",
     srv_price_loading: "Loading pricing...",
-    ai_greeting: "Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!"
+    ai_greeting: "Hello! I'm Wilfredo's AI clone. Ask me anything about his work in Deep-Tech, Web3, or even his latest DJ sets!",
+    meta_title: "Wilfredo Caro — AI Multi-Agent Systems Architect | Agent Orchestration & Web3",
+    meta_description: "Wilfredo Caro — AI Multi-Agent Systems Architect. I orchestrate AI agent swarms and deploy them to production with observability, governance, and mobile control. CEO @ VirtuadsAi · CTO @ Orbit."
   },
   es: {
     nav_services: "Servicios",
@@ -223,7 +225,9 @@ const translations = {
     collab_overlay_latam: "STAFF LATAM",
     dj_track_name: "Sesión Deep Tech 2026",
     srv_price_loading: "Cargando precios...",
-    ai_greeting: "¡Hola! Soy el clon de IA de Wilfredo. Pregúntame lo que quieras sobre su trabajo en Deep-Tech, Web3 o incluso sus últimos sets de DJ."
+    ai_greeting: "¡Hola! Soy el clon de IA de Wilfredo. Pregúntame lo que quieras sobre su trabajo en Deep-Tech, Web3 o incluso sus últimos sets de DJ.",
+    meta_title: "Wilfredo Caro — Arquitecto de Sistemas Multi-Agente | Orquestación de Agentes y Web3",
+    meta_description: "Wilfredo Caro — arquitecto de sistemas de múltiples agentes. Orquesto enjambres de agentes IA y los llevo a producción con observabilidad, gobernanza y control móvil. CEO @ VirtuadsAi · CTO @ Orbit."
   },
   ja: {
     nav_services: "サービス",
@@ -336,7 +340,9 @@ const translations = {
     collab_overlay_latam: "中南米スタッフ",
     dj_track_name: "ディープテック・セッション 2026",
     srv_price_loading: "価格を読み込み中...",
-    ai_greeting: "こんにちは！私はウィルフレドのAIクローンです。ディープテック、Web3、最新のDJセットまで、何でも聞いてください！"
+    ai_greeting: "こんにちは！私はウィルフレドのAIクローンです。ディープテック、Web3、最新のDJセットまで、何でも聞いてください！",
+    meta_title: "ウィルフレド・カロ — AIマルチエージェントシステムアーキテクト | エージェントオーケストレーション & Web3",
+    meta_description: "ウィルフレド・カロ — AIマルチエージェントシステムアーキテクト。AIエージェントの群れを組織し、監視、ガバナンス、モバイルコントロールを備えた本番環境に展開します。CEO @ VirtuadsAi · CTO @ Orbit."
   },
   zh: {
     nav_services: "服务",
@@ -449,7 +455,9 @@ const translations = {
     collab_overlay_latam: "中南米团队代表",
     dj_track_name: "Deep Tech 现场专场 2026",
     srv_price_loading: "正在获取当前报价...",
-    ai_greeting: "您好！我是 Wilfredo 的 AI 数字化分身。欢迎向我提问任何关于深科技、Web3 架构或 DJ 混音的问题！"
+    ai_greeting: "您好！我是 Wilfredo 的 AI 数字化分身。欢迎向我提问任何关于深科技、Web3 架构或 DJ 混音的问题！",
+    meta_title: "Wilfredo Caro — AI多智能体系统架构师 | 智能体协同与Web3",
+    meta_description: "Wilfredo Caro — AI多智能体系统架构师。我负责协调AI智能体集群，并将它们部署到具有可观测性、治理和移动控制功能的生产环境中。VirtuadsAi创始人兼CEO · Orbit联合创始人兼CTO。"
   },
   ko: {
     nav_services: "서비스",
@@ -562,7 +570,9 @@ const translations = {
     collab_overlay_latam: "중남미 오퍼레이션",
     dj_track_name: "Deep Tech 2026 스페셜 세션",
     srv_price_loading: "실시간 견적을 가져오는 중...",
-    ai_greeting: "반갑습니다! Wilfredo의 AI 디지털 클론입니다. 딥테크 아키텍처, Web3 시스템 또는 DJ 라인업에 대해 궁금한 점을 질문해 주세요!"
+    ai_greeting: "반갑습니다! Wilfredo의 AI 디지털 클론입니다. 딥테크 아키텍처, Web3 시스템 또는 DJ 라인업에 대해 궁금한 점을 질문해 주세요!",
+    meta_title: "Wilfredo Caro — AI 멀티 에이전트 시스템 아키텍트 | 에이전트 오케스트레이션 & Web3",
+    meta_description: "Wilfredo Caro — AI 멀티 에이전트 시스템 아키텍트. AI 에이전트 스웜을 조율하고 관찰 가능성, 거버넌스 및 모바일 제어 기능을 갖춘 프로덕션 환경에 배포합니다. CEO @ VirtuadsAi · CTO @ Orbit."
   },
   ru: {
     nav_services: "Услуги",
@@ -675,7 +685,9 @@ const translations = {
     collab_overlay_latam: "КОМАНДА ЛАТАМ",
     dj_track_name: "Deep Tech Сет 2026",
     srv_price_loading: "Расчет стоимости...",
-    ai_greeting: "Привет! Я цифровой ИИ-клон Вильфредо. Спросите меня о блокчейне, мониторинге агентов ИИ или диджейских сетах!"
+    ai_greeting: "Привет! Я цифровой ИИ-клон Вильфредо. Спросите меня о блокчейне, мониторинге агентов ИИ или диджейских сетах!",
+    meta_title: "Вильфредо Каро — Архитектор многоагентных систем ИИ | Оркестрация агентов и Web3",
+    meta_description: "Вильфредо Каро — архитектор многоагентных систем ИИ. Я оркеструю рои агентов ИИ и развертываю их в рабочей среде с возможностью наблюдения, управления и мобильного контроля. CEO @ VirtuadsAi · CTO @ Orbit."
   },
   ar: {
     nav_services: "الخدمات",
@@ -788,7 +800,9 @@ const translations = {
     collab_overlay_latam: "فريق أمريكا اللاتينية",
     dj_track_name: "جلسة ديب تيك موسيقية 2026",
     srv_price_loading: "جاري حساب عرض السعر...",
-    ai_greeting: "مرحباً! أنا النسخة الرقمية الذكية لويلفريدو. اسألني عن مشاريعه التقنية، أو البلوكشين، أو حتى مقاطعه الموسيقية كدي جي!"
+    ai_greeting: "مرحباً! أنا النسخة الرقمية الذكية لويلفريدو. اسألني عن مشاريعه التقنية، أو البلوكشين، أو حتى مقاطعه الموسيقية كدي جي!",
+    meta_title: "ويلفريدو كارو — مهندس أنظمة الذكاء الاصطناعي متعددة العملاء | تنسيق العملاء والويب 3",
+    meta_description: "ويلفريدو كارو — مهندس أنظمة ذكاء اصطناعي متعددة العملاء. أقوم بتنسيق مجموعات عملاء الذكاء الاصطناعي ونشرها في الإنتاج من خلال المراقبة والحوكمة والتحكم المحمول. الرئيس التنفيذي لشركة VirtuadsAi · المدير التقني لشركة Orbit."
   }
 };
 

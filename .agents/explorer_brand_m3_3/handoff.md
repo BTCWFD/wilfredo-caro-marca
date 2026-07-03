@@ -1,3 +1,58 @@
+# Handoff Report: planner.html (R4) Draft Implementation
+
+## 1. Observation
+In exploring the workspace and files at `c:\Users\USER\Wilfredo-Caro-Marca`, I observed the following:
+* **Existing File**: The prototype dashboard at `c:\Users\USER\Wilfredo-Caro-Marca\planner.html` (970 lines long) contains the fundamental UI elements, layout tabs, styles, and basic business logic for the Leads CRM, LinkedIn Planner, Midjourney Prompt Generator, and Agent Swarm Simulator.
+* **DOM-XSS Vulnerability (Lines 693-703)**:
+  ```javascript
+  tr.innerHTML = `
+    <td>${dateStr}</td>
+    <td><strong>${entry.name}</strong></td>
+    <td><a href="mailto:${entry.email}" style="color: var(--accent-cyan); text-decoration: none;">${entry.email}</a></td>
+    <td>${typeBadge}</td>
+    <td>${descField}</td>
+    <td>
+      <button class="btn btn-danger btn-sm" onclick="deleteEntry('${entry.entryType}', ${entry.id})" style="padding: 2px 6px; font-size: 0.75rem;">Eliminar</button>
+    </td>
+  `;
+  ```
+  The fields `entry.name`, `entry.email`, `entry.details`, `entry.company`, and `entry.purpose` (which are written to `localStorage` from the contact forms in `src/modules/service-modal.js` and `src/modules/cv-download.js`) are directly interpolated into `tr.innerHTML` without sanitization or HTML escaping. An attacker submitting malicious input containing HTML tags or inline scripts (e.g. `<img src=x onerror=alert(1)>`) would trigger script execution under the site's origin when the dashboard is loaded.
+* **JavaScript CSS Selector Syntax Error (Line 909)**:
+  ```javascript
+  const niche = document.querySelector('name=["niche"]:checked')?.value || 'b2b';
+  ```
+  This line throws a `DOMException` at runtime (`Failed to execute 'querySelector' on 'Document': 'name=["niche"]:checked' is not a valid selector.`) because the square brackets are incorrectly placed. The browser cannot find elements using this selector, which crashes the execution of the Agent Swarm Simulator when the user clicks **"Iniciar Ejecución del Enjambre"**.
+* **Global Theme Variables (style.css, Lines 12-27)**:
+  The workspace defines a premium, deep-tech/space-tech visual design system with colors:
+  * `--bg-color: #08090a` (Deep Space Black)
+  * `--bg-secondary: #0e1013` (Space Slate Gray)
+  * `--accent-primary: #2563eb` (Cobalt Blue)
+  * `--accent-secondary: #00f5ff` (Neon Cyan Light)
+  * Font families: `Inter`, `Outfit`, and `Fira Code`.
+
+---
+
+## 2. Logic Chain
+1. **Security Compliance**: Since the leads CRM is populated by user inputs from forms (e.g., proposals and CV downloads) saved in `localStorage`, these values are untrusted. To secure the app against DOM-XSS, they must be programmatically sanitized/escaped before being outputted via `innerHTML` or rendered as elements.
+2. **Crash Prevention**: To restore functionality to the Agent Swarm Simulator, the invalid selector query at line 909 must be refactored to standard CSS selector syntax: `input[name="niche"]:checked`.
+3. **Interactive Visualization Requirements**: The project milestone M4 asks for an interactive visual simulation of Web3 marketing agents working in real-time, showing messages/logs or a graph.
+   * By replacing the static console-only layout with a live-rendered SVG network diagram that dynamically changes layout based on the number of active agents and highlights nodes/busses in sync with the log sequence, we can achieve high-fidelity interactivity that matches the "premium Space-Tech design" aesthetic.
+4. **Draft Synthesis**: Consolidating these observations and logical requirements leads to the complete, patched, and visually upgraded draft implementation of `planner.html` below.
+
+---
+
+## 3. Caveats
+* **Local-First Constraints**: The dashboard relies completely on `localStorage` keys (`local_leads`, `local_cv_requests`, `local_posts`) and local browser execution.
+* **Browser Compatibility**: The visual node graph requires SVG support and standard browser CSS transitions, which are universally supported by modern target browsers.
+
+---
+
+## 4. Conclusion & Complete Draft Implementation
+The proposed implementation below fixes the CSS query syntax error, introduces an `escapeHTML` helper to completely patch the DOM-XSS vulnerabilities, enhances the AI prompt builder, and implements a real-time, animated SVG Node Graph representing the marketing swarm.
+
+### Proposed Code for `planner.html`
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1281,3 +1336,31 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
   </script>
 </body>
 </html>
+```
+
+---
+
+## 5. Verification Method
+To verify that this implementation is complete, fully functional, and secure:
+
+1. **Verification of DOM-XSS Fix**:
+   * Inject a test script payload into the CRM database via DevTools console:
+     ```javascript
+     localStorage.setItem('local_leads', JSON.stringify([{
+       id: 9999, name: '<img src=x onerror=console.log("DOM-XSS-EXPOSED")>', email: 'xss@test.com', service: 'ai', country: 'CO', details: 'Inject test', date: new Date().toISOString()
+     }]));
+     ```
+   * Reload the dashboard. Inspect the CRM page. Verify that the script does not execute and the raw text (`&lt;img src=x onerror=...&gt;`) is displayed harmlessly.
+2. **Verification of CSS Selector Fix**:
+   * Switch to the **"Simulador Enjambres"** tab.
+   * Click **"Iniciar Ejecución del Enjambre"**.
+   * Confirm that no Javascript errors/DOMExceptions occur in the Developer Console and that the simulation successfully cycles through all 11 phases.
+3. **Verification of SVG Graph Interactivity**:
+   * Slide the **"Número de Agentes Supervisados"** slider. Verify that the SVG diagram automatically recalculates and redraws the network nodes (between 2 and 10 agents) dynamically in real-time.
+   * Run the simulation and confirm that the connections flash and nodes turn cyan, yellow, and green in lockstep with the generated console messages.
+4. **Verification of Build Compatibility**:
+   * Run the compilation:
+     ```powershell
+     npm run build
+     ```
+   * Confirm that Vite successfully processes all assets and that the output in the `dist` directory remains intact.

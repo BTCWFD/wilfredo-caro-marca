@@ -51,6 +51,26 @@ const updateLanguage = (lang) => {
   localStorage.setItem('preferredLang', lang);
   document.documentElement.lang = lang;
 
+  // Dynamically translate SEO headers
+  if (window.translations && window.translations[lang]) {
+    const t = window.translations[lang];
+    if (t.meta_title) {
+      document.title = t.meta_title;
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', t.meta_title);
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitle) twitterTitle.setAttribute('content', t.meta_title);
+    }
+    if (t.meta_description) {
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', t.meta_description);
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', t.meta_description);
+      const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twitterDesc) twitterDesc.setAttribute('content', t.meta_description);
+    }
+  }
+
   // Render contact info block
   renderContactInfo();
 };
