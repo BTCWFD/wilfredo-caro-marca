@@ -10,9 +10,9 @@
   
   <style>
     :root {
-      --bg-color: #08090a;
-      --bg-secondary: #0e1013;
-      --bg-tertiary: #15181e;
+      --bg-color: #020203;
+      --bg-secondary: #0a0a0f;
+      --bg-tertiary: #121218;
       --text-primary: #f8fafc;
       --text-secondary: #cbd5e1;
       --text-muted: #64748b;
@@ -20,13 +20,29 @@
       --accent-cobalt: #2563eb;
       --accent-cyan: #00f5ff;
       --accent-gradient: linear-gradient(135deg, var(--accent-cobalt) 0%, var(--accent-cyan) 100%);
+      --chrome-gradient: linear-gradient(90deg, #555555 0%, #d4d4d4 25%, #ffffff 50%, #b3b3b3 75%, #444444 100%);
       
-      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-bg: rgba(10, 10, 15, 0.45);
       --glass-border: rgba(255, 255, 255, 0.08);
       --glass-border-glow: rgba(0, 245, 255, 0.15);
       
       --transition-fast: 0.2s ease;
       --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes led-pulse {
+      0%, 100% {
+        border-color: rgba(10, 74, 255, 0.6);
+        box-shadow: 0 0 15px rgba(10, 74, 255, 0.4), inset 0 0 5px rgba(10, 74, 255, 0.2);
+      }
+      33% {
+        border-color: rgba(0, 245, 255, 0.8);
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.6), inset 0 0 10px rgba(0, 245, 255, 0.3);
+      }
+      66% {
+        border-color: rgba(255, 0, 127, 0.7);
+        box-shadow: 0 0 15px rgba(255, 0, 127, 0.5), inset 0 0 5px rgba(255, 0, 127, 0.2);
+      }
     }
     
     * {
@@ -46,9 +62,11 @@
     }
     
     header {
-      background: rgba(8, 9, 10, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
+      background: rgba(2, 2, 3, 0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 2px solid;
+      border-image: var(--chrome-gradient) 1;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -158,18 +176,21 @@
     
     /* Global Card Style */
     .panel-card {
-      background: var(--bg-secondary);
+      background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: 16px;
       padding: 1.5rem;
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
       margin-bottom: 2rem;
-      transition: border-color var(--transition-fast);
+      transition: transform var(--transition-smooth), border-color var(--transition-fast), box-shadow var(--transition-fast);
     }
     
     .panel-card:hover {
-      border-color: var(--glass-border-glow);
+      transform: translateY(-4px) scale(1.01);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 15px rgba(0, 245, 255, 0.15);
     }
     
     .card-title {
@@ -467,8 +488,23 @@
       animation: dash 1s linear infinite;
     }
 
+    /* KEM and DSA line classes */
+    .line-kem-active {
+      stroke: #00f5ff !important;
+      stroke-width: 3px !important;
+      stroke-dasharray: 6, 4;
+      animation: dash 0.8s linear infinite;
+    }
+    
+    .line-dsa-active {
+      stroke: #ff007f !important;
+      stroke-width: 3px !important;
+      stroke-dasharray: 6, 4;
+      animation: dash 0.8s linear infinite;
+    }
+
     .node-group circle {
-      transition: fill 0.3s, stroke 0.3s;
+      transition: fill 0.3s, stroke 0.3s, r 0.3s;
     }
 
     .node-active circle {
@@ -488,6 +524,18 @@
 
     .node-success circle {
       fill: #10b981 !important;
+      stroke: #fff !important;
+    }
+
+    /* KEM and DSA node classes */
+    .node-kem-active circle {
+      fill: #00f5ff !important;
+      stroke: #fff !important;
+      filter: url(#glow-cyan) !important;
+    }
+    
+    .node-dsa-active circle {
+      fill: #ff007f !important;
       stroke: #fff !important;
     }
   </style>
@@ -714,7 +762,7 @@
           <button class="btn btn-accent" id="btn-start-simulation" style="width: 100%;">⚡ Iniciar Ejecución del Enjambre</button>
         </div>
         
-        <div class="panel-card" style="display: flex; flex-direction: column;">
+        <div class="panel-card" style="display: flex; flex-direction: column; animation: led-pulse 8s infinite;">
           <div class="card-title">💻 Consola de Monitorización y ROI Estimado</div>
           
           <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; flex: 1;">
@@ -1063,7 +1111,7 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
       drawSwarmGraph(parseInt(simAgentsSlider.value));
     });
 
-    // SVG Node Swarm Visualizer Graph
+    // SVG Node Swarm Visualizer Graph with PQC animated pathways
     const drawSwarmGraph = (numAgents) => {
       const svg = document.getElementById('swarm-svg');
       if (!svg) return;
@@ -1119,7 +1167,7 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
         });
       }
       
-      // Render connection paths
+      // Render connection paths and pulse dots
       for (let i = 1; i < nodes.length; i++) {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         path.setAttribute('x1', supervisor.x);
@@ -1130,6 +1178,25 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
         path.setAttribute('stroke-width', '2');
         path.setAttribute('id', `link-agent-${nodes[i].id}`);
         svg.appendChild(path);
+        
+        // Create a pulse dot for the connection representing ML-KEM/ML-DSA transitions
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('cx', supervisor.x);
+        dot.setAttribute('cy', supervisor.y);
+        dot.setAttribute('r', '4');
+        dot.setAttribute('fill', 'transparent'); // hidden by default
+        dot.setAttribute('id', `pulse-dot-agent-${nodes[i].id}`);
+        
+        const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+        animate.setAttribute('dur', '0.8s');
+        animate.setAttribute('repeatCount', 'indefinite');
+        animate.setAttribute('path', `M ${supervisor.x} ${supervisor.y} L ${nodes[i].x} ${nodes[i].y}`);
+        animate.setAttribute('fill', 'freeze');
+        animate.setAttribute('begin', 'indefinite');
+        animate.setAttribute('id', `animate-dot-agent-${nodes[i].id}`);
+        
+        dot.appendChild(animate);
+        svg.appendChild(dot);
       }
       
       // Render nodes
@@ -1175,10 +1242,19 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
       
       // Reset Node Graph styling
       document.querySelectorAll('.node-group').forEach(el => {
-        el.classList.remove('node-active', 'node-supervisor-active', 'node-warn', 'node-success');
+        el.classList.remove('node-active', 'node-supervisor-active', 'node-warn', 'node-success', 'node-kem-active', 'node-dsa-active');
       });
       document.querySelectorAll('line').forEach(el => {
-        el.classList.remove('line-active');
+        el.classList.remove('line-active', 'line-kem-active', 'line-dsa-active');
+      });
+      
+      // Stop all active dot animations first
+      document.querySelectorAll('circle[id^="pulse-dot-"]').forEach(dot => {
+        dot.setAttribute('fill', 'transparent');
+        const anim = dot.querySelector('animateMotion');
+        if (anim) {
+          try { anim.endElement(); } catch(e) {}
+        }
       });
       
       const budget = parseFloat(simBudgetSlider.value);
@@ -1190,17 +1266,16 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
       
       let step = 0;
       const logs = [
-        { text: `[SISTEMA] Inicializando enjambre de ${agents} agentes en VirtuadsAi Core...`, activeNode: 'supervisor', type: 'info' },
-        { text: `[SEGURIDAD] Estableciendo canal protegido poscuántico (ML-KEM/Kyber) entre nodos...`, activeNode: 'agent-1', type: 'success' },
-        { text: `[CONEXIÓN] Orbit cargado en smartphone. Mando remoto de contingencia listo.`, activeNode: 'supervisor', type: 'info' },
-        { text: `[MONITOR] Antigravity Monitor observando variables de ejecución.`, activeNode: 'supervisor', type: 'info' },
-        { text: `[AGENTE_ADS] Escaneando palabras clave del nicho de mercado y analizando competidores...`, activeNode: 'agent-3', type: 'info' },
-        { text: `[AGENTE_COPY] Generando copys de storytelling en 7 idiomas y variaciones estructurales...`, activeNode: 'agent-2', type: 'info' },
-        { text: `[AGENTE_LEADS] Mapeando leads de tomadores de decisiones a través de API cifradas...`, activeNode: 'agent-4', type: 'info' },
-        { text: `[SEGURIDAD] PII Redaction activo: 4 credenciales de API bloqueadas en canal de logs.`, activeNode: 'agent-1', type: 'success' },
-        { text: `[MONITOR] Advertencia: Agente 3 mostrando latencia de llamada de red. Auto-detención prevenida.`, activeNode: 'agent-3', type: 'warn' },
-        { text: `[SISTEMA] Sincronizando flujos y analítica con portal de supervisión...`, activeNode: 'supervisor', type: 'info' },
-        { text: `[COMPLETO] Campaña simulada finalizada con éxito. Métricas compiladas.`, activeNode: 'all', type: 'success' }
+        { text: `[SISTEMA] Inicializando enjambre de ${agents} agentes en VirtuadsAi Core...`, activeNode: 'supervisor', type: 'info', state: 'normal' },
+        { text: `[ML-KEM-768] Generando clave efímera Kyber-768 en Supervisor. Solicitando encapsulamiento...`, activeNode: 'agent-1', type: 'info', state: 'kem' },
+        { text: `[ML-KEM-768] Desencapsulamiento de secreto compartido establecido de forma segura con Nodo 1.`, activeNode: 'agent-1', type: 'success', state: 'kem' },
+        { text: `[CONEXIÓN] Orbit conectado. Canal seguro poscuántico establecido exitosamente.`, activeNode: 'supervisor', type: 'info', state: 'normal' },
+        { text: `[ML-DSA-65] Creando firma digital Dilithium-65 en Supervisor para autorizar tareas de pauta...`, activeNode: 'supervisor', type: 'info', state: 'dsa' },
+        { text: `[ML-DSA-65] Firma de contingencia validada en Agente_Copywriter (Nodo 2) -> Estado: VÁLIDO.`, activeNode: 'agent-2', type: 'success', state: 'dsa' },
+        { text: `[AGENTE_ADS] Optimizando palabras clave de campaña para el nicho seleccionado...`, activeNode: 'agent-3', type: 'info', state: 'normal' },
+        { text: `[SEGURIDAD] PII Redaction activo: Filtro interceptor bloqueó 2 claves de API expuestas en logs.`, activeNode: 'agent-1', type: 'success', state: 'normal' },
+        { text: `[MONITOR] Advertencia: Alta latencia en Agente 3. Antigravity Monitor aplicando contingencia.`, activeNode: 'agent-3', type: 'warn', state: 'normal' },
+        { text: `[COMPLETO] Simulación finalizada. Registros firmados digitalmente (ML-DSA-65) and securizados (ML-KEM-768).`, activeNode: 'all', type: 'success', state: 'normal' }
       ];
 
       const addTerminalLine = (text, type = 'info') => {
@@ -1221,15 +1296,29 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
           
           // Animate the visual SVG graph
           document.querySelectorAll('.node-group').forEach(el => {
-            el.classList.remove('node-active', 'node-supervisor-active', 'node-warn');
+            el.classList.remove('node-active', 'node-supervisor-active', 'node-warn', 'node-kem-active', 'node-dsa-active');
           });
           document.querySelectorAll('line').forEach(el => {
-            el.classList.remove('line-active');
+            el.classList.remove('line-active', 'line-kem-active', 'line-dsa-active');
+          });
+          
+          // Stop all active dot animations first
+          document.querySelectorAll('circle[id^="pulse-dot-"]').forEach(dot => {
+            dot.setAttribute('fill', 'transparent');
+            const anim = dot.querySelector('animateMotion');
+            if (anim) {
+              try { anim.endElement(); } catch(e) {}
+            }
           });
           
           if (currentLog.activeNode === 'supervisor') {
             const superEl = document.getElementById('node-supervisor');
-            if (superEl) superEl.classList.add('node-supervisor-active');
+            if (superEl) {
+              superEl.classList.add('node-supervisor-active');
+              if (currentLog.state === 'dsa') {
+                superEl.classList.add('node-dsa-active');
+              }
+            }
           } else if (currentLog.activeNode === 'all') {
             document.querySelectorAll('.node-group').forEach(el => {
               el.classList.add('node-success');
@@ -1239,15 +1328,47 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
             const linkEl = document.getElementById(`link-${currentLog.activeNode}`);
             const superEl = document.getElementById('node-supervisor');
             
+            if (superEl) superEl.classList.add('node-supervisor-active');
+            
             if (nodeEl) {
               if (currentLog.type === 'warn') {
                 nodeEl.classList.add('node-warn');
+              } else if (currentLog.state === 'kem') {
+                nodeEl.classList.add('node-kem-active');
+              } else if (currentLog.state === 'dsa') {
+                nodeEl.classList.add('node-dsa-active');
               } else {
                 nodeEl.classList.add('node-active');
               }
             }
-            if (linkEl) linkEl.classList.add('line-active');
-            if (superEl) superEl.classList.add('node-supervisor-active');
+            
+            if (linkEl) {
+              if (currentLog.state === 'kem') {
+                linkEl.classList.add('line-kem-active');
+              } else if (currentLog.state === 'dsa') {
+                linkEl.classList.add('line-dsa-active');
+              } else {
+                linkEl.classList.add('line-active');
+              }
+            }
+            
+            // Activate the SVG pulse dot
+            if (currentLog.activeNode !== 'supervisor' && currentLog.activeNode !== 'all') {
+              const dot = document.getElementById(`pulse-dot-${currentLog.activeNode}`);
+              if (dot) {
+                if (currentLog.state === 'kem') {
+                  dot.setAttribute('fill', '#00f5ff'); // cyan for ML-KEM
+                } else if (currentLog.state === 'dsa') {
+                  dot.setAttribute('fill', '#ff007f'); // magenta for ML-DSA
+                } else {
+                  dot.setAttribute('fill', 'rgba(255, 255, 255, 0.5)'); // fallback
+                }
+                const anim = document.getElementById(`animate-dot-${currentLog.activeNode}`);
+                if (anim) {
+                  try { anim.beginElement(); } catch(e) {}
+                }
+              }
+            }
           }
           
           step++;
@@ -1267,7 +1388,7 @@ Y si algo sale mal, Orbit te permite intervenir desde tu smartphone con firmas d
           addTerminalLine(`[ÉXITO] ROI Estimado final: ${roiCalculated}%. Leads esperados: ${leadsCalculated}/mes.`, 'success');
           
           document.querySelectorAll('.node-group').forEach(el => {
-            el.classList.remove('node-active', 'node-supervisor-active', 'node-warn');
+            el.classList.remove('node-active', 'node-supervisor-active', 'node-warn', 'node-kem-active', 'node-dsa-active');
             el.classList.add('node-success');
           });
         }

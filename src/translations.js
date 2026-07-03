@@ -153,7 +153,13 @@ const translations = {
     pay_alert_failed: "Payment could not be processed or was cancelled.",
     pay_alert_error: "Error loading payment gateway. Please try again later.",
     pay_alert_wenia_config: "Web3 integration for Wenia / USDC payments is in configuration. Contact me via Calendly.",
-    pay_alert_install_wallet: "Please install MetaMask or a Web3 wallet for Crypto (Wenia) payments."
+    pay_alert_install_wallet: "Please install MetaMask or a Web3 wallet for Crypto (Wenia) payments.",
+    nav_orchestration: "AI Orchestration",
+    orch_title: "AI Agent <span class='text-gradient'>Orchestration</span>",
+    orch_lead: "I orchestrate swarms of AI agents and take them to production with observability, governance and mobile mission control.",
+    orch_monitor_pitch: "'Datadog for AI agent swarms': real-time observability of Antigravity subagents — hierarchy reconstruction, live anti-pattern detection, PII redaction, 3D coworking view and an Electron desktop app.",
+    orch_orbit_pitch: "Mobile-first mission control: a secure bridge phone↔cloud IDE. The Monitor spots an agent going off the rails — you step in from your phone with Orbit.",
+    orch_cta: "View on GitHub →"
   },
   es: {
     nav_services: "Servicios",
@@ -309,7 +315,13 @@ const translations = {
     pay_alert_failed: "El pago no pudo ser procesado o fue cancelado.",
     pay_alert_error: "Error cargando la pasarela de pagos. Por favor intenta más tarde.",
     pay_alert_wenia_config: "La integración Web3 para pagos en Wenia / USDC está en configuración. Contáctame por Calendly.",
-    pay_alert_install_wallet: "Por favor instala MetaMask o una billetera Web3 para pagos Cripto (Wenia)."
+    pay_alert_install_wallet: "Por favor instala MetaMask o una billetera Web3 para pagos Cripto (Wenia).",
+    nav_orchestration: "Orquestación de IA",
+    orch_title: "Orquestación de <span class='text-gradient'>Agentes de IA</span>",
+    orch_lead: "Orquesto enjambres de agentes de IA y los llevo a producción con observabilidad, gobernanza y control de misión móvil.",
+    orch_monitor_pitch: "'Datadog para enjambres de agentes de IA': observabilidad en tiempo real de subagentes Antigravity — reconstrucción de jerarquía, detección de anti-patrones en vivo, redacción de PII, vista de coworking 3D y app de escritorio Electron.",
+    orch_orbit_pitch: "Control de misión móvil-first: un puente seguro teléfono↔IDE en la nube. El Monitor detecta un agente descarrilándose — tú intervienes desde tu teléfono con Orbit.",
+    orch_cta: "Ver en GitHub →"
   },
   ja: {
     nav_services: "サービス",
@@ -465,7 +477,13 @@ const translations = {
     pay_alert_failed: "支払いを処理できなかったか、キャンセルされました。",
     pay_alert_error: "決済ゲートウェイの読み込み中にエラーが発生しました。後でもう一度お試しください。",
     pay_alert_wenia_config: "Wenia / USDC支払いのWeb3統合は現在設定中です。Calendlyからご連絡ください。",
-    pay_alert_install_wallet: "暗号資産 (Wenia) 決済を利用するには、MetaMaskまたはWeb3ウォレットをインストールしてください。"
+    pay_alert_install_wallet: "暗号資産 (Wenia) 決済を利用するには、MetaMaskまたはWeb3ウォレットをインストールしてください。",
+    nav_orchestration: "AIオーケストレーション",
+    orch_title: "AIエージェント<span class='text-gradient'>オーケストレーション</span>",
+    orch_lead: "AIエージェントのエンバブル（群れ）を組織し、監視、ガバナンス、およびモバイルミッションコントロールを使用して本番環境に導入します。",
+    orch_monitor_pitch: "「AIエージェント群のためのDatadog」：Antigravityサブエージェントのリアルタイムな監視能力 — 階層の再構築、ライブのアンチパターン検出、PIIの非表示化、3Dコワーキングビュー、およびElectronデスクトップアプリ。",
+    orch_orbit_pitch: "モバイルファーストのミッションコントロール：スマートフォンとクラウドIDEを繋ぐ安全なブリッジ。モニターが暴走したエージェントを検知すると、スマートフォンからOrbitで介入できます。",
+    orch_cta: "GitHubで表示 →"
   },
   zh: {
     nav_services: "服务",
@@ -621,7 +639,13 @@ const translations = {
     pay_alert_failed: "付款无法处理或已取消。",
     pay_alert_error: "加载支付网关出错。请稍后再试。",
     pay_alert_wenia_config: "Wenia / USDC 支付的 Web3 整合正在配置中。请通过 Calendly 与我联系。",
-    pay_alert_install_wallet: "请安装 MetaMask 或 Web3 钱包以进行加密货币 (Wenia) 支付。"
+    pay_alert_install_wallet: "请安装 MetaMask 或 Web3 钱包以进行加密货币 (Wenia) 支付。",
+    nav_orchestration: "AI 编排",
+    orch_title: "AI 智能体<span class='text-gradient'>编排</span>",
+    orch_lead: "我负责编排 AI 智能体群，并将其部署到生产环境中，具备可观测性、治理和移动端任务控制。",
+    orch_monitor_pitch: "“面向 AI 智能体群的 Datadog”：Antigravity 子智能体的实时可观测性 —— 层次重构、实时反模式检测、个人可识别信息（PII）脱敏、3D 协同办公视图以及封装的 Electron 桌面应用。",
+    orch_orbit_pitch: "移动优先的任务控制：连接手机与云端开发环境的安全桥梁。当监视器发现智能体偏离轨道时，您可以通过手机上的 Orbit 进行干预。",
+    orch_cta: "在 GitHub 上查看 →"
   },
   ko: {
     nav_services: "서비스",
@@ -777,7 +801,13 @@ const translations = {
     pay_alert_failed: "결제를 처리할 수 없거나 취소되었습니다.",
     pay_alert_error: "결제 게이트웨이를 로드하는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
     pay_alert_wenia_config: "Wenia / USDC 결제를 위한 Web3 통합이 구성 중입니다. Calendly를 통해 연락해 주세요.",
-    pay_alert_install_wallet: "암호화폐 (Wenia) 결제를 진행하려면 MetaMask 또는 Web3 지갑을 설치해 주세요."
+    pay_alert_install_wallet: "암호화폐 (Wenia) 결제를 진행하려면 MetaMask 또는 Web3 지갑을 설치해 주세요.",
+    nav_orchestration: "AI 오케스트레이션",
+    orch_title: "AI 에이전트 <span class='text-gradient'>오케스트레이션</span>",
+    orch_lead: "AI 에이전트 스웜을 편성하고 관찰 가능성, 거버넌스 및 모바일 미션 컨트롤과 함께 프로덕션에 배포합니다.",
+    orch_monitor_pitch: "\"AI 에이전트 스웜을 위한 Datadog\": Antigravity 서브에이전트의 실시간 관찰 가능성 — 계층 재구성, 라이브 안티패턴 탐지, PII 가리기, 3D 코워킹 뷰 및 패키징된 Electron 데스크톱 앱.",
+    orch_orbit_pitch: "모바일 퍼스트 미션 컨트롤: 휴대폰과 클라우드 IDE 간의 안전한 브릿지. 모니터가 에이전트의 이탈을 감지하면 휴대폰에서 Orbit으로 개입할 수 있습니다.",
+    orch_cta: "GitHub에서 보기 →"
   },
   ru: {
     nav_services: "Услуги",
@@ -933,7 +963,13 @@ const translations = {
     pay_alert_failed: "Не удалось обработать платеж или он был отменен.",
     pay_alert_error: "Ошибка загрузки платежного шлюза. Пожалуйста, попробуйте позже.",
     pay_alert_wenia_config: "Web3-интеграция для платежей в Wenia / USDC находится в процессе настройки. Свяжитесь со мной через Calendly.",
-    pay_alert_install_wallet: "Пожалуйста, установите MetaMask или Web3-кошелек для оплаты криптовалютой (Wenia)."
+    pay_alert_install_wallet: "Пожалуйста, установите MetaMask или Web3-кошелек для оплаты криптовалютой (Wenia).",
+    nav_orchestration: "Оркестрация ИИ",
+    orch_title: "Оркестрация <span class='text-gradient'>ИИ-агентов</span>",
+    orch_lead: "Я оркеструю рои ИИ-агентов и внедряю их в продакшн с поддержкой наблюдаемости, управления и мобильного контроля миссий.",
+    orch_monitor_pitch: "«Datadog для роев ИИ-агентов»: наблюдаемость субагентов Antigravity в реальном времени — реконструкция иерархии, живое обнаружение антипаттернов, скрытие PII, 3D-представление коворкинга и десктопное приложение Electron.",
+    orch_orbit_pitch: "Мобильный контроль миссий: безопасный мост телефон↔облачный IDE. Если Монитор замечает, что агент сходит с рельсов, вы вмешиваетесь со своего телефона с помощью Orbit.",
+    orch_cta: "Посмотреть на GitHub →"
   },
   ar: {
     nav_services: "الخدمات",
@@ -1089,7 +1125,13 @@ const translations = {
     pay_alert_failed: "تعذر معالجة الدفع أو تم إلغاؤه.",
     pay_alert_error: "حدث خطأ أثناء تحميل بوابة الدفع. يرجى المحاولة لاحقاً.",
     pay_alert_wenia_config: "تكامل الويب 3 لمدفوعات Wenia / USDC قيد الإعداد حالياً. تواصل معي عبر Calendly.",
-    pay_alert_install_wallet: "يرجى تثبيت MetaMask أو أي محفظة ويب 3 لإتمام الدفع بالعملات المشفرة (Wenia)."
+    pay_alert_install_wallet: "يرجى تثبيت MetaMask أو أي محفظة ويب 3 لإتمام الدفع بالعملات المشفرة (Wenia).",
+    nav_orchestration: "تنسيق الذكاء الاصطناعي",
+    orch_title: "<span class='text-gradient'>تنسيق</span> عملاء الذكاء الاصطناعي",
+    orch_lead: "أقوم بتنسيق أسراب من عملاء الذكاء الاصطناعي ونقلها إلى الإنتاج مع المراقبة والحوكمة والتحكم المتنقل في المهام.",
+    orch_monitor_pitch: "\"Datadog لأسراب عملاء الذكاء الاصطناعي\": المراقبة في الوقت الفعلي للعملاء الفرعيين لـ Antigravity — إعادة بناء الهيكل التنظيمي، والكشف المباشر عن الأنماط المضادة، وتنقيح بيانات الهوية الشخصية (PII)، وعرض العمل الجماعي ثلاثي الأبعاد، وتطبيق Electron لسطح المكتب.",
+    orch_orbit_pitch: "التحكم بالمهام للهواتف المحمولة أولاً: جسر آمن بين الهاتف وبيئة التطوير السحابية (IDE). يكتشف جهاز المراقبة خروج العميل عن المسار — فتتدخل من هاتفك باستخدام Orbit.",
+    orch_cta: "عرض على GitHub ←"
   }
 };
 

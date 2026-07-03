@@ -3,6 +3,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import fs from 'fs';
 import translations from './src/translations.js';
 
+
 // Auto-sync translations.json on Vite config load
 try {
   fs.writeFileSync('translations.json', JSON.stringify(translations, null, 2), 'utf-8');

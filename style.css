@@ -1,8 +1,8 @@
 /* Base Design System - Web3 / Deep-Tech Theme */
 :root {
   /* Colors */
-  --bg-color: #0c0d12;
-  --bg-secondary: #141722;
+  --bg-color: #020203;
+  --bg-secondary: #0a0a0f;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
   --accent-primary: #2563eb;
@@ -10,7 +10,8 @@
   --accent-secondary: #00f5ff;
   --accent-secondary-rgb: 0, 245, 255;
   --accent-gradient: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-  --glass-bg: rgba(20, 23, 34, 0.65);
+  --chrome-gradient: linear-gradient(90deg, #555555 0%, #d4d4d4 25%, #ffffff 50%, #b3b3b3 75%, #444444 100%);
+  --glass-bg: rgba(10, 10, 15, 0.45);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-border-neon: rgba(0, 245, 255, 0.15);
   --neon-glow: 0 0 15px rgba(0, 245, 255, 0.35), 0 0 5px rgba(0, 245, 255, 0.15);
@@ -185,8 +186,8 @@ h2 {
 
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);
   border-radius: var(--border-radius);
   padding: 2rem;
@@ -203,11 +204,12 @@ nav {
 }
 
 nav.scrolled {
-  background: rgba(8, 10, 12, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(2, 2, 3, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   padding: 1rem 0;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 2px solid;
+  border-image: var(--chrome-gradient) 1;
 }
 
 .nav-container {
@@ -591,7 +593,7 @@ input:checked + .slider:before {
 }
 
 .service-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(var(--accent-primary-rgb), 0.1);
   border-color: var(--accent-primary);
 }
@@ -832,7 +834,7 @@ footer {
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(var(--accent-primary-rgb), 0.1);
   border-color: var(--accent-primary);
 }
@@ -856,8 +858,8 @@ footer {
 /* AI Agent Orchestration (sección destacada) */
 .orch-lead { max-width: 760px; margin: 0 auto 2.25rem; text-align: center; font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; }
 .orch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-.orch-card { position: relative; padding: 1.75rem; border-radius: 18px; transition: transform .2s ease, box-shadow .2s ease; }
-.orch-card:hover { transform: translateY(-4px); }
+.orch-card { position: relative; padding: 1.75rem; border-radius: 18px; transition: transform .2s ease, box-shadow .2s ease; border: 1px solid transparent; animation: led-pulse 8s infinite; }
+.orch-card:hover { transform: translateY(-4px) scale(1.02); }
 .orch-card h3 { font-size: 1.5rem; margin: .6rem 0 .75rem; }
 .orch-card p { color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
 .orch-badge { display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .08em; padding: .25rem .65rem; border-radius: 999px; background: linear-gradient(135deg, var(--accent-primary), #22d3ee); color: #04121b; }
@@ -2404,6 +2406,51 @@ html[dir="rtl"] .ai-typing-indicator {
     right: 0;
     text-align: right;
   }
+}
+
+/* PS6 Console Aesthetic Animations and Enhancements */
+@keyframes led-pulse {
+  0%, 100% {
+    border-color: rgba(10, 74, 255, 0.6);
+    box-shadow: 0 0 15px rgba(10, 74, 255, 0.4), inset 0 0 5px rgba(10, 74, 255, 0.2);
+  }
+  33% {
+    border-color: rgba(0, 245, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.6), inset 0 0 10px rgba(0, 245, 255, 0.3);
+  }
+  66% {
+    border-color: rgba(255, 0, 127, 0.7);
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5), inset 0 0 5px rgba(255, 0, 127, 0.2);
+  }
+}
+
+.project-card, .service-card, .orch-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before, .service-card::before, .orch-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    rgba(0, 245, 255, 0.15),
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.75s;
+  pointer-events: none;
+}
+
+.project-card:hover::before, .service-card:hover::before, .orch-card:hover::before {
+  left: 150%;
 }
 
 
