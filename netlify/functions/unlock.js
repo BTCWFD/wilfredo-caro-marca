@@ -36,7 +36,14 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 exports.handler = async function (event) {
   const origin = event.headers.origin || event.headers.Origin || '';
-  const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : 'null';
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return {
+      statusCode: 403,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Origin not allowed' })
+    };
+  }
+  const allowOrigin = origin || ALLOWED_ORIGINS[0];
   const headers = {
     'Access-Control-Allow-Origin': allowOrigin,
     'Vary': 'Origin',
@@ -71,9 +78,14 @@ exports.handler = async function (event) {
         return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server configuration error' }) };
     }
     
+    const clientIp = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || '';
+    
     const formData = new URLSearchParams();
     formData.append('secret', TURNSTILE_SECRET);
     formData.append('response', turnstileToken);
+    if (clientIp) {
+      formData.append('remoteip', clientIp);
+    }
 
     const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
@@ -83,6 +95,11 @@ exports.handler = async function (event) {
 
     if (!turnstileResult.success) {
       return { statusCode: 403, headers, body: JSON.stringify({ error: 'Turnstile verification failed' }) };
+    }
+
+    const validHostnames = ['wilfredocaro.com', 'www.wilfredocaro.com', 'wilfredo-caro.netlify.app', 'localhost'];
+    if (turnstileResult.hostname && !validHostnames.includes(turnstileResult.hostname)) {
+      return { statusCode: 403, headers, body: JSON.stringify({ error: 'Invalid Turnstile hostname' }) };
     }
 
     return {

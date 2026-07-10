@@ -202,7 +202,12 @@ if (cvModalForm) {
 
 const sanitizeInput = (val) => {
   if (typeof val !== 'string') return val;
-  return val.replace(/<[^>]*>/g, '').trim();
+  try {
+    const doc = new DOMParser().parseFromString(val, 'text/html');
+    return (doc.body.textContent || '').trim();
+  } catch (e) {
+    return val.replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
+  }
 };
 
       // Save CV Request to localStorage for local CRM
