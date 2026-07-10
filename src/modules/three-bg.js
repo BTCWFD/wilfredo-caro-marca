@@ -34,9 +34,12 @@ const initBg = () => {
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
+  const isLightThemeInit = document.documentElement.getAttribute('data-theme') === 'light';
+  const initialColor = isLightThemeInit ? 0x2563eb : 0x00f5ff;
+
   const material = new THREE.PointsMaterial({
     size: 0.05,
-    color: 0x1e8449, // var(--accent-primary)
+    color: initialColor,
     transparent: true,
     opacity: 0.8
   });
@@ -46,7 +49,7 @@ const initBg = () => {
 
   // Connection Lines — one reusable geometry with a preallocated buffer.
   // Avoids creating a new BufferGeometry + LineSegments on every frame (no GC churn).
-  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x1e8449, transparent: true, opacity: 0.2 });
+  const lineMaterial = new THREE.LineBasicMaterial({ color: initialColor, transparent: true, opacity: 0.2 });
   const maxSegments = (particlesCount * (particlesCount - 1)) / 2;
   const linePositions = new Float32Array(maxSegments * 6); // 2 endpoints × 3 coords
   const lineGeometry = new THREE.BufferGeometry();
@@ -83,11 +86,20 @@ const initBg = () => {
     if (!isVisible) return;
     animationFrameId = requestAnimationFrame(animate);
 
+    // Update colors dynamically based on the current theme
+    const isLightTheme = document.documentElement.getAttribute('data-theme') === 'light';
+    const activeColor = isLightTheme ? 0x2563eb : 0x00f5ff;
+    if (material.color.getHex() !== activeColor) {
+      material.color.setHex(activeColor);
+      lineMaterial.color.setHex(activeColor);
+    }
+
     // Smooth rotation interpolation
     scene.rotation.y += (targetRotationY - scene.rotation.y) * 0.05;
     scene.rotation.x += (targetRotationX - scene.rotation.x) * 0.05;
 
     const positionsArray = geometry.attributes.position.array;
+
     
     for (let i = 0; i < particlesCount; i++) {
       positionsArray[i * 3] += velocities[i * 3];

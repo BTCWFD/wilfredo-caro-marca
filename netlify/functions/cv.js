@@ -18,9 +18,13 @@ function verifyToken(token) {
   if (!token || typeof token !== 'string' || token.indexOf('.') === -1) return false;
   const [payload, sig] = token.split('.');
   const expected = sign(payload);
-  const a = Buffer.from(sig);
-  const b = Buffer.from(expected);
-  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return false;
+  
+  // Hash to prevent length-based timing attacks and buffer mismatches
+  const hashA = crypto.createHash('sha256').update(sig).digest();
+  const hashB = crypto.createHash('sha256').update(expected).digest();
+  
+  if (!crypto.timingSafeEqual(hashA, hashB)) return false;
+  
   try {
     const { exp } = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
     return typeof exp === 'number' && Date.now() < exp;

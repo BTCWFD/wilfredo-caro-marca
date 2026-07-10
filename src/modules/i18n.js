@@ -1,12 +1,12 @@
 // --- Multilingual (i18n) Logic ---
 import { renderContactInfo } from './contact-info.js';
+import { renderProjects } from './render-projects.js';
 import schemas from './schema.js';
 
 const dropdownToggle = document.getElementById('lang-dropdown-toggle');
 const dropdownMenu = document.getElementById('lang-dropdown-menu');
 const currentLangLabel = document.getElementById('current-lang-label');
 const langButtons = document.querySelectorAll('.lang-btn');
-const translatableElements = document.querySelectorAll('[data-i18n]');
 
 const langNames = {
   en: 'English',
@@ -19,6 +19,11 @@ const langNames = {
 };
 
 const updateLanguage = (lang) => {
+  // Render dynamic projects and collaborations first
+  renderProjects();
+
+  // Query elements dynamically so that newly rendered cards are translated
+  const translatableElements = document.querySelectorAll('[data-i18n]');
   translatableElements.forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (window.translations && window.translations[lang] && window.translations[lang][key]) {

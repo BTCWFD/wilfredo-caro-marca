@@ -8,24 +8,23 @@ if (cursorDot && cursorOutline && !isTouchDevice && window.matchMedia("(min-widt
     const posX = e.clientX;
     const posY = e.clientY;
     
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
+    cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
     
     cursorOutline.animate({
-      left: `${posX}px`,
-      top: `${posY}px`
+      transform: `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`
     }, { duration: 250, fill: "forwards" });
   });
 
-  // Cursor hover effects on interactive elements
-  const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .btn, .ai-suggest-btn');
-  interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
+  // Cursor hover effects via dynamic event delegation on body
+  document.body.addEventListener('mouseover', (e) => {
+    if (e.target.closest('a, button, input, select, textarea, .btn, .ai-suggest-btn')) {
       cursorOutline.classList.add('cursor-hover');
-    });
-    el.addEventListener('mouseleave', () => {
+    }
+  });
+  document.body.addEventListener('mouseout', (e) => {
+    if (e.target.closest('a, button, input, select, textarea, .btn, .ai-suggest-btn')) {
       cursorOutline.classList.remove('cursor-hover');
-    });
+    }
   });
 } else {
   if (cursorDot) cursorDot.style.display = 'none';

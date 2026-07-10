@@ -854,6 +854,11 @@ footer {
 .p-brave { background: linear-gradient(135deg, #fb542b 0%, #343546 100%); } /* Brave Colors */
 .p-ovacion { background: linear-gradient(135deg, #2a0a3e 0%, #b8862b 100%); position: relative; } /* Web3 deportes: violeta -> oro */
 .p-ovacion::after { content: '⚽'; position: absolute; font-size: 4.5rem; opacity: 0.14; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.p-favores { background: linear-gradient(135deg, #3b0764 0%, #db2777 100%); position: relative; } /* Trueque/Comunidad: violeta profundo -> rosa */
+.p-favores::after { content: '🤝'; position: absolute; font-size: 4.5rem; opacity: 0.14; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.p-icc { background: linear-gradient(135deg, #090d16 0%, #0d9488 100%); position: relative; } /* Fútbol lunar: espacio/polvo lunar -> verde azulado */
+.p-icc::after { content: '🌙'; position: absolute; font-size: 4.5rem; opacity: 0.14; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
 
 /* AI Agent Orchestration (sección destacada) */
 .orch-lead { max-width: 760px; margin: 0 auto 2.25rem; text-align: center; font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; }
@@ -958,24 +963,35 @@ footer {
   .nav-links {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100vh;      /* fallback para navegadores sin dvh */
+    height: 100dvh;     /* evita el salto de la barra URL en móvil */
     background: rgba(5, 5, 5, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    gap: 3rem;
+    gap: 2.25rem;
+    padding: 6rem 1.5rem 3rem;   /* despeja el navbar fijo arriba */
+    overflow-y: auto;            /* enlaces siempre alcanzables en pantallas bajas */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     z-index: 99;
     transform: translateY(-100%);
     transition: var(--transition-smooth);
   }
-  
+
   .nav-links.active {
     transform: translateY(0);
+  }
+
+  /* El menú a pantalla completa debe estar por encima de widgets flotantes */
+  body.menu-open .ai-assistant,
+  body.menu-open .floating-controls {
+    display: none !important;
   }
   
   .nav-links a {
@@ -1075,6 +1091,17 @@ footer {
 }
 
 /* Specific Mobile Grid Optimizations */
+/* Menú móvil en pantallas de poca altura (apaisado) — compacta para que quepa/scrollee */
+@media (max-width: 768px) and (max-height: 560px) {
+  .nav-links {
+    gap: 1.25rem;
+    padding: 4.5rem 1.5rem 2rem;
+  }
+  .nav-links a {
+    font-size: 1.15rem;
+  }
+}
+
 @media (max-width: 480px) {
   .container {
     padding: 0 1.25rem;
