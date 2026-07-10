@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './FloatingAssistant.css';
 
 const FloatingAssistant = () => {
@@ -18,6 +18,7 @@ const FloatingAssistant = () => {
         const overlap = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop));
         if (containerRef.current) {
           containerRef.current.style.setProperty('--kb-offset', `${overlap}px`);
+          containerRef.current.style.setProperty('--vv-height', `${vv.height}px`);
         }
       });
     };
@@ -36,7 +37,7 @@ const FloatingAssistant = () => {
   }, [isOpen]);
 
   return (
-    <div className="floating-assistant-container" ref={containerRef}>
+    <div className={`floating-assistant-container ${isOpen ? 'chat-open' : ''}`} ref={containerRef}>
       {isOpen && (
         <div className="chat-window glass-card">
           <div className="chat-header">

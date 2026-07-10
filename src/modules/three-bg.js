@@ -1,14 +1,11 @@
+import * as THREE from 'three';
+
 // --- 3D Background (Three.js Network) ---
 const initBg = () => {
   const canvas = document.querySelector('#bg-canvas');
   if (!canvas) return;
   // Respect reduced-motion: skip the animated background entirely.
   if (window.prefersReducedMotion) {
-    canvas.style.display = 'none';
-    return;
-  }
-  // Guard against Three.js failing to load from the CDN.
-  if (typeof THREE === 'undefined') {
     canvas.style.display = 'none';
     return;
   }

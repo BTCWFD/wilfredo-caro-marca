@@ -1,4 +1,3 @@
-import React from 'react';
 import FloatingAssistant from './components/FloatingAssistant.jsx';
 import SwipeToDeploy from './components/SwipeToDeploy.jsx';
 import './App.css';

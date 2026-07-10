@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google Analytics (GA4) -->
-    <!-- ⚠️ Reemplaza %VITE_GA_ID% por tu Measurement ID real de GA4 configurando VITE_GA_ID. -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_ID%"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '%VITE_GA_ID%');
-    </script>
 
     <meta charset="UTF-8" />
 
@@ -72,9 +63,6 @@
 
     <!-- Cloudflare Turnstile -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-    <!-- Three.js for 3D Background (deferred so it doesn't block render) -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Schema.org (JSON-LD) -->
     <script type="application/ld+json" id="schema-ld">

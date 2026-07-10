@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './SwipeToDeploy.css';
 
 const SwipeToDeploy = ({ onDeploy }) => {
@@ -66,29 +66,34 @@ const SwipeToDeploy = ({ onDeploy }) => {
     }
   };
 
+  const moveRef = useRef(handleDragMove);
+  const endRef = useRef(handleDragEnd);
+
+  useEffect(() => {
+    moveRef.current = handleDragMove;
+    endRef.current = handleDragEnd;
+  });
+
   // Setup mouse move/up on window to handle dragging outside element
   useEffect(() => {
+    const onMove = (e) => moveRef.current(e);
+    const onEnd = () => endRef.current();
+
     if (isDragging) {
-      window.addEventListener('mousemove', handleDragMove);
-      window.addEventListener('mouseup', handleDragEnd);
-      window.addEventListener('touchmove', handleDragMove, { passive: false });
-      window.addEventListener('touchend', handleDragEnd);
-      window.addEventListener('touchcancel', handleDragEnd);
-    } else {
-      window.removeEventListener('mousemove', handleDragMove);
-      window.removeEventListener('mouseup', handleDragEnd);
-      window.removeEventListener('touchmove', handleDragMove);
-      window.removeEventListener('touchend', handleDragEnd);
-      window.removeEventListener('touchcancel', handleDragEnd);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+      window.addEventListener('touchmove', onMove, { passive: false });
+      window.addEventListener('touchend', onEnd);
+      window.addEventListener('touchcancel', onEnd);
     }
     return () => {
-      window.removeEventListener('mousemove', handleDragMove);
-      window.removeEventListener('mouseup', handleDragEnd);
-      window.removeEventListener('touchmove', handleDragMove);
-      window.removeEventListener('touchend', handleDragEnd);
-      window.removeEventListener('touchcancel', handleDragEnd);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onEnd);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onEnd);
+      window.removeEventListener('touchcancel', onEnd);
     };
-  }, [isDragging, currentX, maxDrag]);
+  }, [isDragging]);
 
   return (
     <div className="swipe-container glass-card" ref={containerRef}>
