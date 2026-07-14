@@ -16,6 +16,17 @@ const knowledgeBase = {
     "skills": "Wilfredo's core expertise includes AI Swarm Governance, Web3, Post-Quantum Cybersecurity (PQC), and Cloud/Mobile Dev.",
     "music": "Wilfredo is also a DJ! He loves Deep Tech and Techno. You can listen to his mixes in the player.",
     "contact": "Please unlock contact details in the footer.",
+    "website": "Wilfredo builds custom websites and apps — landing pages, portfolios, dashboards, Web3 integrations. Click the floating \"Quote\" button to share your project details.",
+    "chatbot": "Need an AI chatbot or a multi-agent system for your business? That's exactly what Wilfredo builds. Click the \"Quote\" button to tell us more.",
+    "brand": "Wilfredo can boost your personal brand with SEO, content strategy, and premium design. Click the \"Quote\" button to get started.",
+    "press kit": "Need a DJ press kit? Wilfredo designs digital press kits for artists. Click the \"Quote\" button to request one.",
+    "price": "Every project is unique, so I can't quote an exact number here. Click the floating \"Quote\" button to share your details, or book a call on Calendly for a direct conversation.",
+    "cost": "Every project is unique, so I can't quote an exact number here. Click the floating \"Quote\" button to share your details, or book a call on Calendly for a direct conversation.",
+    "how much": "Every project is unique, so I can't quote an exact number here. Click the floating \"Quote\" button to share your details, or book a call on Calendly for a direct conversation.",
+    "experience": "Wilfredo is currently Founder & CEO at VirtuadsAi and CTO at Orbit. He previously worked as Fullstack & Blockchain Architect at ExEquine, Business Development Associate at CornerMarket, and Regional Leader & LATAM Staff at Brave Software.",
+    "hire": "Best way to start is clicking the floating \"Quote\" button with your project details, or booking a call on Calendly — Wilfredo will follow up personally.",
+    "linkedin": "You can find Wilfredo on LinkedIn (linkedin.com/in/wilfredo-caro), X (@wilfredo_caro), GitHub (github.com/BTCWFD), and Instagram/TikTok (@wilfredwfdcarog).",
+    "github": "Wilfredo's public repos are on GitHub at github.com/BTCWFD, including Antigravity Monitor and ORBIT-APP.",
     "default": "That's an interesting question! I focus on AI Agent Orchestration, Web3, PQC, and Deep Tech. What would you like to know about Wilfredo's projects?"
   },
   es: {
@@ -27,9 +38,25 @@ const knowledgeBase = {
     "antigravity": "Antigravity Monitor es el buque insignia de Wilfredo, que ofrece observabilidad en tiempo real para enjambres de agentes de IA.",
     "security": "Wilfredo integra Ciberseguridad Poscuántica (PQC), utilizando algoritmos ML-KEM y ML-DSA para blindar comunicaciones Web3 e IA.",
     "habilidades": "Las habilidades principales de Wilfredo incluyen gobernanza de agentes de IA, Web3, ciberseguridad poscuántica (PQC) y desarrollo móvil/nube.",
+    "press kit": "¿Necesitas un press kit de DJ? Wilfredo diseña press kits digitales para artistas. Haz clic en el botón \"Cotizar\" para solicitarlo.",
     "dj": "¡Wilfredo también es DJ! Le apasiona el Deep Tech. Puedes escuchar sus mezclas en el reproductor integrado.",
     "music": "¡Wilfredo también es DJ! Le apasiona el Deep Tech. Puedes escuchar sus mezclas en el reproductor integrado.",
     "contacto": "Por favor, desbloquea los detalles de contacto en el pie de página.",
+    "pagina web": "Wilfredo crea páginas web y apps a medida: landing pages, portafolios, dashboards e integraciones Web3. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles de tu proyecto.",
+    "página web": "Wilfredo crea páginas web y apps a medida: landing pages, portafolios, dashboards e integraciones Web3. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles de tu proyecto.",
+    "sitio web": "Wilfredo crea sitios web y apps a medida: landing pages, portafolios, dashboards e integraciones Web3. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles de tu proyecto.",
+    "chatbot": "¿Necesitas un chatbot o un sistema de agentes de IA para tu negocio? Es justo lo que hace Wilfredo. Haz clic en el botón \"Cotizar\" para contarnos más.",
+    "marca personal": "Wilfredo puede potenciar tu marca personal con SEO, estrategia de contenido y diseño premium. Haz clic en el botón \"Cotizar\" para empezar.",
+    "precio": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
+    "costo": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
+    "tarifa": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
+    "cuesta": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
+    "experiencia": "Wilfredo es actualmente Founder & CEO en VirtuadsAi y CTO en Orbit. Antes trabajó como Fullstack & Blockchain Architect en ExEquine, Business Development Associate en CornerMarket, y Regional Leader & LATAM Staff en Brave Software.",
+    "trayectoria": "Wilfredo es actualmente Founder & CEO en VirtuadsAi y CTO en Orbit. Antes trabajó como Fullstack & Blockchain Architect en ExEquine, Business Development Associate en CornerMarket, y Regional Leader & LATAM Staff en Brave Software.",
+    "contratar": "La mejor forma de empezar es hacer clic en el botón flotante \"Cotizar\" con los detalles de tu proyecto, o agendar una llamada en Calendly — Wilfredo te responderá personalmente.",
+    "linkedin": "Puedes encontrar a Wilfredo en LinkedIn (linkedin.com/in/wilfredo-caro), X (@wilfredo_caro), GitHub (github.com/BTCWFD) e Instagram/TikTok (@wilfredwfdcarog).",
+    "redes": "Puedes encontrar a Wilfredo en LinkedIn (linkedin.com/in/wilfredo-caro), X (@wilfredo_caro), GitHub (github.com/BTCWFD) e Instagram/TikTok (@wilfredwfdcarog).",
+    "github": "Los repos públicos de Wilfredo están en GitHub: github.com/BTCWFD, incluyendo Antigravity Monitor y ORBIT-APP.",
     "default": "¡Esa es una pregunta interesante! Me enfoco en Orquestación de Agentes de IA, Web3, Ciberseguridad Poscuántica y Deep Tech. ¿Qué te gustaría saber sobre sus proyectos?"
   },
   ja: {
@@ -41,6 +68,10 @@ const knowledgeBase = {
     "skills": "主なスキルは、AIエージェントガバナンス、Web3、耐量子暗号セキュリティ（PQC）、クラウド／モバイル開発です。",
     "music": "ウィルフレドはディープテックDJでもあり、右側のプレーヤーでミックスを聴けます。",
     "contact": "フッターで連絡先情報を解除してください。",
+    "ウェブサイト": "ウィルフレドはランディングページ、ポートフォリオ、ダッシュボード、Web3連携などオーダーメイドのウェブサイトやアプリを制作します。フローティングの「見積もり」ボタンからプロジェクトの詳細をお知らせください。",
+    "チャットボット": "ビジネス向けのAIチャットボットやマルチエージェントシステムが必要ですか？それこそウィルフレドの専門です。「見積もり」ボタンをクリックして詳細をお知らせください。",
+    "ブランド": "ウィルフレドはSEO、コンテンツ戦略、プレミアムデザインでパーソナルブランドを強化できます。「見積もり」ボタンから始めましょう。",
+    "プレスキット": "DJ用プレスキットが必要ですか？ウィルフレドはアーティスト向けのデジタルプレスキットを制作します。「見積もり」ボタンからご依頼ください。",
     "default": "面白いご質問ですね！私はAIオーケストレーション、Web3、耐量子暗号、ディープテックに注力しています。プロジェクトについて何を知りたいですか？"
   },
   zh: {
@@ -52,6 +83,10 @@ const knowledgeBase = {
     "skills": "Wilfredo的核心专长包括AI智能体治理、Web3、后量子安全（PQC）和云/移动端开发。",
     "music": "Wilfredo也是一名DJ！他热爱Deep Tech音乐，您可以在播放器中收听他的混音。",
     "contact": "请在页脚解锁联系方式。",
+    "网站": "Wilfredo可以为您定制网站和应用程序——落地页、作品集、仪表盘、Web3集成等。点击悬浮的\"报价\"按钮，告诉我们您的项目详情。",
+    "聊天机器人": "需要为您的企业打造AI聊天机器人或多智能体系统吗？这正是Wilfredo擅长的领域。点击\"报价\"按钮告诉我们更多信息。",
+    "个人品牌": "Wilfredo可以通过SEO、内容策略和高端设计提升您的个人品牌。点击\"报价\"按钮开始吧。",
+    "新闻资料包": "需要DJ新闻资料包吗？Wilfredo为艺术家设计数字新闻资料包。点击\"报价\"按钮提交申请。",
     "default": "这是一个有趣的问题！我专注于AI智能体编排、Web3、后量子安全和深科技。您想了解Wilfredo的哪些项目？"
   },
   ko: {
@@ -63,6 +98,10 @@ const knowledgeBase = {
     "skills": "핵심 기술은 AI 에이전트 거버넌스, Web3, 포스트 양자 보안(PQC) 및 클라우드/모바일 개발입니다.",
     "music": "Wilfredo는 DJ이기도 합니다! Deep Tech를 사랑하며 플레이어에서 그의 믹스를 들을 수 있습니다.",
     "contact": "푸터에서 연락처 정보를 잠금 해제해 주세요.",
+    "웹사이트": "Wilfredo는 랜딩 페이지, 포트폴리오, 대시보드, Web3 연동 등 맞춤형 웹사이트와 앱을 제작합니다. 플로팅 \"견적\" 버튼을 클릭해 프로젝트 세부 사항을 알려주세요.",
+    "챗봇": "비즈니스를 위한 AI 챗봇이나 멀티 에이전트 시스템이 필요하신가요? 바로 Wilfredo의 전문 분야입니다. \"견적\" 버튼을 클릭해 더 알려주세요.",
+    "퍼스널 브랜드": "Wilfredo는 SEO, 콘텐츠 전략, 프리미엄 디자인으로 퍼스널 브랜드를 강화할 수 있습니다. \"견적\" 버튼을 클릭해 시작하세요.",
+    "프레스킷": "DJ 프레스킷이 필요하신가요? Wilfredo는 아티스트를 위한 디지털 프레스킷을 디자인합니다. \"견적\" 버튼을 클릭해 요청하세요.",
     "default": "흥미로운 질문이네요! 저는 AI 에이전트 오케스트레이션, Web3, 포스트 양자 보안 및 딥테크를 전문으로 합니다. 어떤 프로젝트에 대해 알고 싶으신가요?"
   },
   ru: {
@@ -74,6 +113,10 @@ const knowledgeBase = {
     "skills": "Ключевые навыки Вильфредо включают управление агентами ИИ, Web3, постквантовую безопасность (PQC) и разработку мобильных/облачных систем.",
     "music": "Вильфредо также диджей! Он любит Deep Tech. Вы можете послушать его миксы в плеере.",
     "contact": "Пожалуйста, разблокируйте контактные данные в футере.",
+    "веб-сайт": "Вильфредо создаёт сайты и приложения на заказ: лендинги, портфолио, дашборды, интеграции с Web3. Нажмите плавающую кнопку «Заказать», чтобы рассказать о вашем проекте.",
+    "чат-бот": "Нужен ИИ чат-бот или мультиагентная система для бизнеса? Это именно то, чем занимается Вильфредо. Нажмите кнопку «Заказать», чтобы рассказать подробнее.",
+    "личный бренд": "Вильфредо поможет усилить ваш личный бренд с помощью SEO, контент-стратегии и премиального дизайна. Нажмите «Заказать», чтобы начать.",
+    "пресс-кит": "Нужен пресс-кит для диджея? Вильфредо создаёт цифровые пресс-киты для артистов. Нажмите «Заказать», чтобы оформить заявку.",
     "default": "Это интересный вопрос! Я специализируюсь на оркестрации агентов ИИ, Web3, постквантовой безопасности и Deep Tech. Что бы вы хотели узнать о проектах Вильфредо?"
   },
   ar: {
@@ -85,6 +128,10 @@ const knowledgeBase = {
     "skills": "تشمل خبرات ويلفريدو الأساسية حوكمة عملاء الذكاء الاصطناعي، والويب 3، وأمن ما بعد الكم (PQC)، وتطوير الموبايل والسحابة.",
     "music": "ويلفريدو دي جي أيضاً! يحب موسيقى ديب تيك ويمكنك سماع مقاطعه الموسيقية في المشغل.",
     "contact": "يرجى إلغاء قفل تفاصيل الاتصال في أسفل الصفحة.",
+    "موقع ويب": "يصمم ويلفريدو مواقع ويب وتطبيقات مخصصة: صفحات هبوط، معارض أعمال، لوحات تحكم، وتكاملات Web3. اضغط على زر \"طلب عرض سعر\" العائم لمشاركة تفاصيل مشروعك.",
+    "شات بوت": "هل تحتاج إلى شات بوت بالذكاء الاصطناعي أو نظام وكلاء متعدد لعملك؟ هذا بالضبط ما يقدمه ويلفريدو. اضغط على زر \"طلب عرض سعر\" لمشاركة التفاصيل.",
+    "علامة شخصية": "يمكن لويلفريدو تعزيز علامتك الشخصية عبر تحسين محركات البحث واستراتيجية المحتوى والتصميم الاحترافي. اضغط على زر \"طلب عرض سعر\" للبدء.",
+    "بروشور": "هل تحتاج إلى بروشور صحفي لدي جي؟ يصمم ويلفريدو بروشورات صحفية رقمية للفنانين. اضغط على زر \"طلب عرض سعر\" لطلب واحد.",
     "default": "هذا سؤال مثير للاهتمام! أركز على أوركسترا عملاء الذكاء الاصطناعي، والويب 3، وأمن ما بعد الكم (PQC)، والتقنيات العميقة. ماذا تريد أن تعرف عن مشاريع ويلفريدو؟"
   }
 };
