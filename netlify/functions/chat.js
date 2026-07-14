@@ -3,57 +3,84 @@ const rateLimitMap = new Map();
 const LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 10; // max 10 requests per minute
 
+const ALLOWED_ORIGINS = [
+  'https://wilfredocaro.com',
+  'https://www.wilfredocaro.com',
+  'https://wilfredo-caro.netlify.app'
+];
+
 export const handler = async (event, context) => {
+  const origin = event.headers.origin || event.headers.Origin || '';
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return {
+      statusCode: 403,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Origin not allowed' })
+    };
+  }
+  const headers = {
+    'Access-Control-Allow-Origin': origin || ALLOWED_ORIGINS[0],
+    'Vary': 'Origin',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Content-Type': 'application/json'
+  };
+
+  if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers, body: '' };
+
   // Only allow POST requests
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: JSON.stringify({ error: "Method Not Allowed" }) };
+    return { statusCode: 405, headers, body: JSON.stringify({ error: "Method Not Allowed" }) };
   }
 
   // Rate Limiting Check
   const clientIp = event.headers['client-ip'] || event.headers['x-nf-client-connection-ip'] || 'unknown-ip';
   const now = Date.now();
-  
+
   if (!rateLimitMap.has(clientIp)) {
     rateLimitMap.set(clientIp, []);
   }
-  
+
   const requestTimes = rateLimitMap.get(clientIp).filter(time => now - time < LIMIT_WINDOW_MS);
-  
+
   if (requestTimes.length >= MAX_REQUESTS_PER_WINDOW) {
     return {
       statusCode: 429,
+      headers,
       body: JSON.stringify({ reply: "Has superado el límite de mensajes. Por favor, espera un minuto antes de enviar otro." })
     };
   }
-  
+
   requestTimes.push(now);
   rateLimitMap.set(clientIp, requestTimes);
 
   try {
     const body = JSON.parse(event.body || '{}');
     const message = body.message;
-    
+
     // Message validation
     if (!message || typeof message !== 'string') {
-      return { statusCode: 400, body: JSON.stringify({ error: "Mensaje inválido." }) };
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "Mensaje inválido." }) };
     }
     if (message.trim().length === 0) {
-      return { statusCode: 400, body: JSON.stringify({ error: "El mensaje no puede estar vacío." }) };
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "El mensaje no puede estar vacío." }) };
     }
     if (message.length > 500) {
-      return { 
-        statusCode: 400, 
-        body: JSON.stringify({ reply: "Tu mensaje es demasiado largo. Por favor, sé más breve (máximo 500 caracteres)." }) 
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ reply: "Tu mensaje es demasiado largo. Por favor, sé más breve (máximo 500 caracteres)." })
       };
     }
-    
+
     // The API key is read from the environment variables
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
     if (!GEMINI_API_KEY) {
-      return { 
-        statusCode: 500, 
-        body: JSON.stringify({ reply: "Error de configuración: API Key de IA no encontrada." }) 
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ reply: "Error de configuración: API Key de IA no encontrada." })
       };
     }
 
@@ -98,9 +125,10 @@ REGLAS ESTRICTAS DE COMPORTAMIENTO Y VENTAS:
 
     if (!response.ok) {
       console.error("Gemini API Error:", data);
-      return { 
-        statusCode: 500, 
-        body: JSON.stringify({ reply: "Hubo un error de conexión con mi núcleo neuronal." }) 
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ reply: "Hubo un error de conexión con mi núcleo neuronal." })
       };
     }
 
@@ -108,14 +136,15 @@ REGLAS ESTRICTAS DE COMPORTAMIENTO Y VENTAS:
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ reply: reply.trim() })
     };
   } catch (error) {
     console.error("Function exception:", error);
-    return { 
-      statusCode: 500, 
-      body: JSON.stringify({ reply: "Lo siento, ocurrió un error interno." }) 
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ reply: "Lo siento, ocurrió un error interno." })
     };
   }
 };

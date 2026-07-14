@@ -1,2 +1,0 @@
-## 2026-07-03T10:53:33Z
-You are the Victory Auditor. Your working directory is c:\Users\USER\Wilfredo-Caro-Marca\.agents\victory_auditor. Your mission is to perform an independent victory audit of the portfolio brand optimization changes (Space-Tech Theme, Multilingual RTL, SEO, Web3 Security, and planner.html). Run tests, analyze code quality, verify RTL dynamics, ensure no hardcoding or cheating, and provide a structured report with a clear verdict of VICTORY CONFIRMED or VICTORY REJECTED.
