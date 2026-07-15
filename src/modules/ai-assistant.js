@@ -20,9 +20,9 @@ const knowledgeBase = {
     "chatbot": "Need an AI chatbot or a multi-agent system for your business? That's exactly what Wilfredo builds. Click the \"Quote\" button to tell us more.",
     "brand": "Wilfredo can boost your personal brand with SEO, content strategy, and premium design. Click the \"Quote\" button to get started.",
     "press kit": "Need a DJ press kit? Wilfredo designs digital press kits for artists. Click the \"Quote\" button to request one.",
-    "price": "Every project is unique, so I can't quote an exact number here. Click the floating \"Quote\" button to share your details, or book a call on Calendly for a direct conversation.",
-    "cost": "Every project is unique, so I can't quote an exact number here. Click the floating \"Quote\" button to share your details, or book a call on Calendly for a direct conversation.",
-    "how much": "Every project is unique, so I can't quote an exact number here. Click the floating \"Quote\" button to share your details, or book a call on Calendly for a direct conversation.",
+    "price": "Starting prices (final cost depends on scope): Web & Deep-Tech Dev from $2,500 USD, AI Agents & Chatbots from $3,000 USD, Personal Brand Boost from $1,500 USD/month, DJ Press Kit from $900 USD. Click the floating \"Quote\" button for an exact quote on your project.",
+    "cost": "Starting prices (final cost depends on scope): Web & Deep-Tech Dev from $2,500 USD, AI Agents & Chatbots from $3,000 USD, Personal Brand Boost from $1,500 USD/month, DJ Press Kit from $900 USD. Click the floating \"Quote\" button for an exact quote on your project.",
+    "how much": "Starting prices (final cost depends on scope): Web & Deep-Tech Dev from $2,500 USD, AI Agents & Chatbots from $3,000 USD, Personal Brand Boost from $1,500 USD/month, DJ Press Kit from $900 USD. Click the floating \"Quote\" button for an exact quote on your project.",
     "experience": "Wilfredo is currently Founder & CEO at VirtuadsAi and CTO at Orbit. He previously worked as Fullstack & Blockchain Architect at ExEquine, Business Development Associate at CornerMarket, and Regional Leader & LATAM Staff at Brave Software.",
     "hire": "Best way to start is clicking the floating \"Quote\" button with your project details, or booking a call on Calendly — Wilfredo will follow up personally.",
     "linkedin": "You can find Wilfredo on LinkedIn (linkedin.com/in/wilfredo-caro), X (@wilfredo_caro), GitHub (github.com/BTCWFD), and Instagram/TikTok (@wilfredwfdcarog).",
@@ -47,10 +47,10 @@ const knowledgeBase = {
     "sitio web": "Wilfredo crea sitios web y apps a medida: landing pages, portafolios, dashboards e integraciones Web3. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles de tu proyecto.",
     "chatbot": "¿Necesitas un chatbot o un sistema de agentes de IA para tu negocio? Es justo lo que hace Wilfredo. Haz clic en el botón \"Cotizar\" para contarnos más.",
     "marca personal": "Wilfredo puede potenciar tu marca personal con SEO, estrategia de contenido y diseño premium. Haz clic en el botón \"Cotizar\" para empezar.",
-    "precio": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
-    "costo": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
-    "tarifa": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
-    "cuesta": "Cada proyecto es único, así que no puedo darte una cifra exacta aquí. Haz clic en el botón flotante \"Cotizar\" para contarnos los detalles, o agenda una llamada en Calendly para hablar directamente.",
+    "precio": "Precios desde (el costo final depende del alcance del proyecto): Web & Deep-Tech Dev desde $1.500.000 COP / $2.500 USD, AI Agents & Chatbots desde $1.200.000 COP / $3.000 USD, Personal Brand Boost desde $800.000 COP/mes / $1.500 USD/mes, DJ Digital Presskit desde $500.000 COP / $900 USD. Haz clic en el botón flotante \"Cotizar\" para tu presupuesto exacto.",
+    "costo": "Precios desde (el costo final depende del alcance del proyecto): Web & Deep-Tech Dev desde $1.500.000 COP / $2.500 USD, AI Agents & Chatbots desde $1.200.000 COP / $3.000 USD, Personal Brand Boost desde $800.000 COP/mes / $1.500 USD/mes, DJ Digital Presskit desde $500.000 COP / $900 USD. Haz clic en el botón flotante \"Cotizar\" para tu presupuesto exacto.",
+    "tarifa": "Precios desde (el costo final depende del alcance del proyecto): Web & Deep-Tech Dev desde $1.500.000 COP / $2.500 USD, AI Agents & Chatbots desde $1.200.000 COP / $3.000 USD, Personal Brand Boost desde $800.000 COP/mes / $1.500 USD/mes, DJ Digital Presskit desde $500.000 COP / $900 USD. Haz clic en el botón flotante \"Cotizar\" para tu presupuesto exacto.",
+    "cuesta": "Precios desde (el costo final depende del alcance del proyecto): Web & Deep-Tech Dev desde $1.500.000 COP / $2.500 USD, AI Agents & Chatbots desde $1.200.000 COP / $3.000 USD, Personal Brand Boost desde $800.000 COP/mes / $1.500 USD/mes, DJ Digital Presskit desde $500.000 COP / $900 USD. Haz clic en el botón flotante \"Cotizar\" para tu presupuesto exacto.",
     "experiencia": "Wilfredo es actualmente Founder & CEO en VirtuadsAi y CTO en Orbit. Antes trabajó como Fullstack & Blockchain Architect en ExEquine, Business Development Associate en CornerMarket, y Regional Leader & LATAM Staff en Brave Software.",
     "trayectoria": "Wilfredo es actualmente Founder & CEO en VirtuadsAi y CTO en Orbit. Antes trabajó como Fullstack & Blockchain Architect en ExEquine, Business Development Associate en CornerMarket, y Regional Leader & LATAM Staff en Brave Software.",
     "contratar": "La mejor forma de empezar es hacer clic en el botón flotante \"Cotizar\" con los detalles de tu proyecto, o agendar una llamada en Calendly — Wilfredo te responderá personalmente.",
@@ -72,6 +72,9 @@ const knowledgeBase = {
     "チャットボット": "ビジネス向けのAIチャットボットやマルチエージェントシステムが必要ですか？それこそウィルフレドの専門です。「見積もり」ボタンをクリックして詳細をお知らせください。",
     "ブランド": "ウィルフレドはSEO、コンテンツ戦略、プレミアムデザインでパーソナルブランドを強化できます。「見積もり」ボタンから始めましょう。",
     "プレスキット": "DJ用プレスキットが必要ですか？ウィルフレドはアーティスト向けのデジタルプレスキットを制作します。「見積もり」ボタンからご依頼ください。",
+    "料金": "料金の目安（最終価格は範囲によります）：Web & Deep-Tech Devは$2,500 USDから、AI Agents & Chatbotsは$3,000 USDから、Personal Brand Boostは$1,500 USD/月から、DJ Press Kitは$900 USDから。正確なお見積りはフローティングの「見積もり」ボタンからご相談ください。",
+    "経歴": "ウィルフレドは現在VirtuadsAiの創業者兼CEO、OrbitのCTOです。以前はExEquineでフルスタック・ブロックチェーンアーキテクト、CornerMarketで事業開発、Brave SoftwareでLATAM地域リーダーを務めました。",
+    "SNS": "ウィルフレドはLinkedIn（linkedin.com/in/wilfredo-caro）、X（@wilfredo_caro）、GitHub（github.com/BTCWFD）、Instagram/TikTok（@wilfredwfdcarog）でフォローできます。",
     "default": "面白いご質問ですね！私はAIオーケストレーション、Web3、耐量子暗号、ディープテックに注力しています。プロジェクトについて何を知りたいですか？"
   },
   zh: {
@@ -87,6 +90,9 @@ const knowledgeBase = {
     "聊天机器人": "需要为您的企业打造AI聊天机器人或多智能体系统吗？这正是Wilfredo擅长的领域。点击\"报价\"按钮告诉我们更多信息。",
     "个人品牌": "Wilfredo可以通过SEO、内容策略和高端设计提升您的个人品牌。点击\"报价\"按钮开始吧。",
     "新闻资料包": "需要DJ新闻资料包吗？Wilfredo为艺术家设计数字新闻资料包。点击\"报价\"按钮提交申请。",
+    "价格": "起价参考（最终价格取决于项目范围）：Web & Deep-Tech Dev起价$2,500美元，AI Agents & Chatbots起价$3,000美元，Personal Brand Boost起价$1,500美元/月，DJ Press Kit起价$900美元。如需精确报价，请点击悬浮的\"报价\"按钮。",
+    "经历": "Wilfredo目前是VirtuadsAi的创始人兼CEO，也是Orbit的CTO。此前曾在ExEquine担任全栈区块链架构师，在CornerMarket负责业务拓展，并在Brave Software担任拉美区域负责人。",
+    "领英": "您可以在LinkedIn（linkedin.com/in/wilfredo-caro）、X（@wilfredo_caro）、GitHub（github.com/BTCWFD）和Instagram/TikTok（@wilfredwfdcarog）上关注Wilfredo。",
     "default": "这是一个有趣的问题！我专注于AI智能体编排、Web3、后量子安全和深科技。您想了解Wilfredo的哪些项目？"
   },
   ko: {
@@ -102,6 +108,9 @@ const knowledgeBase = {
     "챗봇": "비즈니스를 위한 AI 챗봇이나 멀티 에이전트 시스템이 필요하신가요? 바로 Wilfredo의 전문 분야입니다. \"견적\" 버튼을 클릭해 더 알려주세요.",
     "퍼스널 브랜드": "Wilfredo는 SEO, 콘텐츠 전략, 프리미엄 디자인으로 퍼스널 브랜드를 강화할 수 있습니다. \"견적\" 버튼을 클릭해 시작하세요.",
     "프레스킷": "DJ 프레스킷이 필요하신가요? Wilfredo는 아티스트를 위한 디지털 프레스킷을 디자인합니다. \"견적\" 버튼을 클릭해 요청하세요.",
+    "가격": "시작 가격(최종 비용은 프로젝트 범위에 따라 다름): Web & Deep-Tech Dev $2,500 USD부터, AI Agents & Chatbots $3,000 USD부터, Personal Brand Boost $1,500 USD/월부터, DJ Press Kit $900 USD부터. 정확한 견적은 플로팅 \"견적\" 버튼을 클릭하세요.",
+    "경력": "Wilfredo는 현재 VirtuadsAi의 창업자 겸 CEO이며 Orbit의 CTO입니다. 이전에는 ExEquine에서 풀스택 블록체인 아키텍트, CornerMarket에서 비즈니스 개발, Brave Software에서 라틴아메리카 지역 리더로 근무했습니다.",
+    "링크드인": "Wilfredo는 LinkedIn(linkedin.com/in/wilfredo-caro), X(@wilfredo_caro), GitHub(github.com/BTCWFD), Instagram/TikTok(@wilfredwfdcarog)에서 찾을 수 있습니다.",
     "default": "흥미로운 질문이네요! 저는 AI 에이전트 오케스트레이션, Web3, 포스트 양자 보안 및 딥테크를 전문으로 합니다. 어떤 프로젝트에 대해 알고 싶으신가요?"
   },
   ru: {
@@ -117,6 +126,9 @@ const knowledgeBase = {
     "чат-бот": "Нужен ИИ чат-бот или мультиагентная система для бизнеса? Это именно то, чем занимается Вильфредо. Нажмите кнопку «Заказать», чтобы рассказать подробнее.",
     "личный бренд": "Вильфредо поможет усилить ваш личный бренд с помощью SEO, контент-стратегии и премиального дизайна. Нажмите «Заказать», чтобы начать.",
     "пресс-кит": "Нужен пресс-кит для диджея? Вильфредо создаёт цифровые пресс-киты для артистов. Нажмите «Заказать», чтобы оформить заявку.",
+    "цена": "Ориентировочные цены (итоговая стоимость зависит от объёма проекта): Web & Deep-Tech Dev от $2500 USD, AI Agents & Chatbots от $3000 USD, Personal Brand Boost от $1500 USD/мес, DJ Press Kit от $900 USD. Для точной оценки нажмите плавающую кнопку «Заказать».",
+    "опыт": "Вильфредо сейчас основатель и CEO VirtuadsAi, а также CTO Orbit. Ранее работал Fullstack и Blockchain архитектором в ExEquine, менеджером по развитию бизнеса в CornerMarket и региональным лидером LATAM в Brave Software.",
+    "линкедин": "Вильфредо можно найти в LinkedIn (linkedin.com/in/wilfredo-caro), X (@wilfredo_caro), GitHub (github.com/BTCWFD) и Instagram/TikTok (@wilfredwfdcarog).",
     "default": "Это интересный вопрос! Я специализируюсь на оркестрации агентов ИИ, Web3, постквантовой безопасности и Deep Tech. Что бы вы хотели узнать о проектах Вильфредо?"
   },
   ar: {
@@ -132,6 +144,9 @@ const knowledgeBase = {
     "شات بوت": "هل تحتاج إلى شات بوت بالذكاء الاصطناعي أو نظام وكلاء متعدد لعملك؟ هذا بالضبط ما يقدمه ويلفريدو. اضغط على زر \"طلب عرض سعر\" لمشاركة التفاصيل.",
     "علامة شخصية": "يمكن لويلفريدو تعزيز علامتك الشخصية عبر تحسين محركات البحث واستراتيجية المحتوى والتصميم الاحترافي. اضغط على زر \"طلب عرض سعر\" للبدء.",
     "بروشور": "هل تحتاج إلى بروشور صحفي لدي جي؟ يصمم ويلفريدو بروشورات صحفية رقمية للفنانين. اضغط على زر \"طلب عرض سعر\" لطلب واحد.",
+    "السعر": "أسعار تقريبية (السعر النهائي يعتمد على نطاق المشروع): Web & Deep-Tech Dev تبدأ من 2500 دولار، AI Agents & Chatbots تبدأ من 3000 دولار، Personal Brand Boost تبدأ من 1500 دولار شهرياً، DJ Press Kit تبدأ من 900 دولار. للحصول على عرض سعر دقيق اضغط على زر \"طلب عرض سعر\" العائم.",
+    "الخبرة": "ويلفريدو حالياً مؤسس ورئيس تنفيذي لشركة VirtuadsAi ومسؤول تقني لشركة Orbit. عمل سابقاً كمهندس Fullstack وBlockchain في ExEquine، وفي تطوير الأعمال في CornerMarket، وكقائد إقليمي لأمريكا اللاتينية في Brave Software.",
+    "لينكدإن": "يمكنك متابعة ويلفريدو عبر LinkedIn (linkedin.com/in/wilfredo-caro)، وX (@wilfredo_caro)، وGitHub (github.com/BTCWFD)، وInstagram/TikTok (@wilfredwfdcarog).",
     "default": "هذا سؤال مثير للاهتمام! أركز على أوركسترا عملاء الذكاء الاصطناعي، والويب 3، وأمن ما بعد الكم (PQC)، والتقنيات العميقة. ماذا تريد أن تعرف عن مشاريع ويلفريدو؟"
   }
 };
