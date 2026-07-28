@@ -168,17 +168,19 @@ if (cvModalForm) {
     const loadingText = currentLang === 'es' ? 'Procesando...' : currentLang === 'ja' ? '送信中...' : 'Processing...';
     cvSubmitText.textContent = loadingText;
 
-    const formData = new FormData();
-    formData.append('form-name', 'cv-downloads');
-    formData.append('name', nameVal);
-    formData.append('email', emailVal);
-    formData.append('company', companyVal);
-    formData.append('purpose', purposeVal);
+    const urlEncoded = new URLSearchParams();
+    urlEncoded.append('form-name', 'cv-downloads');
+    urlEncoded.append('name', nameVal);
+    urlEncoded.append('email', emailVal);
+    urlEncoded.append('company', companyVal);
+    urlEncoded.append('purpose', purposeVal);
+    urlEncoded.append('bot-field', '');
 
     // 1) Record the lead in Netlify Forms (for notifications) — best effort.
     fetch('/', {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: urlEncoded.toString()
     })
     // 2) Validate the lead server-side and obtain the contact + a CV token.
     .then(() => {

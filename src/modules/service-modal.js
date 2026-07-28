@@ -127,9 +127,16 @@ if (srvForm) {
     const formData = new FormData(srvForm);
 
     try {
+      const urlEncoded = new URLSearchParams();
+      formData.forEach((value, key) => {
+        urlEncoded.append(key, value);
+      });
+      urlEncoded.append('bot-field', ''); // Netlify honeypot
+
       const res = await fetch('/', {
         method: 'POST',
-        body: formData
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: urlEncoded.toString()
       });
 
       if (res.ok) {
@@ -161,10 +168,10 @@ if (srvForm) {
         </div>`;
         setTimeout(() => closeServiceModal(), 3000);
       } else {
-        throw new Error('Error en el envío');
+        throw new Error(`HTTP ${res.status}`);
       }
     } catch (err) {
-      errorDiv.textContent = 'Hubo un error al enviar el formulario. Intenta de nuevo.';
+      errorDiv.textContent = `Hubo un error (${err.message || 'Desconocido'}). Intenta de nuevo.`;
       errorDiv.classList.remove('hidden');
       submitBtn.disabled = false;
       submitText.textContent = 'Submit Request';
