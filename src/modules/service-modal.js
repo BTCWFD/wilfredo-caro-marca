@@ -133,7 +133,7 @@ if (srvForm) {
       });
       urlEncoded.append('bot-field', ''); // Netlify honeypot
 
-      const res = await fetch('/', {
+      const res = await fetch('/index.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: urlEncoded.toString()

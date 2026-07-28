@@ -177,7 +177,7 @@ if (cvModalForm) {
     urlEncoded.append('bot-field', '');
 
     // 1) Record the lead in Netlify Forms (for notifications) — best effort.
-    fetch('/', {
+    fetch('/index.html', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: urlEncoded.toString()
