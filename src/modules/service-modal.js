@@ -129,8 +129,7 @@ if (srvForm) {
     try {
       const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
+        body: formData
       });
 
       if (res.ok) {
@@ -151,7 +150,7 @@ if (srvForm) {
           console.warn('Could not save lead to localStorage:', e);
         }
 
-        window.trackEvent('generate_lead', {
+        window.trackEvent?.('generate_lead', {
           form: 'service-requests',
           service: formData.get('service') || 'unknown',
           country: formData.get('country') || 'unknown'

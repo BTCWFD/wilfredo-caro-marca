@@ -168,17 +168,17 @@ if (cvModalForm) {
     const loadingText = currentLang === 'es' ? 'Procesando...' : currentLang === 'ja' ? '送信中...' : 'Processing...';
     cvSubmitText.textContent = loadingText;
 
+    const formData = new FormData();
+    formData.append('form-name', 'cv-downloads');
+    formData.append('name', nameVal);
+    formData.append('email', emailVal);
+    formData.append('company', companyVal);
+    formData.append('purpose', purposeVal);
+
     // 1) Record the lead in Netlify Forms (for notifications) — best effort.
     fetch('/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        'form-name': 'cv-downloads',
-        'name': nameVal,
-        'email': emailVal,
-        'company': companyVal,
-        'purpose': purposeVal
-      }).toString()
+      body: formData
     })
     // 2) Validate the lead server-side and obtain the contact + a CV token.
     .then(() => {
@@ -225,8 +225,7 @@ const sanitizeInput = (val) => {
       } catch (e) {
         console.warn('Could not save CV request to localStorage:', e);
       }
-
-      window.trackEvent('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
+      window.trackEvent?.('generate_lead', { form: 'cv-downloads', purpose: purposeVal });
 
       // Cache token + contact for THIS session only (no PII in localStorage).
       sessionStorage.setItem('cv_token', data.token);
