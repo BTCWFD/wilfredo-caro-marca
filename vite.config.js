@@ -4,6 +4,9 @@ import fs from 'fs';
 import translations from './src/translations.js';
 
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
+
 // Auto-sync translations.json on Vite config load
 try {
   fs.writeFileSync('translations.json', JSON.stringify(translations, null, 2), 'utf-8');
@@ -14,39 +17,37 @@ try {
 export default defineConfig({
   root: '.',
   publicDir: 'public',
-  plugins: [
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
-      manifest: {
-        name: 'Wilfredo Caro | Web3 & AI Development',
-        short_name: 'W.Caro',
-        description: 'Portfolio of Wilfredo Caro, specializing in Deep-Tech, Web3, and AI Bots.',
-        theme_color: '#050505',
-        background_color: '#050505',
-        display: 'standalone',
-        orientation: 'portrait',
-        icons: [
-          {
-            src: 'icon-192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icon-512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: 'icon-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
-      }
-    })
-  ],
+  plugins: [VitePWA({
+    registerType: 'autoUpdate',
+    includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
+    manifest: {
+      name: 'Wilfredo Caro | Web3 & AI Development',
+      short_name: 'W.Caro',
+      description: 'Portfolio of Wilfredo Caro, specializing in Deep-Tech, Web3, and AI Bots.',
+      theme_color: '#050505',
+      background_color: '#050505',
+      display: 'standalone',
+      orientation: 'portrait',
+      icons: [
+        {
+          src: 'icon-192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: 'icon-512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        },
+        {
+          src: 'icon-512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable'
+        }
+      ]
+    }
+  }), cloudflare()],
   build: {
     outDir: 'dist',
     emptyOutDir: true,

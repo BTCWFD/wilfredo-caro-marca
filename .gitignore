@@ -45,3 +45,9 @@ private/
 
 # Agent working files (briefings, screenshots from prior audit/review runs)
 .agents/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
