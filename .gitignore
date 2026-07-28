@@ -39,3 +39,9 @@ hook.json
 # Local Netlify folder
 .netlify
 .env
+
+# Gated content served only via signed-token function, never via git
+private/
+
+# Agent working files (briefings, screenshots from prior audit/review runs)
+.agents/
