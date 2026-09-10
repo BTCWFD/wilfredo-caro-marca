@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>W.Caro Metaverse — Node Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#04050d;
+  --cyan:#00f5ff;
+  --lime:#cfff04;
+  --lav:#9b8fff;
+  --org:#ff6b35;
+  --glass:rgba(255,255,255,0.04);
+  --glass-border:rgba(0,245,255,0.15);
+  --font-mono:'JetBrains Mono',monospace;
+  --font-head:'Outfit',sans-serif;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);cursor:none}
+body{font-family:var(--font-head)}
+#cursor-dot{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--cyan);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--cyan),0 0 16px var(--cyan)}
+#cursor-ring{position:fixed;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(0,245,255,0.55);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease}
+#entry{position:fixed;inset:0;z-index:800;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:var(--bg)}
+#entry-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px);background-size:60px 60px;animation:gridDrift 20s linear infinite}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:60px 60px}}
+#entry-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.07) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}
+#entry-content{position:relative;text-align:center}
+#entry-eyebrow{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.4em;color:var(--cyan);text-transform:uppercase;margin-bottom:1.5rem;opacity:.7}
+#entry-title{font-family:var(--font-head);font-size:clamp(3rem,10vw,7rem);font-weight:900;line-height:.95;color:#fff;letter-spacing:-.02em}
+#entry-title span{color:var(--cyan)}
+#entry-sub{font-family:var(--font-mono);font-size:.85rem;color:rgba(255,255,255,0.35);margin-top:1.2rem;letter-spacing:.15em}
+#enter-btn{margin-top:2.5rem;display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 2rem;border:1px solid var(--cyan);border-radius:4px;background:rgba(0,245,255,0.06);color:var(--cyan);font-family:var(--font-mono);font-size:.85rem;letter-spacing:.1em;cursor:none;position:relative;overflow:hidden;transition:background .3s,box-shadow .3s}
+#enter-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.12),transparent);transform:translateX(-100%);transition:transform .5s}
+#enter-btn:hover::before{transform:translateX(100%)}
+#enter-btn:hover{background:rgba(0,245,255,0.1);box-shadow:0 0 30px rgba(0,245,255,0.2)}
+.entry-corner{position:absolute;font-family:var(--font-mono);font-size:.6rem;color:rgba(0,245,255,0.3);letter-spacing:.15em}
+.entry-corner.tl{top:2rem;left:2rem}
+.entry-corner.tr{top:2rem;right:2rem;text-align:right}
+.entry-corner.bl{bottom:2rem;left:2rem}
+.entry-corner.br{bottom:2rem;right:2rem;text-align:right}
+.entry-fade-out{animation:fadeOut .8s ease forwards}
+@keyframes fadeOut{to{opacity:0;pointer-events:none}}
+#scene{position:fixed;inset:0;opacity:0;transition:opacity .8s ease;pointer-events:none}
+#scene.visible{opacity:1;pointer-events:all}
+#canvas{display:block;width:100%;height:100%}
+#hud-top{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.8rem;background:linear-gradient(180deg,rgba(4,5,13,0.95) 0%,rgba(4,5,13,0) 100%);border-bottom:1px solid rgba(0,245,255,0.08);backdrop-filter:blur(4px)}
+#logo{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:.5rem;letter-spacing:.02em}
+#logo .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+#hud-nav{display:flex;align-items:center;gap:1.2rem}
+.nav-btn{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;color:rgba(255,255,255,0.5);background:none;border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:.4rem .85rem;cursor:none;transition:color .2s,border-color .2s,box-shadow .2s}
+.nav-btn:hover{color:var(--cyan);border-color:rgba(0,245,255,0.4);box-shadow:0 0 12px rgba(0,245,255,0.1)}
+#feed-badge{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--cyan);background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);border-radius:3px;padding:.35rem .8rem;display:flex;align-items:center;gap:.4rem}
+#feed-dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:200;display:flex;flex-direction:column;gap:10px}
+.feed-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:none;transition:background .2s,box-shadow .2s,transform .2s;position:relative}
+.feed-dot::after{content:attr(data-label);position:absolute;right:16px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.05em;color:rgba(255,255,255,0.4);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}
+.feed-dot:hover::after,.feed-dot.active::after{opacity:1}
+.feed-dot.active{box-shadow:0 0 10px var(--cyan);transform:scale(1.4)}
+.feed-dot:hover:not(.active){transform:scale(1.2)}
+#hud-bottom{position:fixed;bottom:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:center;gap:1rem;padding:.9rem 1.8rem;background:linear-gradient(0deg,rgba(4,5,13,0.9) 0%,transparent 100%)}
+.hint-badge{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:.3rem .7rem;display:flex;align-items:center;gap:.4rem}
+.hint-badge span{color:var(--cyan);font-weight:500}
+#detail-panel{position:fixed;top:50%;right:-420px;transform:translateY(-50%);width:380px;max-height:80vh;z-index:300;background:rgba(8,10,22,0.92);border:1px solid rgba(0,245,255,0.18);border-radius:10px;backdrop-filter:blur(20px);overflow-y:auto;transition:right .45s cubic-bezier(.22,1,.36,1);scrollbar-width:thin;scrollbar-color:rgba(0,245,255,0.2) transparent}
+#detail-panel.open{right:1.8rem}
+#panel-header{padding:1.4rem 1.4rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;background:rgba(8,10,22,0.96);z-index:1}
+#panel-type-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;padding:.25rem .7rem;border-radius:3px;margin-bottom:.8rem;border:1px solid}
+#panel-title{font-family:var(--font-head);font-size:1.25rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.4rem}
+#panel-meta{font-family:var(--font-mono);font-size:.68rem;color:rgba(255,255,255,0.35);letter-spacing:.05em}
+#panel-close{position:absolute;top:1rem;right:1rem;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);font-size:.9rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+#panel-close:hover{background:rgba(255,80,80,0.15);color:#fff;border-color:rgba(255,80,80,0.3)}
+#panel-body{padding:1.2rem 1.4rem 1.4rem}
+#panel-desc{font-family:var(--font-head);font-size:.88rem;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.65;margin-bottom:1.2rem}
+#panel-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.tag-chip{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;padding:.28rem .65rem;border-radius:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55)}
+#panel-link{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.75rem;border-radius:6px;font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;color:#000;font-weight:700;cursor:none;text-decoration:none;transition:opacity .2s,box-shadow .2s;border:none}
+#panel-link:hover{opacity:.85;box-shadow:0 0 30px rgba(0,0,0,.3)}
+#scanline{position:fixed;inset:0;pointer-events:none;z-index:100;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,255,0.012) 2px,rgba(0,245,255,0.012) 4px)}
+#detail-panel::-webkit-scrollbar{width:3px}
+#detail-panel::-webkit-scrollbar-track{background:transparent}
+#detail-panel::-webkit-scrollbar-thumb{background:rgba(0,245,255,0.2);border-radius:2px}
+@media(max-width:600px){#detail-panel{width:calc(100vw - 2rem);right:-110vw}#detail-panel.open{right:1rem}#hud-nav .nav-btn:first-child{display:none}}
+</style>
+</head>
+<body>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="scanline"></div>
+
+<div id="entry">
+  <div id="entry-grid"></div>
+  <div id="entry-glow"></div>
+  <div id="entry-content">
+    <div id="entry-eyebrow">// Interactive 3D Portfolio Feed</div>
+    <div id="entry-title">W.CARO<br/><span>METAVERSE</span></div>
+    <div id="entry-sub">NODES &middot; ORBITS &middot; CONNECTIONS &middot; 2026</div>
+    <button id="enter-btn" onclick="enterScene()">&#x21B3; Enter the Space</button>
+  </div>
+  <div class="entry-corner tl">SYS.INIT<br/>v2.6.0</div>
+  <div class="entry-corner tr">FEED.NODES: 9<br/>STATUS: READY</div>
+  <div class="entry-corner bl">LAT: 4.6097&deg; N<br/>LON: 74.0817&deg; W</div>
+  <div class="entry-corner br">PORTFOLIO.WEB3<br/>WCARO.DEV</div>
+</div>
+
+<div id="scene">
+  <canvas id="canvas"></canvas>
+  <div id="hud-top">
+    <div id="logo"><div class="dot"></div>W.Caro</div>
+    <div id="hud-nav">
+      <button class="nav-btn" onclick="window.location.href='index.html'">&#x2190; Portfolio</button>
+      <button class="nav-btn" onclick="resetCamera()">&#x2299; Reset View</button>
+      <button class="nav-btn" onclick="window.open('https://www.linkedin.com/in/wilfredocaro','_blank')">LinkedIn &#x2197;</button>
+    </div>
+    <div id="feed-badge">&#x2B21; Metaverse Feed</div>
+  </div>
+  <div id="feed-dots"></div>
+  <div id="hud-bottom">
+    <div class="hint-badge"><span>DRAG</span> Rotate view</div>
+    <div class="hint-badge"><span>SCROLL</span> Zoom in/out</div>
+    <div class="hint-badge"><span>CLICK</span> Inspect node</div>
+  </div>
+  <div id="detail-panel">
+    <div id="panel-header">
+      <div id="panel-type-badge">TYPE</div>
+      <div id="panel-title">Node Title</div>
+      <div id="panel-meta">Author &middot; Date</div>
+      <button id="panel-close" onclick="closePanel()">&#x2715;</button>
+    </div>
+    <div id="panel-body">
+      <div id="panel-desc">Description.</div>
+      <div id="panel-tags"></div>
+      <a id="panel-link" href="#" target="_blank">&#x2197; View More</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const FEED = {
+  channel: { title: "W.Caro Metaverse Feed", author: "Wilfredo Caro Marca" },
+  items: [
+    { id:0, title:"VirtuadsAi", role:"CEO & Founder", type:"Project", typeColor:"#00f5ff", date:"2024 \u2013 Present", description:"AI-native advertising protocol built on blockchain rails. Redefining how brands connect with communities in decentralized ecosystems through verifiable attention metrics and autonomous ad agents.", tags:["Blockchain","DeFi","AI","Web3"], link:"#", color:0x00f5ff, size:42, hub:true },
+    { id:1, title:"Forward Deployed Engineer", role:"FDE", type:"Role", typeColor:"#cfff04", date:"2025 \u2013 Present", description:"Embedded with enterprise clients to architect and ship agentic AI solutions. Bridging the gap between cutting-edge LLM capabilities and real-world production systems.", tags:["Agentic AI","Python","Deep Tech"], link:"#", color:0xcfff04, size:34 },
+    { id:2, title:"Antigravity Monitor", role:"Creator", type:"Project", typeColor:"#00f5ff", date:"2025", description:"Datadog for AI agent swarms. Real-time observability platform for multi-agent orchestration \u2014 tracking token flows, decision trees, latency spikes, and anomalies across distributed AI pipelines.", tags:["AI Agents","Observability","Electron"], link:"#", color:0x00f5ff, size:30 },
+    { id:3, title:"Orbit", role:"CTO", type:"Role", typeColor:"#9b8fff", date:"2024 \u2013 Present", description:"Mobile-first cloud IDE control plane. Enabling developers to spin up, manage, and deploy cloud dev environments from any device.", tags:["Cloud","Mobile-First","Docker"], link:"#", color:0x9b8fff, size:32 },
+    { id:4, title:"ExEquine", role:"Fullstack & Blockchain Architect", type:"Project", typeColor:"#00f5ff", date:"2023 \u2013 2024", description:"Tokenized equestrian asset marketplace. Smart contract architecture for fractional ownership of high-value horses, with DeFi yield mechanics and regulatory-compliant transfer protocols.", tags:["Solidity","Smart Contracts","React"], link:"#", color:0x00f5ff, size:28 },
+    { id:5, title:"Brave Software", role:"Regional Leader & Latam Staff", type:"Experience", typeColor:"#ff6b35", date:"2022 \u2013 2023", description:"Drove Web3 and privacy-first browser adoption across Latin America. Organized community events, coordinated regional marketing campaigns, and onboarded creator ecosystems to the BAT ecosystem.", tags:["Web3 Adoption","Community","Events"], link:"#", color:0xff6b35, size:26 },
+    { id:6, title:"CornerMarket", role:"Business Dev Associate", type:"Experience", typeColor:"#ff6b35", date:"2021 \u2013 2022", description:"Strategic B2B partnerships and market expansion across Colombian retail channels. Identified high-growth segments, structured commercial agreements, and built the regional sales playbook.", tags:["B2B","Strategic Partnerships","Colombia"], link:"#", color:0xff6b35, size:24 },
+    { id:7, title:"Ovaci\u00f3n", role:"Founder", type:"Project", typeColor:"#00f5ff", date:"2023", description:"Web3 fan platform for sports communities. Connecting athletes and fans through NFT collectibles, token-gated exclusive content, and on-chain loyalty programs for Latin American sports clubs.", tags:["Sports Tech","NFT","Web3"], link:"#", color:0x00f5ff, size:28 },
+    { id:8, title:"AI Agent Orchestration", role:"Core Skill", type:"Skill", typeColor:"#cfff04", date:"2024 \u2013 Present", description:"Designing and deploying multi-agent LLM systems with governance layers, memory architectures, tool-use frameworks, and autonomous decision pipelines. From prototype to production-grade agent swarms.", tags:["LLM","Agentic Systems","Governance","Python"], link:"#", color:0xcfff04, size:30 }
+  ]
+};
+
+/* CURSOR */
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = window.innerWidth/2, my = window.innerHeight/2;
+let rx = mx, ry = my;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx+'px'; dot.style.top = my+'px';
+});
+(function animCursor(){
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+/* ENTRY */
+function enterScene(){
+  document.getElementById('entry').classList.add('entry-fade-out');
+  const s = document.getElementById('scene');
+  s.classList.add('visible');
+  setTimeout(()=>{ document.getElementById('entry').style.display='none'; },850);
+  startMetaverse();
+}
+
+/* CANVAS */
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W=0,H=0;
+function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+window.addEventListener('resize',resize); resize();
+
+let camRotX=-0.35,camRotY=0,camRotXTarget=-0.35,camRotYTarget=0;
+let zoom=1,zoomTarget=1;
+let dragging=false,lastDX=0,lastDY=0,autoRotate=true;
+
+function resetCamera(){
+  camRotXTarget=-0.35; camRotYTarget=0; zoomTarget=1; selectNode(null);
+}
+
+const FOV=800;
+function project(x,y,z){
+  const cY=Math.cos(camRotY),sY=Math.sin(camRotY);
+  const x1=x*cY-z*sY, z1=x*sY+z*cY;
+  const cX=Math.cos(camRotX),sX=Math.sin(camRotX);
+  const y2=y*cX-z1*sX, z2=y*sX+z1*cX;
+  const sc=(FOV*zoom)/(FOV+z2+600);
+  return { sx:W/2+x1*sc, sy:H/2+y2*sc, scale:sc, depth:z2 };
+}
+
+/* STARS */
+const STARS=[];
+for(let i=0;i<300;i++) STARS.push({
+  x:(Math.random()-.5)*2400, y:(Math.random()-.5)*2400, z:(Math.random()-.5)*2400,
+  r:Math.random()*1.5+.3, tw:Math.random()*Math.PI*2, tws:Math.random()*.03+.005
+});
+function drawStars(){
+  for(const s of STARS){
+    const p=project(s.x,s.y,s.z);
+    if(p.scale<0||p.sx<-50||p.sx>W+50||p.sy<-50||p.sy>H+50) continue;
+    s.tw+=s.tws;
+    const a=.3+.5*Math.abs(Math.sin(s.tw));
+    const r=Math.max(s.r*Math.min(p.scale*2,1.8),.3);
+    ctx.beginPath(); ctx.arc(p.sx,p.sy,r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${a})`; ctx.fill();
+  }
+}
+
+/* GRID RINGS */
+function drawGridRings(){
+  const radii=[120,220,320,420];
+  for(let ri=0;ri<radii.length;ri++){
+    const R=radii[ri], a=.06+ri*.015;
+    ctx.beginPath();
+    for(let i=0;i<=80;i++){
+      const ang=(i/80)*Math.PI*2;
+      const p=project(R*Math.cos(ang),30,R*Math.sin(ang));
+      i===0?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);
+    }
+    ctx.closePath();
+    ctx.strokeStyle=`rgba(0,245,255,${a})`; ctx.lineWidth=.7; ctx.stroke();
+  }
+}
+
+/* NODE POSITIONS */
+const POS=[];
+POS[0]={x:0,y:-10,z:0};
+const others=FEED.items.filter(it=>!it.hub);
+for(let i=0;i<others.length;i++){
+  const t=i/others.length;
+  const angle=t*Math.PI*2*1.5+.4;
+  const rad=160+(i%3)*70;
+  const yOff=-30+Math.sin(t*Math.PI*4)*60;
+  POS[others[i].id]={x:rad*Math.cos(angle),y:yOff,z:rad*Math.sin(angle)};
+}
+
+/* HEX HELPERS */
+function hexPath(cx,cy,r){
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const a=(i/6)*Math.PI*2-Math.PI/6;
+    const xp=cx+r*Math.cos(a), yp=cy+r*Math.sin(a);
+    i===0?ctx.moveTo(xp,yp):ctx.lineTo(xp,yp);
+  }
+  ctx.closePath();
+}
+function c2rgb(hex){
+  return `${(hex>>16)&0xff},${(hex>>8)&0xff},${hex&0xff}`;
+}
+
+function drawHexNode(item,px,py,sc,hov,sel,t){
+  const r=item.size*sc, rgb=c2rgb(item.color), glow=hov||sel;
+  if(glow){
+    const g=ctx.createRadialGradient(px,py,r*.3,px,py,r*2.8);
+    g.addColorStop(0,`rgba(${rgb},.25)`); g.addColorStop(1,`rgba(${rgb},0)`);
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(px,py,r*2.8,0,Math.PI*2); ctx.fill();
+  }
+  if(sel){
+    ctx.save(); ctx.translate(px,py); ctx.rotate(t*.04%(Math.PI*2));
+    hexPath(0,0,r*1.6);
+    ctx.strokeStyle=`rgba(${rgb},.75)`; ctx.lineWidth=1.5;
+    ctx.setLineDash([6,5]); ctx.stroke(); ctx.setLineDash([]); ctx.restore();
+  }
+  hexPath(px,py,r);
+  const grad=ctx.createRadialGradient(px-r*.3,py-r*.3,0,px,py,r*1.2);
+  grad.addColorStop(0,`rgba(${rgb},.28)`); grad.addColorStop(1,`rgba(${rgb},.05)`);
+  ctx.fillStyle=grad; ctx.fill();
+  hexPath(px,py,r);
+  ctx.strokeStyle=glow?`rgba(${rgb},.9)`:`rgba(${rgb},.45)`;
+  ctx.lineWidth=glow?2:1.2; ctx.stroke();
+  hexPath(px,py,r*.55);
+  ctx.strokeStyle=`rgba(${rgb},.2)`; ctx.lineWidth=1; ctx.stroke();
+  if(item.hub){ ctx.beginPath(); ctx.arc(px,py,4*sc,0,Math.PI*2); ctx.fillStyle=`rgba(${rgb},.9)`; ctx.fill(); }
+  const ly=py+r+14*sc, mw=r*4.5;
+  ctx.textAlign='center';
+  ctx.font=`${Math.max(9,11*sc)}px 'JetBrains Mono',monospace`;
+  ctx.fillStyle=glow?`rgba(${rgb},1)`:'rgba(255,255,255,.75)';
+  ctx.shadowColor=glow?`rgba(${rgb},.8)`:'transparent';
+  ctx.shadowBlur=glow?10:0;
+  let lbl=item.title;
+  if(ctx.measureText(lbl).width>mw){ while(ctx.measureText(lbl+'...').width>mw&&lbl.length>3) lbl=lbl.slice(0,-1); lbl+='...'; }
+  ctx.fillText(lbl,px,ly);
+  ctx.font=`${Math.max(7,8.5*sc)}px 'JetBrains Mono',monospace`;
+  ctx.fillStyle=`rgba(${rgb},.65)`;
+  ctx.fillText(item.type.toUpperCase(),px,ly+13*sc);
+  ctx.shadowBlur=0;
+}
+
+function drawConnections(hp){
+  for(const item of FEED.items){
+    if(item.hub) continue;
+    const p=project(POS[item.id].x,POS[item.id].y,POS[item.id].z);
+    const rgb=c2rgb(item.color);
+    ctx.beginPath(); ctx.moveTo(hp.sx,hp.sy); ctx.lineTo(p.sx,p.sy);
+    ctx.strokeStyle=`rgba(${rgb},.18)`; ctx.lineWidth=.8;
+    ctx.setLineDash([4,7]); ctx.stroke(); ctx.setLineDash([]);
+  }
+}
+
+let scanAngle=0;
+function drawScanBeam(){
+  scanAngle+=.003;
+  ctx.save(); ctx.translate(W/2,H/2); ctx.rotate(scanAngle);
+  const len=Math.max(W,H)*1.5;
+  const g=ctx.createLinearGradient(0,0,len,0);
+  g.addColorStop(0,'rgba(0,245,255,0)'); g.addColorStop(.05,'rgba(0,245,255,.025)');
+  g.addColorStop(.15,'rgba(0,245,255,.01)'); g.addColorStop(1,'rgba(0,245,255,0)');
+  ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0,len,-.15,.15); ctx.closePath();
+  ctx.fillStyle=g; ctx.fill(); ctx.restore();
+}
+
+let hovId=null, selId=null, projCache=[];
+
+canvas.addEventListener('mousemove',e=>{
+  if(dragging) return;
+  let found=null, md=9999;
+  for(const p of projCache){
+    const it=FEED.items[p.id], r=it.size*p.scale;
+    const dx=e.clientX-p.sx, dy=e.clientY-p.sy, d=Math.sqrt(dx*dx+dy*dy);
+    if(d<r*1.4&&d<md){ md=d; found=p.id; }
+  }
+  hovId=found;
+});
+
+let clickX=0,clickY=0;
+canvas.addEventListener('mousedown',e=>{ clickX=e.clientX; clickY=e.clientY; });
+canvas.addEventListener('click',e=>{
+  if(Math.abs(e.clientX-clickX)<5&&Math.abs(e.clientY-clickY)<5){
+    let found=null, md=9999;
+    for(const p of projCache){
+      const it=FEED.items[p.id], r=it.size*p.scale;
+      const dx=e.clientX-p.sx, dy=e.clientY-p.sy, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<r*1.4&&d<md){ md=d; found=p.id; }
+    }
+    if(found!==null) selectNode(found); else closePanel();
+  }
+});
+
+canvas.addEventListener('mousedown',e=>{ dragging=true; lastDX=e.clientX; lastDY=e.clientY; autoRotate=false; });
+window.addEventListener('mouseup',()=>{ dragging=false; setTimeout(()=>{ autoRotate=true; },3500); });
+window.addEventListener('mousemove',e=>{
+  if(!dragging) return;
+  camRotYTarget+=(e.clientX-lastDX)*.006;
+  camRotXTarget+=(e.clientY-lastDY)*.004;
+  camRotXTarget=Math.max(-1.2,Math.min(.2,camRotXTarget));
+  lastDX=e.clientX; lastDY=e.clientY;
+});
+canvas.addEventListener('wheel',e=>{ e.preventDefault(); zoomTarget-=e.deltaY*.001; zoomTarget=Math.max(.35,Math.min(2.5,zoomTarget)); },{passive:false});
+
+let tStart=null;
+canvas.addEventListener('touchstart',e=>{ tStart={x:e.touches[0].clientX,y:e.touches[0].clientY}; autoRotate=false; });
+canvas.addEventListener('touchmove',e=>{ e.preventDefault(); if(!tStart) return; camRotYTarget+=(e.touches[0].clientX-tStart.x)*.006; camRotXTarget+=(e.touches[0].clientY-tStart.y)*.004; camRotXTarget=Math.max(-1.2,Math.min(.2,camRotXTarget)); tStart={x:e.touches[0].clientX,y:e.touches[0].clientY}; },{passive:false});
+canvas.addEventListener('touchend',()=>{ tStart=null; setTimeout(()=>{ autoRotate=true; },3500); });
+
+function selectNode(id){
+  selId=id; updateFeedDots();
+  if(id===null){ closePanel(); return; }
+  openPanel(FEED.items[id]);
+}
+
+function openPanel(item){
+  const rgb=c2rgb(item.color);
+  document.getElementById('panel-type-badge').textContent='\u2B21 '+item.type;
+  document.getElementById('panel-type-badge').style.cssText=`color:${item.typeColor};border-color:rgba(${rgb},.35);background:rgba(${rgb},.07)`;
+  document.getElementById('panel-title').textContent=item.title;
+  document.getElementById('panel-meta').textContent=`${FEED.channel.author} \u00b7 ${item.date}`;
+  document.getElementById('panel-desc').textContent=item.description;
+  const tags=document.getElementById('panel-tags'); tags.innerHTML='';
+  for(const tag of item.tags){
+    const ch=document.createElement('span'); ch.className='tag-chip';
+    ch.textContent=tag; ch.style.borderColor=`rgba(${rgb},.25)`; ch.style.color=`rgba(${rgb},.75)`;
+    tags.appendChild(ch);
+  }
+  const lnk=document.getElementById('panel-link');
+  lnk.href=item.link; lnk.style.background=item.typeColor;
+  lnk.textContent='\u2197 Explore '+item.type;
+  document.getElementById('detail-panel').classList.add('open');
+}
+
+function closePanel(){
+  document.getElementById('detail-panel').classList.remove('open');
+  selId=null; updateFeedDots();
+}
+
+function buildFeedDots(){
+  const c=document.getElementById('feed-dots'); c.innerHTML='';
+  for(const item of FEED.items){
+    const d=document.createElement('div'); d.className='feed-dot';
+    d.dataset.id=item.id; d.dataset.label=item.title;
+    d.style.background=`rgba(${c2rgb(item.color)},.35)`;
+    d.addEventListener('click',()=>selectNode(item.id));
+    c.appendChild(d);
+  }
+}
+
+function updateFeedDots(){
+  document.querySelectorAll('.feed-dot').forEach(d=>{
+    const id=parseInt(d.dataset.id);
+    d.classList.toggle('active',id===selId);
+    d.style.background=id===selId?FEED.items[id].typeColor:`rgba(${c2rgb(FEED.items[id].color)},.35)`;
+  });
+}
+
+let running=false;
+function startMetaverse(){
+  if(running) return; running=true;
+  buildFeedDots(); requestAnimationFrame(loop);
+}
+
+function loop(t){
+  requestAnimationFrame(loop);
+  camRotX+=(camRotXTarget-camRotX)*.08;
+  camRotY+=(camRotYTarget-camRotY)*.08;
+  zoom+=(zoomTarget-zoom)*.06;
+  if(autoRotate) camRotYTarget+=.0015;
+
+  ctx.clearRect(0,0,W,H);
+  const bg=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.7);
+  bg.addColorStop(0,'rgba(8,10,30,1)'); bg.addColorStop(1,'rgba(4,5,13,1)');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+  drawScanBeam();
+  drawStars();
+  drawGridRings();
+
+  const rendered=FEED.items.map(item=>{
+    const pos=POS[item.id], p=project(pos.x,pos.y,pos.z);
+    return {item,p};
+  });
+  rendered.sort((a,b)=>b.p.depth-a.p.depth);
+
+  const hubP=rendered.find(r=>r.item.hub).p;
+  drawConnections(hubP);
+
+  projCache=[];
+  for(const {item,p} of rendered){
+    drawHexNode(item,p.sx,p.sy,p.scale,hovId===item.id,selId===item.id,t);
+    projCache.push({id:item.id,sx:p.sx,sy:p.sy,scale:p.scale});
+  }
+}
+</script>
+</body>
+</html>
