@@ -13,6 +13,7 @@ import './src/modules/i18n.js';
 import './src/modules/navbar.js';
 import './src/modules/mobile-menu.js';
 import './src/modules/scroll-reveal.js';
+import './src/modules/text-decrypt.js';
 import './src/modules/skills-tab.js';
 import './src/modules/smooth-scroll.js';
 import './src/modules/preloader.js';

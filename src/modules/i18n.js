@@ -36,6 +36,10 @@ const updateLanguage = (lang) => {
     }
   });
 
+  if (window.triggerHeadingDecrypt) {
+    window.triggerHeadingDecrypt();
+  }
+
   // Handle RTL for Arabic
   if (lang === 'ar') {
     document.documentElement.dir = 'rtl';

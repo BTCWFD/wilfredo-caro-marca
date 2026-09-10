@@ -55,7 +55,8 @@ export default defineConfig({
       input: {
         main: 'index.html',
         planner: 'planner.html',
-        linkedin_helper: 'linkedin_helper.html'
+        linkedin_helper: 'linkedin_helper.html',
+        logo_showcase: 'logo_showcase.html'
       },
       output: {
       }

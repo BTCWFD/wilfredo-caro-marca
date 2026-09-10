@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" width="100%" height="100%">
+  <defs>
+    <linearGradient id="helixGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5ff" />
+      <stop offset="35%" stop-color="#2563eb" />
+      <stop offset="70%" stop-color="#9b8fff" />
+      <stop offset="100%" stop-color="#cfff04" />
+    </linearGradient>
+    <linearGradient id="accentDotGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cfff04" />
+      <stop offset="100%" stop-color="#00f5ff" />
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Circular Radar / Scope Geometry -->
+  <circle cx="50" cy="50" r="42" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+  <circle cx="50" cy="50" r="30" stroke="rgba(0, 245, 255, 0.12)" stroke-width="1" stroke-dasharray="4 6" />
+
+  <!-- The Continuous Ribbon "W" -->
+  <path d="M16 28 
+           C 20 55, 24 72, 34 76 
+           C 42 79, 46 62, 50 46 
+           C 54 62, 58 79, 66 76 
+           C 76 72, 80 55, 84 28" 
+        stroke="url(#helixGrad)" 
+        stroke-width="7" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        filter="url(#softGlow)" />
+
+  <!-- Inner Fiber-Optic Core Trace -->
+  <path d="M16 28 
+           C 20 55, 24 72, 34 76 
+           C 42 79, 46 62, 50 46 
+           C 54 62, 58 79, 66 76 
+           C 76 72, 80 55, 84 28" 
+        stroke="#ffffff" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        stroke-opacity="0.9" />
+
+  <!-- Autonomous Sub-Agent Orbit Particles -->
+  <circle cx="50" cy="22" r="3" fill="#cfff04">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="50" cy="22" r="6" stroke="#cfff04" stroke-width="1" opacity="0.5" />
+
+  <circle cx="84" cy="28" r="4.5" fill="#080a12" stroke="#00f5ff" stroke-width="2" />
+  <circle cx="84" cy="28" r="2" fill="#00f5ff" />
+
+  <circle cx="16" cy="28" r="4.5" fill="#080a12" stroke="#9b8fff" stroke-width="2" />
+  <circle cx="16" cy="28" r="2" fill="#9b8fff" />
+</svg>

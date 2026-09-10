@@ -1,4 +1,24 @@
 // --- Preloader Logic ---
+import { decryptElement } from './text-decrypt.js';
+
+// Decrypt "WILFREDO CARO" and status immediately on initial load
+const initPreloaderAnimation = () => {
+  const loaderText = document.getElementById('loader-text');
+  const loaderStatus = document.querySelector('.loader-status');
+  if (loaderText) {
+    decryptElement(loaderText, 650);
+  }
+  if (loaderStatus) {
+    decryptElement(loaderStatus, 500);
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPreloaderAnimation);
+} else {
+  initPreloaderAnimation();
+}
+
 const hidePreloader = () => {
   const preloader = document.getElementById('preloader');
   if (preloader) {
@@ -6,8 +26,10 @@ const hidePreloader = () => {
     const minDelay = window.prefersReducedMotion ? 0 : 700;
     setTimeout(() => {
       preloader.style.opacity = '0';
+      window.dispatchEvent(new CustomEvent('preloaderFading'));
       setTimeout(() => {
         preloader.style.display = 'none';
+        window.dispatchEvent(new CustomEvent('preloaderDone'));
       }, window.prefersReducedMotion ? 0 : 800);
     }, minDelay);
   }
