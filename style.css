@@ -3043,3 +3043,65 @@ html[dir="rtl"] .ai-typing-indicator {
     padding: 1.5rem;
   }
 }
+
+/* -- Metaverse Entry Buttons -- */
+.btn-metaverse {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent-secondary);
+  border: 1px solid rgba(0, 245, 255, 0.4);
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba(0, 245, 255, 0.06);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-metaverse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.15), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.btn-metaverse:hover {
+  color: #04050d;
+  background: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.4), 0 4px 20px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
+}
+
+.btn-metaverse:hover::before {
+  transform: translateX(100%);
+}
+
+/* Navbar Metaverse Link */
+.nav-metaverse-link {
+  color: var(--accent-secondary) !important;
+  font-family: var(--font-mono);
+  font-size: 0.78rem !important;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 245, 255, 0.06);
+  transition: all 0.25s !important;
+}
+
+.nav-metaverse-link:hover {
+  background: rgba(0, 245, 255, 0.15) !important;
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.25);
+}
