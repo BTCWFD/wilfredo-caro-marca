@@ -34,6 +34,10 @@ linkedin_session/
 COMMIT_MSG.tmp
 config-hook.cjs
 hook.json
+check-netlify.cjs
+test-*.mjs
+linkedin_*.txt
+scrape_linkedin.py
 
 
 # Local Netlify folder
