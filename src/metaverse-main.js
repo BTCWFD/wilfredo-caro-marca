@@ -311,15 +311,49 @@ if (omnisearchInput) {
 
 // Keyboard Global Shortcuts
 window.addEventListener('keydown', (e) => {
+  const isTyping = document.activeElement === omnisearchInput;
+
   // Slash `/` opens Omnisearch
-  if (e.key === '/' && !omnisearchModal.classList.contains('open')) {
+  if (e.key === '/' && !omnisearchModal.classList.contains('open') && !isTyping) {
     e.preventDefault();
     openOmnisearch();
+    return;
   }
   // Escape closes modals
   if (e.key === 'Escape') {
     closeOmnisearch();
     closePanel();
+    return;
+  }
+
+  // Quick Action Keys when not typing in search
+  if (!isTyping) {
+    // Number keys 1-9 jump directly to nodes
+    const num = parseInt(e.key, 10);
+    if (!isNaN(num) && num >= 1 && num <= METAVERSE_NODES.length) {
+      if (sceneInstance) {
+        sceneInstance.selectNode(num - 1);
+      }
+      return;
+    }
+
+    // 'T' toggles Guided Tour
+    if (e.key.toLowerCase() === 't') {
+      toggleTour();
+      return;
+    }
+
+    // 'M' toggles Audio
+    if (e.key.toLowerCase() === 'm') {
+      toggleAudio();
+      return;
+    }
+
+    // 'R' resets Camera View
+    if (e.key.toLowerCase() === 'r') {
+      resetCamera();
+      return;
+    }
   }
 });
 
