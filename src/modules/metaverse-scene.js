@@ -699,6 +699,17 @@ export class MetaverseScene {
     this.autoRotate = true;
   }
 
+  getNodeScreenCoords(id) {
+    const node = METAVERSE_NODES.find(n => n.id === id);
+    if (!node || !this.camera) return null;
+    const v = new THREE.Vector3(node.position.x, node.position.y + node.radius * 0.95, node.position.z);
+    v.project(this.camera);
+    if (v.z > 1) return null; // Behind camera
+    const x = (v.x * 0.5 + 0.5) * this.width;
+    const y = (-(v.y * 0.5) + 0.5) * this.height;
+    return { x, y, visible: true };
+  }
+
   setRadarCallback(cb) {
     this.radarCallback = cb;
   }
@@ -763,9 +774,12 @@ export class MetaverseScene {
         } else {
           this.canvas.style.cursor = 'default';
         }
-        if (this.onNodeHover) {
-          this.onNodeHover(this.hoveredNodeId);
-        }
+      }
+
+      if (this.onNodeHover) {
+        const coords = this.hoveredNodeId !== null ? this.getNodeScreenCoords(this.hoveredNodeId) : null;
+        const node = this.hoveredNodeId !== null ? METAVERSE_NODES.find(n => n.id === this.hoveredNodeId) : null;
+        this.onNodeHover(this.hoveredNodeId, coords, node);
       }
     }
 

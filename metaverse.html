@@ -780,6 +780,87 @@
       );
     }
 
+    /* CYBERNETIC SOUND WAVE EQUALIZER */
+    .sound-wave {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5px;
+      height: 12px;
+    }
+    .sound-wave span {
+      display: inline-block;
+      width: 2.5px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 1px;
+      transition: height 0.2s, background-color 0.2s;
+    }
+    .sound-wave.active span {
+      background: var(--lime);
+      animation: soundBar 0.8s ease-in-out infinite alternate;
+    }
+    .sound-wave.active span:nth-child(2) {
+      animation-delay: 0.2s;
+      animation-duration: 0.5s;
+    }
+    .sound-wave.active span:nth-child(3) {
+      animation-delay: 0.4s;
+      animation-duration: 0.7s;
+    }
+    @keyframes soundBar {
+      0% { height: 3px; }
+      100% { height: 12px; }
+    }
+
+    /* 3D FLOATING HOLOGRAPHIC TOOLTIP */
+    #holo-tooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 500;
+      background: rgba(8, 11, 24, 0.88);
+      border: 1px solid rgba(0, 245, 255, 0.4);
+      border-radius: 6px;
+      padding: 0.6rem 0.95rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 0 25px rgba(0, 245, 255, 0.25);
+      transform: translate(-50%, -120%);
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    #holo-tooltip.visible {
+      opacity: 1;
+      transform: translate(-50%, -135%);
+    }
+    .tooltip-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      color: var(--cyan);
+      text-transform: uppercase;
+    }
+    .tooltip-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .tooltip-role {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .tooltip-hint {
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      color: var(--lime);
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+    }
+
     @media (max-width: 768px) {
       #detail-panel {
         width: calc(100vw - 2rem);
@@ -849,12 +930,20 @@
         <button class="hud-btn" onclick="resetCamera()">&#x2299; Reset View</button>
         <button class="hud-btn" onclick="openOmnisearch()">&#x2315; Search [/]</button>
         <button class="hud-btn desktop-only" id="audio-toggle-btn" onclick="toggleAudio()">
-          <span class="sound-wave"></span> Sound Muted
+          <span class="sound-wave"><span></span><span></span><span></span></span> Sound Muted
         </button>
         <a href="https://www.linkedin.com/in/wilfredocaro" target="_blank" rel="noopener" class="hud-btn desktop-only">
           LinkedIn &#x2197;
         </a>
       </div>
+    </div>
+
+    <!-- 3D FLOATING HOLOGRAPHIC TOOLTIP -->
+    <div id="holo-tooltip">
+      <div class="tooltip-badge">◈ TARGET</div>
+      <div class="tooltip-title">Node Title</div>
+      <div class="tooltip-role">Role &middot; Date</div>
+      <div class="tooltip-hint">CLICK TO INSPECT &#x21B5;</div>
     </div>
 
     <!-- RIGHT FEED DOTS -->

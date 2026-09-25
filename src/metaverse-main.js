@@ -136,14 +136,43 @@ function onNodeSelect(node) {
   if (detailPanel) {
     detailPanel.classList.add('open');
   }
+
+  // Haptic feedback if supported
+  if (navigator.vibrate) {
+    try { navigator.vibrate(15); } catch (_) {}
+  }
 }
 
-function onNodeHover(hoveredId) {
+const holoTooltip = document.getElementById('holo-tooltip');
+
+function onNodeHover(hoveredId, coords, node) {
   if (cursorRing) {
     if (hoveredId !== null) {
       cursorRing.classList.add('cursor-locked');
     } else {
       cursorRing.classList.remove('cursor-locked');
+    }
+  }
+
+  if (holoTooltip) {
+    if (hoveredId !== null && coords && coords.visible && node) {
+      holoTooltip.style.left = `${coords.x}px`;
+      holoTooltip.style.top = `${coords.y}px`;
+      
+      const badge = holoTooltip.querySelector('.tooltip-badge');
+      const title = holoTooltip.querySelector('.tooltip-title');
+      const role = holoTooltip.querySelector('.tooltip-role');
+
+      if (badge) {
+        badge.textContent = `◈ ${node.type}`;
+        badge.style.color = node.typeColor;
+      }
+      if (title) title.textContent = node.title;
+      if (role) role.textContent = `${node.role} · ${node.date}`;
+
+      holoTooltip.classList.add('visible');
+    } else {
+      holoTooltip.classList.remove('visible');
     }
   }
 }
@@ -214,8 +243,8 @@ window.toggleAudio = function () {
   if (audioToggleBtn) {
     audioToggleBtn.classList.toggle('active', isAudioActive);
     audioToggleBtn.innerHTML = isAudioActive
-      ? `<span class="sound-wave active"></span> Audio ON`
-      : `<span class="sound-wave"></span> Sound Muted`;
+      ? `<span class="sound-wave active"><span></span><span></span><span></span></span> Audio ON`
+      : `<span class="sound-wave"><span></span><span></span><span></span></span> Sound Muted`;
   }
 };
 
