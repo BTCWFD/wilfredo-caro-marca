@@ -594,6 +594,61 @@
       transform: translateY(-2px);
     }
 
+    #panel-share-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: var(--cyan);
+      padding: 0 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    #panel-share-btn:hover {
+      background: rgba(0, 245, 255, 0.12);
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 245, 255, 0.25);
+    }
+
+    /* TOAST HUD */
+    #toast-hud {
+      position: fixed;
+      top: 5.2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      z-index: 1000;
+      background: rgba(8, 12, 28, 0.92);
+      border: 1px solid var(--cyan);
+      border-radius: 6px;
+      padding: 0.55rem 1.25rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 25px rgba(0, 245, 255, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #toast-hud.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 8px var(--lime);
+    }
+
     /* RADAR COMPASS MINI-MAP */
     #radar-hud {
       position: fixed;
@@ -997,10 +1052,21 @@
         <div id="panel-metrics"></div>
         <div id="panel-tags"></div>
 
-        <a id="panel-link" href="#" target="_blank" rel="noopener">
-          Explore Architecture &#x2197;
-        </a>
+        <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+          <a id="panel-link" href="#" target="_blank" rel="noopener" style="flex: 1;">
+            Explore Architecture &#x2197;
+          </a>
+          <button id="panel-share-btn" onclick="shareCurrentNode()" title="Share Node Link" type="button">
+            &#x2398;
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- TOAST HUD NOTIFICATION -->
+    <div id="toast-hud">
+      <span class="toast-dot"></span>
+      <span id="toast-msg">Link Copied to Clipboard</span>
     </div>
 
     <!-- OMNISEARCH MODAL -->

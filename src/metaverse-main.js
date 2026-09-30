@@ -4,12 +4,16 @@ import { soundManager } from './modules/metaverse-audio.js';
 // Global state
 let sceneInstance = null;
 let isAudioActive = false;
+let currentNode = null;
+let toastTimeout = null;
 
 // DOM Elements
 const canvas = document.getElementById('canvas');
 const entryScreen = document.getElementById('entry');
 const sceneScreen = document.getElementById('scene');
 const detailPanel = document.getElementById('detail-panel');
+const toastHud = document.getElementById('toast-hud');
+const toastMsg = document.getElementById('toast-msg');
 const omnisearchModal = document.getElementById('omnisearch-modal');
 const omnisearchInput = document.getElementById('omnisearch-input');
 const omnisearchResults = document.getElementById('omnisearch-results');
@@ -133,6 +137,11 @@ function onNodeSelect(node) {
     linkBtn.style.background = `linear-gradient(135deg, ${node.typeColor} 0%, #00f5ff 100%)`;
   }
 
+  currentNode = node;
+  if (node.slug) {
+    history.replaceState(null, null, '#' + node.slug);
+  }
+
   if (detailPanel) {
     detailPanel.classList.add('open');
   }
@@ -142,6 +151,34 @@ function onNodeSelect(node) {
     try { navigator.vibrate(15); } catch (_) {}
   }
 }
+
+// 3.1 Share Current Node Deep Link
+window.shareCurrentNode = function () {
+  if (!currentNode) return;
+  const hash = currentNode.slug || currentNode.id;
+  const url = `${window.location.origin}${window.location.pathname}#${hash}`;
+
+  navigator.clipboard.writeText(url).then(() => {
+    if (toastHud && toastMsg) {
+      toastMsg.textContent = `◈ DIRECT LINK COPIED: #${hash}`;
+      toastHud.classList.add('visible');
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toastHud.classList.remove('visible');
+      }, 2500);
+    }
+    soundManager.playHoverBlip(1050);
+    if (navigator.vibrate) {
+      try { navigator.vibrate(20); } catch (_) {}
+    }
+  }).catch(() => {
+    if (toastHud && toastMsg) {
+      toastMsg.textContent = `Direct URL: #${hash}`;
+      toastHud.classList.add('visible');
+      setTimeout(() => toastHud.classList.remove('visible'), 2500);
+    }
+  });
+};
 
 const holoTooltip = document.getElementById('holo-tooltip');
 
@@ -179,6 +216,10 @@ function onNodeHover(hoveredId, coords, node) {
 
 // 4. Panel Close
 window.closePanel = function () {
+  currentNode = null;
+  if (window.location.hash) {
+    history.replaceState(null, null, window.location.pathname + window.location.search);
+  }
   if (detailPanel) {
     detailPanel.classList.remove('open');
   }
@@ -436,3 +477,32 @@ function drawRadar(data) {
 
   ctx.restore();
 }
+
+// 11. Deep-linking / URL Hash Navigation
+function handleHashNavigation() {
+  const hash = window.location.hash.replace('#', '').trim().toLowerCase();
+  if (!hash) return;
+
+  const targetNode = METAVERSE_NODES.find(
+    (n) => n.slug === hash || n.title.toLowerCase().includes(hash)
+  );
+
+  if (targetNode) {
+    if (!sceneInstance) {
+      window.enterScene();
+    }
+    setTimeout(() => {
+      if (sceneInstance) {
+        sceneInstance.selectNode(targetNode.id);
+      }
+    }, 700);
+  }
+}
+
+// Check hash on load and on external hash change
+window.addEventListener('hashchange', handleHashNavigation);
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hash) {
+    setTimeout(handleHashNavigation, 250);
+  }
+});

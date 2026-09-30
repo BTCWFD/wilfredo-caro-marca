@@ -14,6 +14,7 @@ export const METAVERSE_NODES = [
     tags: ["Autonomous Ads", "Verifiable Attention", "DeFi Rails", "Multi-Agent System"],
     metrics: { "Latency": "< 14ms On-chain", "Architecture": "Agentic Bidding", "Security": "Quantum-Ready" },
     link: "https://virtuadsai-ui.vercel.app/",
+    slug: "virtuadsai",
     color: 0x00f5ff,
     geomType: "flagship",
     position: { x: 0, y: 3.5, z: 0 },
@@ -32,6 +33,7 @@ export const METAVERSE_NODES = [
     tags: ["Agentic AI", "Enterprise Pipelines", "Governance", "Deep Tech"],
     metrics: { "Deployment": "Enterprise Grade", "Reliability": "99.99% SLA", "Latency": "Zero-Drift" },
     link: "https://www.linkedin.com/in/wilfredocaro",
+    slug: "fde",
     color: 0xcfff04,
     geomType: "octa",
     position: { x: -36, y: 3.2, z: -18 },
@@ -49,6 +51,7 @@ export const METAVERSE_NODES = [
     tags: ["Cloud IDE", "Mobile-First", "Containerization", "Distributed Mesh"],
     metrics: { "Cold Start": "< 12s Instant", "Isolation": "Sandboxed Containers", "Control": "Mobile Native" },
     link: "https://github.com/BTCWFD/ORBIT-APP",
+    slug: "orbit",
     color: 0x9b8fff,
     geomType: "torus",
     position: { x: 36, y: 3.4, z: -18 },
@@ -66,6 +69,7 @@ export const METAVERSE_NODES = [
     tags: ["Swarm Telemetry", "Agent Observability", "Token Flow", "Distributed Tracing"],
     metrics: { "Telemetry": "Real-Time Tracing", "Engine": "High Throughput", "Profiling": "Recursive Trees" },
     link: "https://github.com/BTCWFD/antigravity-monitor",
+    slug: "antigravity",
     color: 0x00f5ff,
     geomType: "crystal",
     position: { x: -30, y: 3.2, z: 24 },
@@ -83,6 +87,7 @@ export const METAVERSE_NODES = [
     tags: ["RWA Tokenization", "Smart Contracts", "DeFi Yield", "Solidity Architecture"],
     metrics: { "Asset Class": "Fractional RWA", "Security": "Audited EVM", "Distribution": "Automated Yield" },
     link: "https://nex-equine-ui.vercel.app/",
+    slug: "exequine",
     color: 0xff2d55,
     geomType: "dodeca",
     position: { x: 30, y: 3.2, z: 24 },
@@ -100,6 +105,7 @@ export const METAVERSE_NODES = [
     tags: ["Web3 Adoption", "Privacy Tech", "Creator Economy", "Ecosystem Growth"],
     metrics: { "Territory": "Latin America", "Adoption": "Multi-Country", "Ecosystem": "BAT Network" },
     link: "https://brave.com",
+    slug: "brave",
     color: 0xff6b35,
     geomType: "cylinder",
     position: { x: 0, y: 3.5, z: 42 },
@@ -117,6 +123,7 @@ export const METAVERSE_NODES = [
     tags: ["B2B Expansion", "Crypto POS", "Merchant Growth", "Retail Logistics"],
     metrics: { "Segment": "Retail POS", "Execution": "Direct Sales", "Footprint": "Colombia Commercial" },
     link: "https://www.linkedin.com/in/wilfredocaro",
+    slug: "cornermarket",
     color: 0xffaa00,
     geomType: "prism",
     position: { x: -48, y: 3.0, z: 8 },
@@ -134,6 +141,7 @@ export const METAVERSE_NODES = [
     tags: ["Sports Tech", "NFT Collectibles", "Fan Loyalty", "Token Gated"],
     metrics: { "Vertical": "Sports Tech", "Integration": "Smart Badges", "Community": "On-Chain Loyalty" },
     link: "https://www.linkedin.com/in/wilfredocaro",
+    slug: "ovacion",
     color: 0x00f5ff,
     geomType: "icosa",
     position: { x: 48, y: 3.0, z: 8 },
@@ -151,6 +159,7 @@ export const METAVERSE_NODES = [
     tags: ["Post-Quantum", "ML-KEM", "ML-DSA", "Swarm Consensus"],
     metrics: { "Encryption": "NIST ML-KEM", "Signature": "NIST ML-DSA", "Consensus": "Fault-Tolerant" },
     link: "https://www.linkedin.com/in/wilfredocaro",
+    slug: "swarms",
     color: 0xcfff04,
     geomType: "cube",
     position: { x: 0, y: 3.8, z: -45 },
@@ -204,6 +213,7 @@ export class MetaverseScene {
     this.flagshipRings = [];
     this.quantumDust = null;
     this.radarCallback = null;
+    this.shockwaves = [];
 
     // Keyboard navigation flags
     this.keys = { w: false, a: false, s: false, d: false };
@@ -640,6 +650,7 @@ export class MetaverseScene {
     this.selectedNodeId = id;
     this.autoRotate = false;
     soundManager.playSelectChime(node.isFlagship ? 659.25 : 523.25);
+    this.spawnShockwave(node);
 
     // Smooth Dolly-Zoom to Target
     this.desiredLookTarget.set(node.position.x, node.position.y + 0.5, node.position.z);
@@ -655,6 +666,22 @@ export class MetaverseScene {
     if (this.onNodeSelect) {
       this.onNodeSelect(node);
     }
+  }
+
+  spawnShockwave(node) {
+    const ringGeo = new THREE.RingGeometry(0.8, 1.4, 48);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: node.color,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending
+    });
+    const mesh = new THREE.Mesh(ringGeo, ringMat);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.set(node.position.x, 0.08, node.position.z);
+    this.scene.add(mesh);
+    this.shockwaves.push({ mesh, opacity: 0.9, scale: 1 });
   }
 
   deselectNode() {
@@ -831,6 +858,22 @@ export class MetaverseScene {
         rotY: Math.atan2(this.camera.position.x - this.currentLookTarget.x, this.camera.position.z - this.currentLookTarget.z),
         selectedId: this.selectedNodeId
       });
+    }
+
+    // 10. Animate Expanding Shockwaves
+    for (let i = this.shockwaves.length - 1; i >= 0; i--) {
+      const sw = this.shockwaves[i];
+      sw.scale += 0.38;
+      sw.opacity -= 0.024;
+      sw.mesh.scale.set(sw.scale, sw.scale, sw.scale);
+      sw.mesh.material.opacity = Math.max(0, sw.opacity);
+
+      if (sw.opacity <= 0) {
+        this.scene.remove(sw.mesh);
+        sw.mesh.geometry.dispose();
+        sw.mesh.material.dispose();
+        this.shockwaves.splice(i, 1);
+      }
     }
 
     // Render WebGL Frame
