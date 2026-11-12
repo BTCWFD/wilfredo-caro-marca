@@ -1,0 +1,13 @@
+# Despliegue estático en Cloudflare Workers (Static Assets).
+# Los encabezados COOP/COEP vienen de public/_headers (Workers Static Assets los respeta).
+name = "renault4-portal"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./dist"
+# SPA sin rutas propias: cualquier ruta desconocida devuelve 404 real (no index.html),
+# así el detector de escaneos 3DGS no confunde una respuesta HTML con un .ksplat.
+not_found_handling = "404-page"
+
+[observability]
+enabled = true

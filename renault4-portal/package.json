@@ -1,0 +1,28 @@
+{
+  "name": "renault4-portal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Renault 4 3DGS en portal off-axis con tracking facial, giroscopio y fallback procedural",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "deploy:workers": "npm run build && wrangler deploy",
+    "deploy:pages": "npm run build && wrangler pages deploy dist --project-name=renault4-portal"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "1.2.2",
+    "@mkkellogg/gaussian-splats-3d": "0.4.7",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.4",
+    "@types/three": "0.185.1",
+    "tailwindcss": "4.3.4",
+    "typescript": "5.9.3",
+    "vite": "8.3.7",
+    "wrangler": "4.160.1"
+  }
+}

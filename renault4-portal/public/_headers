@@ -1,0 +1,19 @@
+# Cloudflare Pages / Workers Static Assets.
+# COOP + COEP habilitan crossOriginIsolated -> SharedArrayBuffer para el sorting
+# multihilo de @mkkellogg/gaussian-splats-3d.
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Resource-Policy: same-origin
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), gyroscope=(self), accelerometer=(self), magnetometer=(self), fullscreen=(self)
+
+# Los escaneos son binarios grandes: caché larga y sin transformaciones.
+/assets/*
+  Cache-Control: public, max-age=86400
+  Cache-Control: no-transform
+
+# El HTML siempre fresco para que los despliegues se vean al momento.
+/index.html
+  Cache-Control: no-cache
