@@ -3105,3 +3105,424 @@ html[dir="rtl"] .ai-typing-indicator {
   border-color: var(--accent-secondary);
   box-shadow: 0 0 12px rgba(0, 245, 255, 0.25);
 }
+
+
+/* ==========================================================================
+   SWARM REVOLUTIONIZED (RESN-INSPIRED WEBGL & HUD ARCHITECTURE UPGRADES)
+   ========================================================================== */
+
+/* 1. Fix Compact HUD Navbar at 1024px–1380px (no 2-line wrapping or clipped controls) */
+#navbar .nav-container {
+  max-width: min(1360px, 96vw);
+  padding: 0 1rem;
+  gap: 0.65rem;
+  flex-wrap: nowrap;
+}
+
+#navbar .logo {
+  flex-shrink: 0;
+  font-size: 1.18rem;
+}
+
+#navbar .nav-links {
+  flex-wrap: nowrap;
+  gap: 0.15rem;
+  padding: 4px 6px;
+}
+
+#navbar .nav-links a {
+  white-space: nowrap;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  padding: 6px 9px;
+}
+
+#navbar .nav-right {
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+#navbar .lang-switcher-dropdown {
+  margin-left: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+#navbar .wallet-btn,
+#navbar .lang-dropdown-toggle,
+#navbar .theme-toggle-btn {
+  white-space: nowrap;
+  padding: 6px 10px;
+  font-size: 0.68rem;
+}
+
+@media (min-width: 769px) and (max-width: 1460px) {
+  #navbar .wallet-btn #wallet-label,
+  #navbar #current-lang-label {
+    display: none;
+  }
+  #navbar .nav-links {
+    gap: 0.08rem;
+    padding: 3px 5px;
+  }
+  #navbar .nav-links a,
+  #navbar .nav-links a.nav-metaverse-link {
+    font-size: 0.58rem !important;
+    padding: 5px 7px !important;
+    letter-spacing: 0.04em !important;
+  }
+  #navbar .nav-right {
+    gap: 0.35rem;
+  }
+  #navbar .lang-switcher-dropdown {
+    margin-left: 0.1rem;
+    padding-left: 0.35rem;
+  }
+  #navbar .wallet-btn,
+  #navbar .lang-dropdown-toggle,
+  #navbar .theme-toggle-btn {
+    padding: 5px 8px;
+  }
+}
+
+.hud-audio-btn.active {
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+  box-shadow: 0 0 14px rgba(0, 245, 255, 0.3);
+}
+
+/* 2. Strict AI Drawer Minimized State + Orbital Trigger Pulse */
+.ai-assistant.minimized {
+  visibility: hidden;
+  pointer-events: none !important;
+}
+
+.ai-trigger-btn {
+  box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.45), 0 0 22px rgba(0, 245, 255, 0.28);
+}
+
+/* 3. 4-Angle Pre-Baked Lighting & Bokeh DoF Portrait Canvas */
+.about-visual {
+  position: relative;
+}
+
+.baked-portrait-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.65s ease;
+  pointer-events: none;
+  border-radius: var(--border-radius);
+}
+
+.about-visual.webgl-portrait-ready .baked-portrait-canvas {
+  opacity: 1;
+}
+
+.about-visual.webgl-portrait-ready img {
+  opacity: 0.08;
+}
+
+/* 4. 5-Act Vertical Scrollytelling Telemetry Rail */
+.swarm-act-rail {
+  position: fixed;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(8, 10, 18, 0.42);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.swarm-rail-track {
+  position: absolute;
+  left: 50%;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.08);
+  z-index: -1;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.swarm-rail-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--accent-gradient);
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+
+.swarm-act-node {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-secondary);
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.swarm-act-node .act-label {
+  position: absolute;
+  left: calc(100% + 10px);
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(8, 10, 18, 0.88);
+  border: 1px solid var(--glass-border);
+  color: var(--accent-secondary);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+  transition: var(--transition-fast);
+}
+
+.swarm-act-node:hover .act-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.swarm-act-node.active {
+  border-color: var(--accent-secondary);
+  color: #040914;
+  background: var(--accent-secondary);
+  box-shadow: 0 0 14px rgba(0, 245, 255, 0.5);
+}
+
+@media (max-width: 1080px) {
+  .swarm-act-rail {
+    display: none;
+  }
+}
+
+/* 5. Interactive Skeletal Swarm Rig Telemetry Hint & Kinetic Card Bridge */
+.swarm-rig-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: -1rem auto 2.2rem;
+  padding: 0.55rem 1.15rem;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 999px;
+  background: rgba(0, 245, 255, 0.06);
+  border: 1px solid rgba(0, 245, 255, 0.26);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+  backdrop-filter: blur(10px);
+}
+
+.swarm-rig-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime);
+  flex-shrink: 0;
+  animation: blink 1.1s infinite alternate;
+}
+
+.orch-card,
+.project-card,
+.case-card,
+.service-card {
+  transform: perspective(1200px) rotateX(var(--jelly-skew, 0deg));
+  will-change: transform;
+}
+
+/* 6. Live PQC & Swarm Telemetry Dossier Cards (#blog fallback) */
+.telemetry-dossier-card {
+  border-color: rgba(0, 245, 255, 0.18);
+}
+
+.telemetry-dossier-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(90deg, rgba(0, 245, 255, 0.09), rgba(37, 99, 235, 0.06));
+  border-bottom: 1px solid var(--glass-border);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+}
+
+.telemetry-code {
+  color: var(--accent-secondary);
+  font-weight: 700;
+}
+
+.telemetry-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+}
+
+.telemetry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+}
+
+/* 7. Seamless Infinite Loop Return Portal (Footer -> Genesis) */
+.infinite-portal {
+  margin: 4rem auto 1rem;
+  padding: 2.5rem 1.5rem 3.5rem;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.infinite-portal-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px dashed var(--accent-secondary);
+  box-shadow: 0 0 28px rgba(0, 245, 255, 0.25), inset 0 0 18px rgba(155, 143, 255, 0.2);
+  animation: rotateDisc 9s linear infinite;
+}
+
+.infinite-portal-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.infinite-loop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 245, 255, 0.32);
+  background: rgba(0, 245, 255, 0.06);
+  color: var(--accent-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.infinite-loop-btn .loop-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.infinite-loop-btn.active .loop-dot {
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+}
+
+.infinite-loop-btn:not(.active) {
+  opacity: 0.55;
+  border-color: var(--glass-border);
+  color: var(--text-secondary);
+}
+
+
+/* 8. JAPI Bogotá Collaboration Card & Social Pills */
+.p-japi {
+  background: radial-gradient(circle at 50% 50%, rgba(253, 210, 14, 0.16) 0%, #16151d 72%);
+  position: relative;
+}
+
+.p-japi::after {
+  content: '';
+  position: absolute;
+  width: 126px;
+  height: 126px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('/logos/japi-logo.png') center / contain no-repeat;
+  filter: drop-shadow(0 0 22px rgba(253, 210, 14, 0.42));
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
+  pointer-events: none;
+}
+
+.project-card:hover .p-japi::after {
+  transform: translate(-50%, -50%) scale(1.09) rotate(-3deg);
+  filter: drop-shadow(0 0 32px rgba(253, 210, 14, 0.68));
+}
+
+.project-title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.project-title-link:hover {
+  color: #fdd20e;
+}
+
+.project-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.15rem;
+}
+
+.project-social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  background: rgba(253, 210, 14, 0.08);
+  border: 1px solid rgba(253, 210, 14, 0.32);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.project-social-pill:hover {
+  background: #fdd20e;
+  border-color: #fdd20e;
+  color: #16151d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(253, 210, 14, 0.32);
+}

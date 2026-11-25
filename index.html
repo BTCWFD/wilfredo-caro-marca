@@ -196,6 +196,33 @@
     <canvas id="bg-canvas"></canvas>
     <div id="vig"></div>
 
+    <!-- Resn-Style 5-Act Scrollytelling Telemetry Rail -->
+    <aside id="swarm-act-rail" class="swarm-act-rail" aria-label="Experience Acts">
+      <div class="swarm-rail-track">
+        <div id="swarm-rail-fill" class="swarm-rail-fill"></div>
+      </div>
+      <button class="swarm-act-node active" data-target="#home" title="Act 01: Genesis PQC">
+        <span class="act-index">01</span>
+        <span class="act-label">GENESIS</span>
+      </button>
+      <button class="swarm-act-node" data-target="#ai-orchestration" title="Act 02: Swarm Rig">
+        <span class="act-index">02</span>
+        <span class="act-label">SWARM</span>
+      </button>
+      <button class="swarm-act-node" data-target="#projects" title="Act 03: Web3 Nexus">
+        <span class="act-index">03</span>
+        <span class="act-label">NEXUS</span>
+      </button>
+      <button class="swarm-act-node" data-target="#services" title="Act 04: Business Engine">
+        <span class="act-index">04</span>
+        <span class="act-label">ENGINE</span>
+      </button>
+      <button class="swarm-act-node" data-target="#contact" title="Act 05: Sonic Loop">
+        <span class="act-index">05</span>
+        <span class="act-label">SONIC ∞</span>
+      </button>
+    </aside>
+
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
@@ -286,6 +313,15 @@
               </li>
             </ul>
           </div>
+          <button
+            id="hud-audio-toggle"
+            class="theme-toggle-btn hud-audio-btn"
+            aria-label="Toggle reactive WebGL audio"
+            aria-pressed="false"
+            title="Toggle WebGL Spatial Audio"
+          >
+            <span class="hud-audio-icon">🔇</span>
+          </button>
           <button
             id="theme-toggle"
             class="theme-toggle-btn"
@@ -402,6 +438,10 @@
         I orchestrate swarms of AI agents and take them to production with
         observability, governance and mobile mission control.
       </p>
+      <div class="swarm-rig-hint reveal" id="swarm-telemetry-pill">
+        <span class="swarm-rig-pulse"></span>
+        <span id="swarm-telemetry-text">3D SKELETAL SWARM RIG ACTIVE · Move cursor across tendrils to test Orbit spring stabilization</span>
+      </div>
       <div class="orch-grid">
         <a
           href="https://github.com/BTCWFD/antigravity-monitor"
@@ -1194,27 +1234,15 @@
           style="
             margin-top: 2rem;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 1rem;
             align-items: center;
           "
         ></div>
 
-        <!-- Calendly inline widget begin -->
-        <div
-          class="calendly-inline-widget reveal glass-panel"
-          data-url="https://calendly.com/wilfredo-caro?hide_gdpr_banner=1"
-          style="
-            min-width: 320px;
-            height: 700px;
-            width: 100%;
-            border-radius: 12px;
-            margin-top: 3rem;
-            overflow: hidden;
-          "
-        ></div>
-
-        <!-- Calendly link widget -->
+        <!-- Calendly popup widget assets (triggered only when clicking the Calendly button) -->
         <link
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
@@ -1337,6 +1365,22 @@
         data-i18n-html
       >
         &copy; <span id="year"></span> Wilfredo Caro. Empowered by VirtuadsAi.
+      </div>
+
+      <!-- Resn-Inspired Seamless Infinite Scroll Return Portal -->
+      <div id="infinite-portal" class="infinite-portal">
+        <div class="infinite-portal-ring"></div>
+        <div class="infinite-portal-kicker">∞ CONTINUOUS SWARM CYCLE // SEED → HARVEST → GENESIS</div>
+        <button
+          id="infinite-loop-toggle"
+          class="infinite-loop-btn active"
+          type="button"
+          aria-pressed="true"
+          title="Toggle seamless infinite scroll loop"
+        >
+          <span class="loop-dot"></span>
+          <span>INFINITE LOOP ENABLED · KEEP SCROLLING TO RE-ENTER GENESIS</span>
+        </button>
       </div>
     </footer>
 

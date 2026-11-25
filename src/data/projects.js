@@ -78,13 +78,19 @@ export const projects = [
     overlayText: "LATAM STAFF"
   },
   {
-    id: "creditops",
+    id: "japi-bogota",
     section: "collaborations",
-    href: "https://witty-field-0ff8ede0f.2.azurestaticapps.net/",
-    previewClass: "p-fintech",
-    nameKey: "project_creditops_name",
-    descKey: "project_creditops_desc",
-    tags: ["#Fintech", "#Automation"]
+    href: "https://japibogota.com/",
+    previewClass: "p-japi",
+    nameKey: "project_japi_name",
+    descKey: "project_japi_desc",
+    tags: ["#HouseMusic", "#Collective", "#Bogotá"],
+    socials: [
+      { type: "web", label: "japibogota.com", href: "https://japibogota.com/" },
+      { type: "instagram", label: "@japibogota", href: "https://www.instagram.com/japibogota/" },
+      { type: "youtube", label: "YouTube", href: "https://www.youtube.com/@JAPIEXPERIENCE" },
+      { type: "whatsapp", label: "WhatsApp", href: "https://wa.me/573058829749" }
+    ]
   },
   {
     id: "beatlink",

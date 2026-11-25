@@ -1,12 +1,9 @@
 // --- Mobile: keep the AI chat input above the virtual keyboard (visualViewport) ---
 const aiAssistantEl = document.getElementById('ai-assistant');
 
-// Auto-open AI Bot to greet B2B prospects
+// Keep AI assistant minimized on initial load so Hero WebGL scene stays unobstructed.
 if (aiAssistantEl) {
-  setTimeout(() => {
-    aiAssistantEl.classList.remove('minimized');
-    window.trackEvent('ai_auto_opened');
-  }, 2500);
+  aiAssistantEl.classList.add('minimized');
 }
 
 if (aiAssistantEl && window.visualViewport) {

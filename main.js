@@ -18,7 +18,7 @@ import './src/modules/skills-tab.js';
 import './src/modules/smooth-scroll.js';
 import './src/modules/preloader.js';
 import './src/modules/cursor.js';
-import './src/modules/three-bg.js';
+import './src/webgl/jelly-core.js';
 import './src/modules/medium-blog.js';
 import './src/modules/ai-assistant.js';
 import './src/modules/card-tilt.js';
