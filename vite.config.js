@@ -18,6 +18,15 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'robots.txt'],
+      workbox: {
+        navigateFallbackDenylist: [
+          /^\/metaverse/,
+          /^\/planner/,
+          /^\/epk/,
+          /^\/logo_showcase/,
+          /^\/linkedin_helper/
+        ]
+      },
       manifest: {
         name: 'Wilfredo Caro | Web3 & AI Development',
         short_name: 'W.Caro',

@@ -970,7 +970,7 @@
       <div id="entry-sub">
         VIRTUADSAI PROTOCOL &middot; ENTERPRISE SWARMS &middot; ORBIT CLOUD &middot; PQC DEFENSE
       </div>
-      <button id="enter-btn" onclick="enterScene()">
+      <button id="enter-btn" type="button">
         <span>&#x21B3; Initialize Spatial Metaverse</span>
       </button>
     </div>
@@ -988,7 +988,7 @@
     <!-- TOP ISLAND NAVBAR -->
     <div id="hud-top">
       <div class="hud-island">
-        <div id="logo" onclick="window.location.href='index.html'">
+        <div id="logo" role="link" tabindex="0">
           <div class="dot"></div>
           W.Caro <span>®</span>
         </div>
@@ -996,10 +996,10 @@
 
       <div class="hud-island">
         <a href="index.html" class="hud-btn">&#x2190; Portfolio</a>
-        <button class="hud-btn" id="tour-toggle-btn" onclick="toggleTour()">▷ Guided Tour</button>
-        <button class="hud-btn" onclick="resetCamera()">&#x2299; Reset View</button>
-        <button class="hud-btn" onclick="openOmnisearch()">&#x2315; Search [/]</button>
-        <button class="hud-btn desktop-only" id="audio-toggle-btn" onclick="toggleAudio()">
+        <button class="hud-btn" id="tour-toggle-btn" type="button">▷ Guided Tour</button>
+        <button class="hud-btn" id="reset-camera-btn" type="button">&#x2299; Reset View</button>
+        <button class="hud-btn" id="omnisearch-btn" type="button">&#x2315; Search [/]</button>
+        <button class="hud-btn desktop-only" id="audio-toggle-btn" type="button">
           <span class="sound-wave"><span></span><span></span><span></span></span> Sound Muted
         </button>
         <a href="https://www.linkedin.com/in/wilfredocaro" target="_blank" rel="noopener" class="hud-btn desktop-only">
@@ -1042,7 +1042,7 @@
         <div id="panel-type-badge">TYPE</div>
         <div id="panel-title">Node Title</div>
         <div id="panel-role">Role &middot; Date</div>
-        <button id="panel-close" onclick="closePanel()">&#x2715;</button>
+        <button id="panel-close" type="button">&#x2715;</button>
       </div>
 
       <div id="panel-body">
@@ -1056,7 +1056,7 @@
           <a id="panel-link" href="#" target="_blank" rel="noopener" style="flex: 1;">
             Explore Architecture &#x2197;
           </a>
-          <button id="panel-share-btn" onclick="shareCurrentNode()" title="Share Node Link" type="button">
+          <button id="panel-share-btn" title="Share Node Link" type="button">
             &#x2398;
           </button>
         </div>

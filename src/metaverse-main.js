@@ -506,3 +506,24 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(handleHashNavigation, 250);
   }
 });
+
+// 12. CSP-Safe Event Listeners (replaces inline onclick attributes blocked by script-src 'self')
+const enterBtn = document.getElementById('enter-btn');
+const logoEl = document.getElementById('logo');
+const resetCameraBtn = document.getElementById('reset-camera-btn');
+const omnisearchBtn = document.getElementById('omnisearch-btn');
+const panelCloseBtn = document.getElementById('panel-close');
+const panelShareBtn = document.getElementById('panel-share-btn');
+
+if (enterBtn) enterBtn.addEventListener('click', () => window.enterScene());
+if (logoEl) {
+  logoEl.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+}
+if (tourToggleBtn) tourToggleBtn.addEventListener('click', () => window.toggleTour());
+if (resetCameraBtn) resetCameraBtn.addEventListener('click', () => window.resetCamera());
+if (omnisearchBtn) omnisearchBtn.addEventListener('click', () => window.openOmnisearch());
+if (audioToggleBtn) audioToggleBtn.addEventListener('click', () => window.toggleAudio());
+if (panelCloseBtn) panelCloseBtn.addEventListener('click', () => window.closePanel());
+if (panelShareBtn) panelShareBtn.addEventListener('click', () => window.shareCurrentNode());
